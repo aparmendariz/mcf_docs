@@ -1,5 +1,7 @@
 class McfOptPolReport:
-    """Methods and attributes for reporting mcf and optimal policy results.
+    """
+    Reporting tools for the :class:`ModifiedCausalForest` and
+    :class:`OptimalPolicy` classes.
 
     Parameters
     ----------

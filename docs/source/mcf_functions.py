@@ -1,6 +1,6 @@
 class ModifiedCausalForest:
     """
-    The class contains all methods necessary for a complete :class:`ModifiedCausalForest` estimation.
+    Estimation of heterogenous treatment effects with the Modified Causal Forest
 
     Parameters
     ----------
