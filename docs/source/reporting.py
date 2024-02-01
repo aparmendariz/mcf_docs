@@ -1,7 +1,7 @@
 class McfOptPolReport:
     """
-    Reporting tools for the :class:`ModifiedCausalForest` and
-    :class:`OptimalPolicy` classes.
+    Reporting tools for the :class:`~mcf_functions.ModifiedCausalForest` and
+    :class:`mcf_functions.OptimalPolicy` classes.
 
     Parameters
     ----------
