@@ -155,7 +155,7 @@ class ModifiedCausalForest:
 
         .. math:: 
         
-            \\text{A} = \\frac{\\sqrt{\\text{number of observations in the smallest treatment group}}^{0.5}}{10}, \\text{at least} 2
+            \\text{A} = \\frac{\\sqrt{\\text{number of observations in the smallest treatment group}}^{0.5}}{10}, \\text{at least 2} 
         
         :math:`\\text{cf_n_min_max} = \\text{round}(A \\times \\text{number of treatments})`
         Default is None.
@@ -166,7 +166,7 @@ class ModifiedCausalForest:
 
         .. math::
 
-            \\text{A} = \\text{number of observations in smallest treatment group}^{0.4} / 10, \\text{at least} 1.5
+            \\text{A} = \\text{number of observations in smallest treatment group}^{0.4} / 10, \\text{at least 1.5} 
                       
         :math:`\\text{cf_n_min_min} = \\text{round}(A \\times \\text{number of treatments})`
         Default is None.
