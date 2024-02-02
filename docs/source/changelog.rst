@@ -39,6 +39,114 @@ Changelog
 :py:attr:`~mcf_functions.ModifiedCausalForest.blind_dict`
 :py:attr:`~optpolicy_functions.OptimalPolicy.dc_dict`
 
+
+New in version 0.5.0
+--------------------
+
+General
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   - change_log.py has become change_log.txt
+   - In general, most changes lead to more efficient code.
+   - A new reporting tool is introduced that produces a pdf file that should be
+     more informative about estimation and results. The existing output via
+     figures, (*.csv) and (*.txt) files continue to exist. They contain more
+     detailed information than the new pdf files.
+
+Changes concerning the class :py:class:`~mcf_functions.ModifiedCausalForest`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   - Bug fixes: OOB values were not available for tuning forests.
+   - Performance improvements:
+     (1) Several parts have been optimized that led to limited speed increases
+         and reduced memory consumption.
+     (2) Some GPU capabilities have been added (based on Pytorch tensors;
+         therefore Pytorch needs to be installed in addition even if the GPU is
+         not used). Currently, GPU (if available) is used only to speed up
+         Mahalanobis matching prior to training the causal forest (note that
+         the default is NOT to use Mahalanobis matching, but to use matching
+         based on the prognostic score instead; partly on computational
+         grounds).
+   - Name change of keywords: gen_replication --> _int_replication
+                         p_amgate --> p_cbgate
+                         p_gmate_no_evalu_points --> p_gate_no_evalu_points
+                         p_gmate_sample_share --> p_gate_sample_share
+   - New keyword:
+        _int_cuda : Boolean (or None). Use CUDA based GPU if available on
+                 hardware. Default is True.
+   - Sensitivity analysis
+     (1) The sensitivity method has the new keyword  results. Here the standard
+         output dictionary from the predict method is expected. If this
+         dictionary contains estimated IATEs, the same data as in the predict
+         method will be used, IATEs are computed under the no effect (basic)
+         scenario and these IATEs are compared to the IATEs contained in the
+         results dictionary.
+         If the dictionary does not contain estimated IATEs, passing it has no
+         consequence.
+         If the results dictionary is passed, and it contains IATEs, then the
+         (new) default value for the keyword sens_iate is True (and
+         False otherwise)
+          
+Changes concerning the class :py:class:`~optpolicy_functions.OptimalPolicy`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   - Bug fixes: Single variables can be passed as strings without leading to
+                errors.
+   - General performance improvements: Sevarel parts have been optimized that
+     led to limited increases and reduced memory consumption.
+   - Change of names of keywords (to use the same names as in the
+                                  ModifiedCausalForest class)
+     var_x_ord_name --> var_x_name_ord
+     var_x_unord_name --> var_x_name_unord
+   - Change of default values:
+     - The default of pt_enforce_restriction is set to False.
+     - The previous default of pt_min_leaf_size is now multiplied by the
+       smallest allowed treatment if (and only if) treatment shares are
+       restricted.
+   - 'policy tree eff' becomes the standard method for policy trees and is
+     renamed as 'policy tree'.
+   - Change of default value for gen_variable_importance. New default is True.
+
+   There are several changes to speed up the computation of policy trees.
+   - New keyword: _int_xtr_parallel
+       Parallelize to a larger degree to make sure all CPUs are busy for most of
+       the time. Only used for 'policy tree' and only used if
+       _int_parallel_processing > 1 (or None). Default is True.
+   - There is the new option to build a new optimal policy trees based on the
+      data in each leaf of the (first) optimal policy tree. Although this second
+      tree will also be optimal, the combined tree is no longer optimal. The
+      advantage is a huge speed increase, i.e. a 3+1 tree computes much, much
+      faster than a 4+0 tree, etc.
+      This increased capabilities require a change in keywords:
+      - Deleted keyword: pt_depth_tree
+      - New keywords: 
+        - pt_depth_tree_1   Depth of 1st optimal tree. Default is 3.
+        - pt_depth_tree_2   Depth of 2nd optimal tree. This tree is build within
+                            the strata obtained from the leaves of the first
+                            tree. If set to 0, a second tree is not build.
+                            Default is 1.
+          Using both defaults leads to a (not optimal) total tree of level of 4.
+
+New class :py:class:`~mcf_functions.McfOptPolReport`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    .. versionadded:: 0.5.0
+        Reporting tools for the :class:`~mcf_functions.ModifiedCausalForest` and
+        :class:`~optpolicy_functions.OptimalPolicy` classes
+
+   - This new class provides informative reports about the main specification
+     choices and most important results of the ModifiedCausalForest and
+     OptimalPolicy estimations. The report is saved in pdf-format.
+     The reporting capabilities in this version are still basic but will be
+     continously extended in the future (if users see them as a useful addition
+     to the package).
+   - Method: report()
+     The report() method takes the instance of the ModifiedCausalForest and the
+     OptimalPolicy classes as input (after they were used in running the
+     different methods of both classes). It creates the report on a pdf file,
+     which is saved in a user provided location. 
+--------------------------------------------------------------------------------
+
 Version 0.4.3
 -------------
 
