@@ -43,17 +43,6 @@ class McfOptPolReport:
         self.sens = self.sens_o is not None
         self.blind = self.blind_o is not None
         self.text = {}
-
-    @property
-    def xxxx(self):
-        """
-        Dictionary, parameters to compute (partially) blinded IATEs.
-        """
-        return self._xxxx
-
-    @xxxx.setter
-    def xxxx(self, value):
-        self._xxxx = value
     
     def report(self):
         """Create the content of the report.
