@@ -53,6 +53,7 @@ Changes concerning the class :py:class:`~mcf_functions.ModifiedCausalForest`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Bug fixes
+
     - OOB values were not available for tuning forests.
 
 - Performance improvements
