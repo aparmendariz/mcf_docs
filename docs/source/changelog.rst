@@ -67,12 +67,12 @@ Changes concerning the class :py:class:`~mcf_functions.ModifiedCausalForest`
          the default is NOT to use Mahalanobis matching, but to use matching
          based on the prognostic score instead; partly on computational
          grounds).
-   - Name change of keywords: gen_replication --> _int_replication
-                         p_amgate --> p_cbgate
-                         p_gmate_no_evalu_points --> p_gate_no_evalu_points
-                         p_gmate_sample_share --> p_gate_sample_share
+   - Name change of keywords: ``gen_replication`` --> ``_int_replication``
+                         ``p_amgate`` --> ``p_cbgate``
+                         ``p_gmate_no_evalu_points`` --> ``p_gate_no_evalu_points``
+                         ``p_gmate_sample_share`` --> ``p_gate_sample_share``
    - New keyword:
-        _int_cuda : Boolean (or None). Use CUDA based GPU if available on
+        ``_int_cuda`` : Boolean (or None). Use CUDA based GPU if available on
                  hardware. Default is True.
    - Sensitivity analysis
      (1) The sensitivity method has the new keyword  results. Here the standard
@@ -84,7 +84,7 @@ Changes concerning the class :py:class:`~mcf_functions.ModifiedCausalForest`
          If the dictionary does not contain estimated IATEs, passing it has no
          consequence.
          If the results dictionary is passed, and it contains IATEs, then the
-         (new) default value for the keyword sens_iate is True (and
+         (new) default value for the keyword ``sens_iate`` is True (and
          False otherwise)
           
 Changes concerning the class :py:class:`~optpolicy_functions.OptimalPolicy`
@@ -92,36 +92,36 @@ Changes concerning the class :py:class:`~optpolicy_functions.OptimalPolicy`
 
    - Bug fixes: Single variables can be passed as strings without leading to
                 errors.
-   - General performance improvements: Sevarel parts have been optimized that
+   - General performance improvements: Several parts have been optimized that
      led to limited increases and reduced memory consumption.
    - Change of names of keywords (to use the same names as in the
-                                  ModifiedCausalForest class)
-     var_x_ord_name --> var_x_name_ord
-     var_x_unord_name --> var_x_name_unord
+                                  :py:class:`~mcf_functions.ModifiedCausalForest` class)
+     ``var_x_ord_name`` --> ``var_x_name_ord``
+     ``var_x_unord_name`` --> ``var_x_name_unord``
    - Change of default values:
-     - The default of pt_enforce_restriction is set to False.
-     - The previous default of pt_min_leaf_size is now multiplied by the
+     - The default of ``pt_enforce_restriction`` is set to False.
+     - The previous default of ``pt_min_leaf_size`` is now multiplied by the
        smallest allowed treatment if (and only if) treatment shares are
        restricted.
-   - 'policy tree eff' becomes the standard method for policy trees and is
-     renamed as 'policy tree'.
-   - Change of default value for gen_variable_importance. New default is True.
+   - ``policy tree eff`` becomes the standard method for policy trees and is
+     renamed as ``policy tree``.
+   - Change of default value for ``gen_variable_importance``. New default is True.
 
    There are several changes to speed up the computation of policy trees.
-   - New keyword: _int_xtr_parallel
+   - New keyword: ``_int_xtr_parallel``
        Parallelize to a larger degree to make sure all CPUs are busy for most of
-       the time. Only used for 'policy tree' and only used if
-       _int_parallel_processing > 1 (or None). Default is True.
+       the time. Only used for ``policy tree`` and only used if
+       ``_int_parallel_processing`` > 1 (or None). Default is True.
    - There is the new option to build a new optimal policy trees based on the
       data in each leaf of the (first) optimal policy tree. Although this second
       tree will also be optimal, the combined tree is no longer optimal. The
       advantage is a huge speed increase, i.e. a 3+1 tree computes much, much
       faster than a 4+0 tree, etc.
       This increased capabilities require a change in keywords:
-      - Deleted keyword: pt_depth_tree
+      - Deleted keyword: ``pt_depth_tree``
       - New keywords: 
-        - pt_depth_tree_1   Depth of 1st optimal tree. Default is 3.
-        - pt_depth_tree_2   Depth of 2nd optimal tree. This tree is build within
+        - ``pt_depth_tree_1``   Depth of 1st optimal tree. Default is 3.
+        - ``pt_depth_tree_2``   Depth of 2nd optimal tree. This tree is build within
                             the strata obtained from the leaves of the first
                             tree. If set to 0, a second tree is not build.
                             Default is 1.
