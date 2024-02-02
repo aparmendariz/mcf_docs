@@ -1,5 +1,5 @@
 import pandas as pd
-from mcf import mcf_ate_functions as mcf_ate
+from .mcf import mcf_ate_functions as mcf_ate
 
 class ModifiedCausalForest:
     """
