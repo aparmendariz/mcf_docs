@@ -13,7 +13,6 @@ from mcf import mcf_ate_functions as mcf_ate
 from mcf import mcf_common_support_functions as mcf_cs
 from mcf import mcf_data_functions as mcf_data
 from mcf import mcf_estimation_functions as mcf_est
-from mcf import mcf_fair_iate_functions as mcf_fair
 from mcf import mcf_feature_selection_functions as mcf_fs
 from mcf import mcf_forest_functions as mcf_fo
 from mcf import mcf_gate_functions as mcf_gate
@@ -23,7 +22,6 @@ from mcf import mcf_init_functions as mcf_init
 from mcf import mcf_local_centering_functions as mcf_lc
 from mcf import mcf_post_functions as mcf_post
 from mcf import mcf_print_stats_functions as ps
-from mcf import mcf_sensitivity_functions as mcf_sens
 from mcf import mcf_weight_functions as mcf_w
 
 
@@ -33,8 +31,6 @@ class ModifiedCausalForest:
 
     Attributes
     ----------
-        blind_dict : Dictionary
-            Parameters to compute (partially) blinded IATEs.
         cf_dict : Dictionary
             Parameters used in training the forest (directly).
         cs_dict : Dictionary
@@ -42,7 +38,7 @@ class ModifiedCausalForest:
         ct_dict : Dictionary
             Parameters used in dealing with continuous treatments.
         int_dict : Dictionary
-            Internal parameters used in various parts of the class.
+            Parameters used in many parts of the class.
         dc_dict : Dictionary
             Parameters used in data cleaning.
         fs_dict : Dictionary
@@ -57,8 +53,6 @@ class ModifiedCausalForest:
             Parameters used by prediction method.
         post_dict : Dictionary
             Parameters used in analyse method.
-        sens_dict : Dictionary
-            Parameters used in sensitivity method.
         time_strings : String.
             Detailed information on how the long the different methods needed.
         var_dict : Dictionary
@@ -71,14 +65,8 @@ class ModifiedCausalForest:
     Methods
     -------
         train : Building the forest with training data.
-        predict : Predicting the effects with prediction data. This does
-                  require to run the train methods first.
-        analyse : Descriptively analyse the estimated IATEs. This requires to
-                  run the predict methods first.
-        blinder_iates : Compute 'standard' IATEs as well as IATEs that are to
-                        to a certain extent blinder than the standard ones.
-                        This requires to run the train method first.
-        sensitivity : Analyse the sensitivity of the algorithm.
+        predict : Predicting the effects with prediction data.
+        analyse : Descriptively analyse the estimated IATEs.
     """
 
     def __init__(
@@ -97,19 +85,19 @@ class ModifiedCausalForest:
             dc_check_perfectcorr=True, dc_clean_data=True, dc_min_dummy_obs=10,
             dc_screen_covariates=True, fs_rf_threshold=1, fs_other_sample=True,
             fs_other_sample_share=0.33, fs_yes=False,
-            gen_d_type='discrete', gen_iate_eff=False, gen_panel_data=False,
+            gen_d_type='discrete', gen_iate_eff=True, gen_panel_data=False,
             gen_mp_parallel=None, gen_outfiletext=None, gen_outpath=None,
-            gen_output_type=2, gen_panel_in_rf=True, gen_weighted=False,
+            gen_output_type=2, gen_panel_in_rf=True, gen_replication=False,
+            gen_weighted=False,
             lc_cs_cv=True, lc_cs_cv_k=5, lc_cs_share=0.25,
             lc_uncenter_po=True, lc_yes=True,
-            p_cbgate=False, p_ate_no_se_only=False,
-            p_atet=False, p_bgate=False, p_bt_yes=True,
+            p_amgate=False, p_atet=False, p_bgate=False, p_bt_yes=True,
             p_choice_based_sampling=False, p_choice_based_probs=None,
             p_ci_level=0.90, p_cluster_std=False, p_cond_var=True,
             p_gates_minus_previous=False, p_gates_smooth=True,
             p_gates_smooth_bandwidth=1, p_gates_smooth_no_evalu_points=50,
-            p_gatet=False, p_gate_no_evalu_points=50,
-            p_bgate_sample_share=None, p_iate=True, p_iate_se=False,
+            p_gatet=False, p_gmate_no_evalu_points=50,
+            p_gmate_sample_share=None, p_iate=True, p_iate_se=False,
             p_iate_m_ate=False, p_knn=True, p_knn_const=1, p_knn_min_k=10,
             p_nw_bandw=1, p_nw_kern=1, p_max_cats_z_vars=None,
             p_max_weight_share=0.05, p_se_boot_ate=None, p_se_boot_gate=None,
@@ -126,19 +114,16 @@ class ModifiedCausalForest:
             var_x_name_ord=None, var_x_name_unord=None, var_y_name=None,
             var_y_tree_name=None, var_z_name_list=None,
             var_z_name_ord=None, var_z_name_unord=None,
-            _int_cuda=True, _int_del_forest=False,
-            _int_descriptive_stats=True, _int_dpi=500,
-            _int_fontsize=2, _int_keep_w0=False, _int_no_filled_plot=20,
-            _int_max_cats_cont_vars=None, _int_max_save_values=50,
-            _int_mp_ray_del=('refs',), _int_mp_ray_objstore_multiplier=1,
-            _int_mp_ray_shutdown=None, _int_mp_vim_type=None,
-            _int_mp_weights_tree_batch=None, _int_mp_weights_type=1,
-            _int_output_no_new_dir=False, _int_red_largest_group_train=False,
-            _int_replication=False, _int_report=True, _int_return_iate_sp=False,
-            _int_seed_sample_split=67567885, _int_share_forest_sample=0.5,
-            _int_show_plots=True, _int_verbose=True,
-            _int_weight_as_sparse=True, _int_weight_as_sparse_splits=None,
-            _int_with_output=True
+            _int_descriptive_stats=True, _int_dpi=500, _int_fontsize=2,
+            _int_no_filled_plot=20, _int_max_cats_cont_vars=None,
+            _int_max_save_values=50, _int_mp_ray_del=('refs',),
+            _int_mp_ray_objstore_multiplier=1, _int_mp_ray_shutdown=None,
+            _int_mp_vim_type=None, _int_mp_weights_tree_batch=None,
+            _int_mp_weights_type=1, _int_red_largest_group_train=False,
+            _int_return_iate_sp=False, _int_seed_sample_split=67567885,
+            _int_share_forest_sample=0.5, _int_show_plots=True,
+            _int_verbose=True, _int_weight_as_sparse=True,
+            _int_weight_as_sparse_splits=None, _int_with_output=True
             ):
         """
         Define Constructor for ModifiedCausalForest class.
@@ -162,10 +147,10 @@ class ModifiedCausalForest:
             estimated parameters to improve scalability (increases speed and
             reduces demand on memory, but may increase finite sample bias
             somewhat).
-            If cf_chunks_maxsize is larger than sample size, there is no random
+            If cf_chunks_maxsize is larger than sample size, ther is no random
             splitting.
-            If None:  cf_chunks_maxsize = 75000 +
-                (number of observations - 75000)**0.8/ (no_of_treatment-1)
+            If None:  cf_chunks_maxsize = round(60000 + sqrt(number of
+                                          observations - 60000))
             Default is None.
         cf_n_min_grid : Integer (or None), optional
             Minimum leaf size: Number of grid values.
@@ -174,14 +159,14 @@ class ModifiedCausalForest:
         cf_n_min_max : Integer (or None), optional
             Minimum leaf size: Largest minimum leaf size.
             If None: A = sqrt(number of observations in smallest
-                              treatment group) ** 0.5 / 10, at least 2
-                     cf_n_min_max = round(A * number of treatments).
+                              treatment group) / 6, at least 3
+                     cf_n_min_max = A * number of treatments.
             Default is None.
         cf_n_min_min : Integer (or None), optional
             Minimum leaf size: Smallest minimum leaf size.
             If None: A = (number of observations
-                          in smallest treatment group) ** 0.4 / 10,at least 1.5
-                     cf_n_min_min = round(A * number of treatments).
+                          in smallest treatment group) ** 0.4, at least 2
+                     cf_n_min_min = A * number of treatments.
             Default is None.
         cf_n_min_treat : Integer (or None), optional
             Minimum number of observations per treatment in leaf.
@@ -190,7 +175,7 @@ class ModifiedCausalForest:
             There is no grid based tuning for this parameter.
             This parameter impacts the minimum leaf size which will be at least
             to n_min_treat * number of treatments.
-            None:  (n_min_min+n_min_max)/2 / # of treatments / 10, at least 1.
+            None: (n_min_min+n_min_max)/2 / number of treatments /4,at least 2.
             Default is None.
         cf_match_nn_prog_score : Boolean (or None), optional
             Choice of method of nearest neighbour matching.
@@ -345,7 +330,7 @@ class ModifiedCausalForest:
             compared to the test set prediction based on the full model.
             Exceptions: (i) If the correlation of two variables to be deleted
             is larger than 0.5, one of the two variables is kept.
-            (ii) Variables used to compute GATEs, BGATEs, CBGATEs. Nor are
+            (ii) Variables used to compute GATEs, MGATEs, AMGATEs. Nor are
             variables removed if they are contained in 'var_x_name_remain_ord'
             or 'var_x_name_remain_unord' or are needed otherwise.
             If the number of variables is very large (and the space of
@@ -372,7 +357,7 @@ class ModifiedCausalForest:
             Additionally, compute more efficient IATE (IATE are estimated twice
             and averaged where role of tree_building and tree_filling sample is
             exchanged; X-fitting). No inference is not attempted for these
-            parameters. Default (or None) is False.
+            parameters. Default (or None) is True.
         gen_mp_parallel : Integer (or None), optional
             Number of parallel processes (using ray on CPU). The smaller this
             value is, the slower the programme, the smaller its demand on RAM.
@@ -394,6 +379,9 @@ class ModifiedCausalForest:
         gen_panel_in_rf : Boolean (or None), optional
             Panel data used: Use panel structure also when building the random
             samples within the forest procedure. Default (or None) is True.
+        gen_replication : Boolean (or None), optional
+            If True all scikit-learn based computations will NOT use multi-
+            processing. Default (or None) is False.
         gen_weighted : Boolean (or None), optional
             Use of sampling weights to be provided in var_w_name.
             Default (or None) is False.
@@ -423,14 +411,14 @@ class ModifiedCausalForest:
             Compute effects for specific treatment groups. Only possible if
             treatment is included in prediction data.
             Default (or None) is False.
-        p_cbgate : Boolean (or None), optional
+        p_amgate : Boolean (or None), optional
             Estimate a GATE that is balanced in all other features.
             Default (or None) is False.
         p_bgate : Boolean (or None), optional
             Estimate a GATE that is balanced in selected features (as specified
             in var_bgate_name. Default (or None) is False.
         p_gates_minus_previous : Boolean (or None), optional
-            Estimate increase of difference of GATEs, CBGATEs, BGATEs when
+            Estimate increase of difference of GATEs, AMGATE, BGATEs when
             evaluated at next larger observed value.
             Default (or None) is False.
         p_gates_smooth : Boolean (or None), optional
@@ -440,16 +428,16 @@ class ModifiedCausalForest:
             observations, a local neighbourhood around the evaluation points is
             considered. Default (or None) is True.
         p_gates_smooth_bandwidth : Float (or None), optional
-            Multiplier for bandwidth used in (C)BGATE estimation with smooth
+            Multiplier for bandwidth used in (B,AM)GATE estimation with smooth
             variables. Default is 1.
         p_gates_smooth_no_evalu_points : Integer (or None), optional
             Number of evaluation points for discretized variables in GATE
             estimation. Default (or None) is 50.
-        p_gate_no_evalu_points : Integer (or None), optional
-            Number of evaluation points for discretized variables in (C)BGATE
+        p_gmate_no_evalu_points : Integer (or None), optional
+            Number of evaluation points for discretized variables in (AM)BGATE
             estimation. Default (or None) is 50.
-        p_bgate_sample_share : Float (or None), optional
-            Implementation of (C)BGATE estimation is very cpu intensive.
+        p_gmate_sample_share : Float (or None), optional
+            Implementation of (AM)BGATE estimation is very cpu intensive.
             Therefore, random samples are used to speed up the programme if
             there are number observations  / number of evaluation points > 10.
             None: If observation in prediction data (n) < 1000: 1
@@ -489,7 +477,7 @@ class ModifiedCausalForest:
         p_max_weight_share : Float (or None), optional
             Truncation of extreme weights. Maximum share of any weight, 0 <,
             <= 1. Enforced by trimming excess weights and renormalisation for
-            each (BG,G,I,CBG)ATE separately. Because of renormalisattion, the
+            each (BG,G,I, AMG)ATE separately. Because of renormalisattion, the
             final weights could be somewhat above this threshold.
             Default (or None) is 0.05.
         p_cluster_std : Boolean (or None), optional
@@ -522,10 +510,8 @@ class ModifiedCausalForest:
             have very different sizes. Default (or None) is False.
         p_choice_based_probs : List of Floats (or None)
             Choice based sampling:  Sampling probabilities to be specified.
-            These weights are used for (G,B,CB)ATEs only. Treatment information
+            These weights are used for (G,B,AN)ATEs only. Treatment information
             must be available in prediction data. Default is None.
-        p_ate_no_se_only : Boolean (or None)
-            Computes only the ATE without standard errors. Default is False.
         post_est_stats : Boolean (or None), optional
             Descriptive Analyses of IATEs (p_iate must be True).
             Default (or None) is True.
@@ -633,8 +619,6 @@ class ModifiedCausalForest:
             Names of unordered variables with not so many values to define
             causal heterogeneity. If not already included in var_x_name_ord,
             they will be added to the list of features. Default is None.
-        _int_cuda : Boolean (or None).
-            Use CUDA based GPU if available on hardware. Default is True.
         _int_descriptive_stats : Boolean (or None), optional
             Print descriptive stats if _int_with_output is True.
             Default (or None) is True.
@@ -697,21 +681,11 @@ class ModifiedCausalForest:
                 2: tree based (takes forever, less memory)
             Default (or None) is 1.
             Internal variable, change default only if you know what you do.
-            Value of 2 will be internally changed to 1 if multiprocessing.
-        _int_output_no_new_dir : Boolean
-            Do not create a new directory when the path already exists. Default
-            is False.
-        _int_report : Boolean
-            Provide information for McfOptPolReports to construct informative
-            reports. Default is True.
         _int_return_iate_sp : Boolean (or None), optional
             Return all data with predictions despite _int_with_output is False
-            (useful for cross-validation and simulations).
+            (useful for cross-validation and simulations.
             Default (or None) is False.
             Internal variable, change default only if you know what you do.
-        _int_replication : Boolean (or None), optional
-            If True all scikit-learn based computations will NOT use multi-
-            processing. Default (or None) is False.
         _int_seed_sample_split : Integer (or None), optional
             Seeding is redone when building forest.
             Default (or None) is 67567885.
@@ -735,19 +709,9 @@ class ModifiedCausalForest:
         _int_with_output : Boolean (or None), optional
             Print output on txt file and/or console. Default (or None) is True.
             Internal variable, change default only if you know what you do.
-        _int_del_forest : Boolean (or None), optional
-            Delete forests from instance. If True, less memory is needed, but
-            the trained instance of the class cannot be reused when calling
-            predict with the same instance again, i.e. the forest has to be
-            retrained when applied again. Default is False.
-        _int_keep_w0 : Boolean (or None), optional.
-            Keep all zeros weights when computing standard errors (slows down
-            computation and may lead to undesirable behaviour).
-            Default is False.
 
         """
         self.int_dict = mcf_init.int_init(
-            cuda=_int_cuda, del_forest=_int_del_forest,
             descriptive_stats=_int_descriptive_stats, dpi=_int_dpi,
             fontsize=_int_fontsize, no_filled_plot=_int_no_filled_plot,
             max_save_values=_int_max_save_values, mp_ray_del=_int_mp_ray_del,
@@ -755,24 +719,21 @@ class ModifiedCausalForest:
             mp_weights_tree_batch=_int_mp_weights_tree_batch,
             mp_weights_type=_int_mp_weights_type,
             return_iate_sp=_int_return_iate_sp,
-            replication=_int_replication,
             seed_sample_split=_int_seed_sample_split,
             share_forest_sample=_int_share_forest_sample,
             show_plots=_int_show_plots, verbose=_int_verbose,
-            weight_as_sparse=_int_weight_as_sparse, keep_w0=_int_keep_w0,
+            weight_as_sparse=_int_weight_as_sparse,
             with_output=_int_with_output, mp_ray_shutdown=_int_mp_ray_shutdown,
             mp_vim_type=_int_mp_vim_type,
-            output_no_new_dir=_int_output_no_new_dir, report=_int_report,
             weight_as_sparse_splits=_int_weight_as_sparse_splits,
-            max_cats_cont_vars=_int_max_cats_cont_vars,
-            p_ate_no_se_only=p_ate_no_se_only)
+            max_cats_cont_vars=_int_max_cats_cont_vars)
         gen_dict = mcf_init.gen_init(
             self.int_dict,
             d_type=gen_d_type, iate_eff=gen_iate_eff,
             mp_parallel=gen_mp_parallel, outfiletext=gen_outfiletext,
             outpath=gen_outpath, output_type=gen_output_type,
-            weighted=gen_weighted, panel_data=gen_panel_data,
-            panel_in_rf=gen_panel_in_rf)
+            replication=gen_replication,  weighted=gen_weighted,
+            panel_data=gen_panel_data, panel_in_rf=gen_panel_in_rf)
         self.dc_dict = mcf_init.dc_init(
             check_perfectcorr=dc_check_perfectcorr,
             clean_data=dc_clean_data, min_dummy_obs=dc_min_dummy_obs,
@@ -806,8 +767,7 @@ class ModifiedCausalForest:
             random_thresholds=cf_random_thresholds)
         p_dict = mcf_init.p_init(
             gen_dict,
-            ate_no_se_only=p_ate_no_se_only, cbgate=p_cbgate, atet=p_atet,
-            bgate=p_bgate, bt_yes=p_bt_yes,
+            amgate=p_amgate, atet=p_atet, bgate=p_bgate, bt_yes=p_bt_yes,
             choice_based_sampling=p_choice_based_sampling,
             choice_based_probs=p_choice_based_probs, ci_level=p_ci_level,
             cluster_std=p_cluster_std, cond_var=p_cond_var,
@@ -815,8 +775,8 @@ class ModifiedCausalForest:
             gates_smooth=p_gates_smooth,
             gates_smooth_bandwidth=p_gates_smooth_bandwidth,
             gates_smooth_no_evalu_points=p_gates_smooth_no_evalu_points,
-            gatet=p_gatet, gate_no_evalu_points=p_gate_no_evalu_points,
-            bgate_sample_share=p_bgate_sample_share,
+            gatet=p_gatet, gmate_no_evalu_points=p_gmate_no_evalu_points,
+            gmate_sample_share=p_gmate_sample_share,
             iate=p_iate, iate_se=p_iate_se, iate_m_ate=p_iate_m_ate, knn=p_knn,
             knn_const=p_knn_const, knn_min_k=p_knn_min_k, nw_bandw=p_nw_bandw,
             nw_kern=p_nw_kern, max_cats_z_vars=p_max_cats_z_vars,
@@ -847,11 +807,8 @@ class ModifiedCausalForest:
             y_name=var_y_name, y_tree_name=var_y_tree_name,
             z_name_list=var_z_name_list, z_name_ord=var_z_name_ord,
             z_name_unord=var_z_name_unord)
-        self.blind_dict = self.sens_dict = None
         self.data_train_dict = self.var_x_type = self.var_x_values = None
         self.forest, self.time_strings = None, {}
-        self.report = {'predict_list': [],   # Needed for multiple predicts
-                       'analyse_list': []}
 
     def train(self, data_df):
         """
@@ -875,15 +832,14 @@ class ModifiedCausalForest:
         # Check treatment data
         data_df, _ = mcf_data.data_frame_vars_upper(data_df)
         data_df = mcf_data.check_recode_treat_variable(self, data_df)
-        # Initialise again with data information. Order of the following
-        # init functions important. Change only if you know what you do.
+        # Initialise again with data information
         mcf_init.var_update_train(self, data_df)
+        mcf_init.p_update_train(self, data_df)
         mcf_init.gen_update_train(self, data_df)
         mcf_init.ct_update_train(self, data_df)
-        mcf_init.cs_update_train(self)            # Used updated gen_dict info
+        mcf_init.cs_update_train(self)
         mcf_init.cf_update_train(self, data_df)
-        mcf_init.int_update_train(self)
-        mcf_init.p_update_train(self)
+        mcf_init.int_update_train(self, len(data_df))
 
         if self.int_dict['with_output']:
             ps.print_dic_values_all(self, summary_top=True, summary_dic=False)
@@ -897,16 +853,10 @@ class ModifiedCausalForest:
 
         # Clean data and remove missings and unncessary variables
         if self.dc_dict['clean_data']:
-            data_df, report = mcf_data.clean_data(
-                self, data_df, train=True)
-            if self.gen_dict['with_output']:
-                self.report['training_obs'] = report
+            data_df = mcf_data.clean_data(self, data_df, train=True)
         if self.dc_dict['screen_covariates']:   # Only training
-            (self.gen_dict, self.var_dict, self.var_x_type, self.var_x_values,
-             report
+            (self.gen_dict, self.var_dict, self.var_x_type, self.var_x_values
              ) = mcf_data.screen_adjust_variables(self, data_df)
-            if self.gen_dict['with_output']:
-                self.report['removed_vars'] = report
         time_1 = time()
 
         # Descriptives by treatment
@@ -915,9 +865,7 @@ class ModifiedCausalForest:
 
         # Feature selection
         if self.fs_dict['yes']:
-            data_df, report = mcf_fs.feature_selection(self, data_df)
-            if self.gen_dict['with_output']:
-                self.report['fs_vars_deleted'] = report
+            data_df = mcf_fs.feature_selection(self, data_df)
         # Split sample for tree building and tree-filling-with-y
         tree_df, fill_y_df = mcf_data.split_sample_for_mcf(self, data_df)
         del data_df
@@ -925,13 +873,8 @@ class ModifiedCausalForest:
 
         # Compute Common support
         if self.cs_dict['type']:
-            (tree_df, fill_y_df, rep_sh_del, obs_remain, rep_fig
-             ) = mcf_cs.common_support(self, tree_df, fill_y_df, train=True)
-            if self.gen_dict['with_output']:
-                self.report['cs_t_share_deleted'] = rep_sh_del
-                self.report['cs_t_obs_remain'] = obs_remain
-                self.report['cs_t_figs'] = rep_fig
-
+            tree_df, fill_y_df = mcf_cs.common_support(self, tree_df,
+                                                       fill_y_df, train=True)
         # Descriptives by treatment on common support
         if self.int_dict['descriptive_stats'] and self.int_dict['with_output']:
             ps.desc_by_treatment(self, pd.concat([tree_df, fill_y_df], axis=0),
@@ -940,19 +883,13 @@ class ModifiedCausalForest:
 
         # Local centering
         if self.lc_dict['yes']:
-            (tree_df, fill_y_df, _, report) = mcf_lc.local_centering(
-                self, tree_df, fill_y_df)
-            if self.gen_dict['with_output']:
-                self.report["lc_r2"] = report
+            (tree_df, fill_y_df, _) = mcf_lc.local_centering(self, tree_df,
+                                                             fill_y_df)
         time_4 = time()
-
-        # Train forest
         if self.int_dict['with_output']:
             ps.variable_features(self, summary=False)
-        (self.cf_dict, self.forest, time_vi, report) = mcf_fo.train_forest(
+        self.cf_dict, self.forest, time_vi = mcf_fo.train_forest(
             self, tree_df, fill_y_df)
-        if self.gen_dict['with_output']:
-            self.report['cf'] = report
         time_end = time()
         time_string = ['Data preparation and stats I:                   ',
                        'Feature preselection:                           ',
@@ -992,16 +929,14 @@ class ModifiedCausalForest:
             'gate': GATE, 'gate_se': SE of GATE,
             'gate_diff': GATE minus ATE,
             'gate_diff_se': Standard error of GATE minus ATE,
-            'cbgate': cbGATE (all covariates balanced),
-            'cbgate_se': Standard error of CBGATE,
-            'cbgate_diff': CBGATE minus ATE,
-            'cbgate_diff_se': Standard error of CBGATE minus ATE,
+            'amgate': AMGATE (all covariates balanced),
+            'amgate_se': Standard error of AMGATE,
+            'amgate_diff': AMGATE minus ATE,
+            'amgate_diff_se': Standard error of AMGATE minus ATE,
             'bgate': BGATE (only prespecified covariates balanced),
             'bgate_se': Standard error of BGATE,
             'bgate_diff': BGATE minus ATE,
             'bgate_diff_se': Standard errror of BGATE minus ATE,
-            'gate_names_values': Dictionary: Order of gates parameters and
-                        name and values of GATE effects.
             'iate': IATE, 'iate_se': Standard error of IATE,
             'iate_eff': (More) Efficient IATE (IATE estimated twice and
                         averaged where role of tree_building and tree_filling
@@ -1013,7 +948,6 @@ class ModifiedCausalForest:
             'bala_effect_list': Names of effects of balancing tests
         """
         time_start = time()
-        report = {}
         data_df, _ = mcf_data.data_frame_vars_upper(data_df)
         # Initialise again with data information
         data_df = mcf_init.p_update_pred(self, data_df)
@@ -1026,7 +960,6 @@ class ModifiedCausalForest:
         if self.int_dict['with_output']:
             ps.print_dic_values_all(self, summary_top=True, summary_dic=False,
                                     train=False)
-
         # Prepare data: Add and recode variables for GATES (Z)
         #             Recode categorical variables to prime numbers, cont. vars
         data_df = mcf_data.create_xz_variables(self, data_df, train=False)
@@ -1035,37 +968,33 @@ class ModifiedCausalForest:
                                             self.gen_dict, summary=False)
         # Clean data and remove missings and unncessary variables
         if self.dc_dict['clean_data']:
-            data_df, report['prediction_obs'] = mcf_data.clean_data(
-                self, data_df, train=False)
+            data_df = mcf_data.clean_data(self, data_df, train=False)
         # Descriptives by treatment on common support
         if (self.p_dict['d_in_pred'] and self.int_dict['descriptive_stats']
                 and self.int_dict['with_output']):
             ps.desc_by_treatment(self, data_df, summary=False, stage=3)
         time_1 = time()
-
-        # Common support
+        # Check if on common support
         if self.cs_dict['type']:
-            (data_df, _, report['cs_p_share_deleted'],
-             report['cs_p_obs_remain'], _) = mcf_cs.common_support(
-                 self, data_df, None, train=False)
+            data_df, _ = mcf_cs.common_support(self, data_df, None,
+                                               train=False)
         data_df = data_df.copy().reset_index()
         if (self.p_dict['d_in_pred'] and self.int_dict['descriptive_stats']
                 and self.int_dict['with_output']):
             ps.desc_by_treatment(self, data_df, summary=True, stage=3)
         time_2 = time()
-
         # Local centering for IATE
         if self.lc_dict['yes'] and self.lc_dict['uncenter_po']:
-            (_, _, y_pred_x_df, _) = mcf_lc.local_centering(self, data_df,
-                                                            None, train=False)
+            (_, _, y_pred_x_df) = mcf_lc.local_centering(self, data_df, None,
+                                                         train=False)
         else:
             y_pred_x_df = 0
         time_3 = time()
         time_delta_weight = time_delta_ate = time_delta_bala = 0
-        time_delta_iate = time_delta_gate = time_delta_cbgate = 0
+        time_delta_iate = time_delta_gate = time_delta_amgate = 0
         time_delta_bgate = 0
         ate_dic = bala_dic = iate_dic = iate_m_ate_dic = iate_eff_dic = None
-        gate_dic = gate_m_ate_dic = cbgate_dic = cbgate_m_ate_dic = None
+        gate_dic = gate_m_ate_dic = amgate_dic = amgate_m_ate_dic = None
         bgate_dic = bgate_m_ate_dic = None
         only_one_fold_one_round = (self.cf_dict['folds'] == 1
                                    and len(self.cf_dict['est_rounds']) == 1)
@@ -1097,14 +1026,13 @@ class ModifiedCausalForest:
                 time_delta_ate += time() - time_a_start
                 # Compute balancing tests
                 time_b_start = time()
-                if round_ == 'regular':
-                    if self.p_dict['bt_yes']:
-                        (_, y_pot_f, y_pot_var_f, txt_w_f) = mcf_ate.ate_est(
-                            self, data_df, weights_dic, balancing_test=True)
-                        # Aggregate Balancing results over folds
-                        bala_dic = mcf_est.aggregate_pots(
-                            self, y_pot_f, y_pot_var_f, txt_w_f, bala_dic,
-                            fold, title='Balancing check: ')
+                if self.p_dict['bt_yes']:
+                    (_, y_pot_f, y_pot_var_f, txt_w_f) = mcf_ate.ate_est(
+                        self, data_df, weights_dic, balancing_test=True)
+                    # Aggregate Balancing results over folds
+                    bala_dic = mcf_est.aggregate_pots(
+                        self, y_pot_f, y_pot_var_f, txt_w_f, bala_dic, fold,
+                        title='Balancing check: ')
                 time_delta_bala += time() - time_b_start
 
                 # BGATE
@@ -1112,9 +1040,9 @@ class ModifiedCausalForest:
                 if round_ == 'regular' and self.p_dict['bgate']:
                     (y_pot_bgate_f, y_pot_var_bgate_f, y_pot_mate_bgate_f,
                      y_pot_mate_var_bgate_f, bgate_est_dic, txt_w_f, txt_b,
-                     ) = mcf_gate.bgate_est(self, data_df, weights_dic,
-                                            w_ate, forest_dic,
-                                            gate_type='BGATE')
+                     ) = mcf_gate.bamgate_est(self, data_df, weights_dic,
+                                              w_ate, forest_dic,
+                                              gate_type='BGATE')
                     bgate_dic = mcf_est.aggregate_pots(
                         self, y_pot_bgate_f, y_pot_var_bgate_f, txt_w_f,
                         bgate_dic, fold, pot_is_list=True, title='BGATE')
@@ -1125,25 +1053,24 @@ class ModifiedCausalForest:
                             title='BGATE minus ATE')
                 time_delta_bgate += time() - time_bgate_start
 
-                # CBGATE
-                time_cbg_start = time()
-                if round_ == 'regular' and self.p_dict['cbgate']:
-                    (y_pot_cbgate_f, y_pot_var_cbgate_f, y_pot_mate_cbgate_f,
-                     y_pot_mate_var_cbgate_f, cbgate_est_dic, txt_w_f, txt_am,
-                     ) = mcf_gate.bgate_est(self, data_df, weights_dic,
-                                            w_ate, forest_dic,
-                                            gate_type='CBGATE')
-                    cbgate_dic = mcf_est.aggregate_pots(
-                        self, y_pot_cbgate_f, y_pot_var_cbgate_f, txt_w_f,
-                        cbgate_dic, fold, pot_is_list=True, title='CBGATE')
-                    if y_pot_mate_cbgate_f is not None:
-                        cbgate_m_ate_dic = mcf_est.aggregate_pots(
-                            self, y_pot_mate_cbgate_f, y_pot_mate_var_cbgate_f,
-                            txt_w_f, cbgate_m_ate_dic, fold, pot_is_list=True,
-                            title='CBGATE minus ATE')
-                time_delta_cbgate += time() - time_cbg_start
-                if self.int_dict['del_forest']:
-                    del forest_dic['forest']
+                # AMGATE
+                time_amg_start = time()
+                if round_ == 'regular' and self.p_dict['amgate']:
+                    (y_pot_amgate_f, y_pot_var_amgate_f, y_pot_mate_amgate_f,
+                     y_pot_mate_var_amgate_f, amgate_est_dic, txt_w_f, txt_am,
+                     ) = mcf_gate.bamgate_est(self, data_df, weights_dic,
+                                              w_ate, forest_dic,
+                                              gate_type='AMGATE')
+                    amgate_dic = mcf_est.aggregate_pots(
+                        self, y_pot_amgate_f, y_pot_var_amgate_f, txt_w_f,
+                        amgate_dic, fold, pot_is_list=True, title='AMGATE')
+                    if y_pot_mate_amgate_f is not None:
+                        amgate_m_ate_dic = mcf_est.aggregate_pots(
+                            self, y_pot_mate_amgate_f, y_pot_mate_var_amgate_f,
+                            txt_w_f, amgate_m_ate_dic, fold, pot_is_list=True,
+                            title='AMGATE minus ATE')
+                time_delta_amgate += time() - time_amg_start
+                del forest_dic['forest']
 
                 # IATE
                 time_i_start = time()
@@ -1186,12 +1113,14 @@ class ModifiedCausalForest:
                             txt_w_f, gate_m_ate_dic, fold, pot_is_list=True,
                             title='GATE minus ATE')
                 time_delta_gate += time() - time_g_start
-            if not only_one_fold_one_round and self.int_dict['del_forest']:
-                self.forest[fold] = None
-                # Without those two deletes, it becomes impossible to reuse
-                # the same forest for several data sets, which is bad.
-        if self.int_dict['del_forest']:
-            self.forest = None
+            if not only_one_fold_one_round:
+                # self.forest[fold] = None
+                pass
+                # TODO Without those two deletes, it becomes impossible to use
+                # the same forest for several data sets, which is bad. However,
+                # keeping them may be memory intensive. May be add option to
+                # delete in next version.
+        # self.forest = None
         del weights_dic
 
         # ATE
@@ -1203,50 +1132,42 @@ class ModifiedCausalForest:
         # GATE
         time_g_start = time()
         if self.p_dict['gate']:
-            (gate, gate_se, gate_diff, gate_diff_se, report['fig_gate']
+            (gate, gate_se, gate_diff, gate_diff_se
              ) = mcf_gateout.gate_effects_print(self, gate_dic, gate_m_ate_dic,
                                                 gate_est_dic, ate, ate_se,
                                                 gate_type='GATE')
         else:
-            gate = gate_se = gate_diff = gate_diff_se = gate_est_dic = None
+            gate = gate_se = gate_diff = gate_diff_se = None
         time_delta_gate += time() - time_g_start
 
         # BGATE
         time_bgate_start = time()
         if self.p_dict['bgate']:
-            (bgate, bgate_se, bgate_diff, bgate_diff_se, report['fig_bgate']
+            (bgate, bgate_se, bgate_diff, bgate_diff_se
              ) = mcf_gateout.gate_effects_print(
                  self, bgate_dic, bgate_m_ate_dic, bgate_est_dic, ate,
                  ate_se, gate_type='BGATE', special_txt=txt_b)
         else:
             bgate = bgate_se = bgate_diff = bgate_diff_se = None
-            bgate_est_dic = None
         time_delta_bgate += time() - time_bgate_start
 
-        # CBGATE
-        time_cbg_start = time()
-        if self.p_dict['cbgate']:
-            (cbgate, cbgate_se, cbgate_diff, cbgate_diff_se,
-             report['fig_cbgate']) = mcf_gateout.gate_effects_print(
-                 self, cbgate_dic, cbgate_m_ate_dic, cbgate_est_dic, ate,
-                 ate_se, gate_type='CBGATE', special_txt=txt_am)
+        # AMGATE
+        time_amg_start = time()
+        if self.p_dict['amgate']:
+            (amgate, amgate_se, amgate_diff, amgate_diff_se
+             ) = mcf_gateout.gate_effects_print(
+                 self, amgate_dic, amgate_m_ate_dic, amgate_est_dic, ate,
+                 ate_se, gate_type='AMGATE', special_txt=txt_am)
         else:
-            cbgate = cbgate_se = cbgate_diff = cbgate_diff_se = None
-            cbgate_est_dic = None
-        time_delta_cbgate += time() - time_cbg_start
-        # Collect some information for results_dic
-        if (self.p_dict['gate'] or self.p_dict['bgate']
-                or self.p_dict['cbgate']):
-            gate_names_values = mcf_gateout.get_names_values(
-                self, gate_est_dic, bgate_est_dic, cbgate_est_dic)
-        else:
-            gate_names_values = None
+            amgate = amgate_se = amgate_diff = amgate_diff_se = None
+        time_delta_amgate += time() - time_amg_start
+
         # IATE
         time_i_start = time()
         if self.p_dict['iate']:
-            (iate, iate_se, iate_eff, iate_names_dic, iate_df,
-             report['iate_text']) = mcf_iate.iate_effects_print(
-                 self, iate_dic, iate_m_ate_dic, iate_eff_dic, y_pred_x_df)
+            (iate, iate_se, iate_eff, iate_names_dic, iate_df
+             ) = mcf_iate.iate_effects_print(self, iate_dic, iate_m_ate_dic,
+                                             iate_eff_dic, y_pred_x_df)
             data_df.reset_index(drop=True, inplace=True)
             iate_df.reset_index(drop=True, inplace=True)
             iate_pred_df = pd.concat([data_df, iate_df], axis=1)
@@ -1268,9 +1189,8 @@ class ModifiedCausalForest:
             'ate': ate, 'ate_se': ate_se, 'ate effect_list': ate_effect_list,
             'gate': gate, 'gate_se': gate_se,
             'gate_diff': gate_diff, 'gate_diff_se': gate_diff_se,
-            'gate_names_values': gate_names_values,
-            'cbgate': cbgate, 'cbgate_se': cbgate_se,
-            'cbgate_diff': cbgate_diff, 'cbgate_diff_se': cbgate_diff_se,
+            'amgate': amgate, 'amgate_se': amgate_se,
+            'amgate_diff': amgate_diff, 'amgate_diff_se': amgate_diff_se,
             'bgate': bgate, 'bgate_se': bgate_se,
             'bgate_diff': bgate_diff, 'bgate_diff_se': bgate_diff_se,
             'iate': iate, 'iate_se': iate_se, 'iate_eff': iate_eff,
@@ -1278,11 +1198,6 @@ class ModifiedCausalForest:
             'bala': bala, 'bala_se': bala_se, 'bala_effect_list':
                 bala_effect_list
                    }
-        if self.int_dict['with_output']:
-            results_dic = results.copy()
-            del results_dic['iate_data_df']
-            report['mcf_pred_results'] = results
-        self.report['predict_list'].append(report.copy())
         time_end = time()
         if self.int_dict['with_output']:
             time_string = [
@@ -1293,14 +1208,14 @@ class ModifiedCausalForest:
                 'ATEs:                                           ',
                 'GATEs:                                          ',
                 'BGATEs:                                         ',
-                'CBGATEs:                                        ',
+                'AMGATEs:                                        ',
                 'IATEs:                                          ',
                 'Balancing test:                                 ',
                 '\nTotal time prediction:                          ']
             time_difference = [
                 time_1 - time_start, time_2 - time_1, time_3 - time_2,
                 time_delta_weight, time_delta_ate, time_delta_gate,
-                time_delta_bgate, time_delta_cbgate, time_delta_iate,
+                time_delta_bgate, time_delta_amgate, time_delta_iate,
                 time_delta_bala, time_end - time_start]
             ps.print_mcf(self.gen_dict, self.time_strings['time_train'])
             time_pred = ps.print_timing(
@@ -1332,17 +1247,14 @@ class ModifiedCausalForest:
             from k-means clustering.
 
         """
-        report = {}
         if (self.int_dict['with_output'] and self.post_dict['est_stats'] and
                 self.int_dict['return_iate_sp']):
             time_start = time()
-            report['fig_iate'] = mcf_post.post_estimation_iate(self, results)
+            mcf_post.post_estimation_iate(self, results)
             time_end_corr = time()
             if self.post_dict['kmeans_yes']:
-                (results_plus_cluster, report['knn_table']
-                 ) = mcf_post.k_means_of_x_iate(self, results)
-            else:
-                report['knn_table'] = None
+                results_plus_cluster = mcf_post.k_means_of_x_iate(self,
+                                                                  results)
             time_end_km = time()
             if self.post_dict['random_forest_vi']:
                 mcf_post.random_forest_of_iate(self, results)
@@ -1360,7 +1272,6 @@ class ModifiedCausalForest:
                          summary=True)
             ps.print_timing(self.gen_dict, 'Analysis of IATE', time_string,
                             time_difference, summary=True)
-            self.report['analyse_list'].append(report.copy())
         else:
             raise ValueError(
                 '"Analyse" method produces output only if all of the following'
@@ -1369,164 +1280,3 @@ class ModifiedCausalForest:
                 f'\npos_test_stats: {self.post_dict["est_stats"]}'
                 f'\nint_return_iate_sp: {self.int_dict["return_iate_sp"]}')
         return results_plus_cluster
-
-    def blinder_iates(
-        self, data_df, blind_var_x_protected_name=None,
-        blind_var_x_policy_name=None, blind_var_x_unrestricted_name=None,
-        blind_weights_of_blind=None, blind_obs_ref_data=50,
-            blind_seed=123456):
-        """
-        Compute IATEs that causally depend less on protected variables.
-
-        Parameters
-        ----------
-        data_df : DataFrame.
-            Contains data needed to predict the various adjusted IATES.
-        blind_var_x_protected_name : List of strings (or None), optional
-            Names of protected variables. Names that are
-            explicitly denoted as blind_var_x_unrestricted_name or as
-            blind_var_x_policy_name and used to compute IATEs will be
-            automatically added to this list. Default is None.
-        blind_var_x_policy_name : List of strings (or None), optional
-            Names of decision variables. Default is None.
-        blind_var_x_unrestricted_name : List of strings (or None), optional
-            Names of unrestricted variables. Default is None.
-        blind_weights_of_blind : Tuple of float (or None), optional
-            Weights to compute weighted means of blinded and unblinded IATEs.
-            Between 0 and 1. 1 implies all weight goes to fully blinded IATEs.
-        blind_obs_ref_data : Integer (or None), optional
-            Number of observations to be used for blinding. Runtime of
-            programme is almost linear in this parameter. Default is 50.
-        blind_seed : Integer, optional.
-            Seed for the random selection of the reference data.
-            Default is 123456.
-
-        Returns
-        -------
-        blinded_dic : Dictionary.
-            Contains potential outcomes that do not fully
-            depend on some protected attributes (and non-modified IATE).
-        data_on_support_df : DataFrame.
-            Features that are on the common support.
-        var_x_policy_ord_name : List of strings, optional
-            Ordered variables to be used to build the decision rules.
-        var_x_policy_unord_name : List of strings.
-            Unordered variables to be used to build the decision rules.
-        var_x_blind_ord_name : List of strings, optional
-            Ordered variables to be used to blind potential outcomes.
-        var_x_blind_unord_name : List of strings.
-            Unordered variables to be used to blind potential outcomes.
-        """
-        self.blind_dict = mcf_init.blind_init(
-            var_x_protected_name=blind_var_x_protected_name,
-            var_x_policy_name=blind_var_x_policy_name,
-            var_x_unrestricted_name=blind_var_x_unrestricted_name,
-            weights_of_blind=blind_weights_of_blind,
-            obs_ref_data=blind_obs_ref_data,
-            seed=blind_seed)
-
-        if self.int_dict['with_output']:
-            time_start = time()
-        with_output = self.int_dict['with_output']
-
-        (blinded_dic, data_on_support_df, var_x_policy_ord_name,
-         var_x_policy_unord_name, var_x_blind_ord_name, var_x_blind_unord_name
-         ) = mcf_fair.make_fair_iates(self, data_df, with_output=with_output)
-
-        self.int_dict['with_output'] = with_output
-        if self.int_dict['with_output']:
-            time_difference = [time() - time_start]
-            time_string = ['Total time for blinding IATEs:                  ']
-            ps.print_timing(self.gen_dict, 'Blinding IATEs', time_string,
-                            time_difference, summary=True)
-        return (blinded_dic, data_on_support_df, var_x_policy_ord_name,
-                var_x_policy_unord_name, var_x_blind_ord_name,
-                var_x_blind_unord_name)
-
-    def sensitivity(self, train_df, predict_df=None, results=None,
-                    sens_cbgate=None, sens_bgate=None, sens_gate=None,
-                    sens_iate=None, sens_iate_se=None, sens_scenarios=None,
-                    sens_cv_k=None, sens_replications=2,
-                    sens_reference_population=None):
-        """
-        Compute simulation based sensitivity indicators.
-
-        Parameters
-        ----------
-        train_df : DataFrame.
-            Data with real outcomes, treatments, and covariates. Data will be
-            transformed to compute sensitivity indicators.
-        predict_df : DataFrame (or None), optinal.
-            Prediction data to compute all effects for. This data will not be
-            changed in the computation process. Only covariate information is
-            used from this dataset. If predict_df is not a DataFrame,
-            train_df will be used instead.
-        results : dictionary, optional.
-            The standard output dictionary from the predict method is expected.
-            If this dictionary contains estimated IATEs, the same data as in
-            the predict method will be used, IATEs are computed under the no
-            effect (basic) scenario and these IATEs are compared to the IATEs
-            contained in the results dictionary. If the dictionary does not
-            contain estimated IATEs, passing it has no consequence.
-        sens_cbgate : Boolean (or None), optional
-            Compute CBGATEs for sensitivity analysis. Default is False.
-        sens_bgate : Boolean (or None), optional
-            Compute BGATEs for sensitivity analysis. Default is False.
-        sens_gate : Boolean (or None), optional
-            Compute GATEs for sensitivity analysis. Default is False.
-        sens_iate : Boolean (or None), optional
-            Compute IATEs for sensitivity analysis. If the results dictionary
-            is passed, and it contains IATEs, then the default value is True,
-            and False otherwise.
-        sens_iate_se : Boolean (or None), optional
-            Compute Standard errors of IATEs for sensitivity analysis. Default
-            is False.
-        sens_scenarios : List or tuple of strings, optional.
-            Different scenarios considered. Default is ('basic',).
-            'basic' : Use estimated treatment probabilities for simulations.
-                      No confounding.
-        sens_cv_k : Integer (or None), optional
-            Data to be used for any cross-validation: Number of folds in
-            cross-validation. Default (or None) is 5.
-        sens_replications : Integer (or None), optional.
-            Number of replications for simulating placebo treatments. Default
-            is 2.
-        sens_reference_population: integer or float (or None)
-            Defines the treatment status of the reference population used by
-            the sensitivity analysis. Default is to use the treatment with most
-            observed observations.
-
-        Returns
-        -------
-        results_avg : Dictionary
-            Same content as for the predict method but (if applicable) averaged
-            over replications.
-
-        """
-        if (isinstance(results, dict)
-            and 'iate_data_df' in results and 'iate_names_dic' in results
-                and isinstance(results['iate_data_df'], pd.DataFrame)):
-            predict_df = results['iate_data_df']
-            iate_df = predict_df[results['iate_names_dic'][0]['names_iate']]
-        else:
-            iate_df = None
-        if not isinstance(predict_df, pd.DataFrame):
-            predict_df = train_df.copy()
-        self.sens_dict = mcf_init.sens_init(
-            self.p_dict, cbgate=sens_cbgate, bgate=sens_bgate, gate=sens_gate,
-            iate=sens_iate, iate_se=sens_iate_se, scenarios=sens_scenarios,
-            cv_k=sens_cv_k, replications=sens_replications,
-            reference_population=sens_reference_population, iate_df=iate_df)
-        if self.int_dict['with_output']:
-            time_start = time()
-        results_avg, plots_iate, txt_ate = mcf_sens.sensitivity_analysis(
-            self, train_df, predict_df, self.int_dict['with_output'], iate_df,
-            seed=9345467)
-        self.report['sens_plots_iate'] = plots_iate
-        self.report['sens_txt_ate'] = txt_ate
-        if self.int_dict['with_output']:
-            time_difference = [time() - time_start]
-            time_string = ['Total time for sensitivity analysis:            ']
-            ps.print_timing(self.gen_dict, 'Sensitiviy analysis', time_string,
-                            time_difference, summary=True)
-        return results_avg
