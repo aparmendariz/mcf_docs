@@ -116,7 +116,7 @@ New class :py:class:`~mcf_functions.McfOptPolReport`
         :class:`~optpolicy_functions.OptimalPolicy` classes
 
 - This new class provides informative reports about the main specification choices and most important results of the ModifiedCausalForest and OptimalPolicy estimations. The report is saved in pdf-format.The reporting capabilities in this version are still basic but will be continously extended in the future (if users see them as a useful addition to the package).
-- Method: the :py:meth:`~McfOptPolReport.report` method takes the instance of the ModifiedCausalForest and the OptimalPolicy classes as input (after they were used in running the different methods of both classes). It creates the report on a pdf file, which is saved in a user provided location. 
+- Method: the :py:meth:`~reporting.McfOptPolReport.report` method takes the instance of the ModifiedCausalForest and the OptimalPolicy classes as input (after they were used in running the different methods of both classes). It creates the report on a pdf file, which is saved in a user provided location. 
 --------------------------------------------------------------------------------
 
 Version 0.4.3
