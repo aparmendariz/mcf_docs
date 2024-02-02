@@ -311,8 +311,8 @@ class ModifiedCausalForest:
         None: 
         :math:`(\\text{number of treatments} - 2) \\times 0.05`
         If cs_type > 0:
-        :math:`\text{upper limit} \\times = 1+support_adjust_limits`,
-        :math:`lower limit \\times = 1-support_adjust_limits`. 
+        :math:`\\text{upper limit} \\times = 1 + \\text{support_adjust_limits}`,
+        :math:`\\text{lower limit} \\times = 1 - \\text{support_adjust_limits}`. 
         The restrictiveness of the common support criterion increases with
         the number of treatments. This parameter allows to reduce this
         restrictiveness. Default is None.
