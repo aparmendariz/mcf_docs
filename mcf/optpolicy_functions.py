@@ -14,7 +14,7 @@ class OptimalPolicy:
 
     Parameters
     ----------
-    TEST_var_x_ord_name : Tuple of strings (or None), optional
+    var_x_ord_name : Tuple of strings (or None), optional
         Name of ordered variables used to build policy tree. They are also
         used to characterise the allocation. Default is None.
         
