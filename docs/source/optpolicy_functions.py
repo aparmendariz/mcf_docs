@@ -110,7 +110,7 @@ class OptimalPolicy:
         Default (or None) is 100.
         
     pt_min_leaf_size : Integer (or None), optional
-        Minimum leaf size. Leaves that are smaller than PT_MIN_LEAF_SIZE in
+        Minimum leaf size. Leaves that are smaller than pt_min_leaf_size in
         the training data will not be considered. A larger number reduces
         computation time and avoids some overfitting.
         None:
