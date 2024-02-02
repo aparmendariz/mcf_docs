@@ -4,6 +4,61 @@ class OptimalPolicy:
 
     Parameters
     ----------
+    var_x_ord_name : Tuple of strings (or None), optional
+        Name of ordered variables used to build policy tree. They are also
+        used to characterise the allocation. Default is None.
+        
+    var_x_unord_name : Tuple of strings (or None), optional
+        Name of unordered variables used to build policy tree. They are
+        also used to characterise the allocation. Default is None.
+        
+    var_polscore_name : Tuple of strings (or None), optional
+        Names of treatment specific variables to measure the value of
+        individual treatments. This is ususally the estimated potential
+        outcome or any other score related. This is required for the solve
+        method. Default is None.
+
+    var_d_name : String (or None), optional
+        Name of (discrete) treatment. Needed in training data only if
+        'changers' (different treatment in alloication than observed
+        treatment) are analysed and if allocation is compared to observed
+        allocation (in :meth:`~OptimalPolicy.evaluate` method). Default is None.
+        
+    var_vi_x_name : List of strings or None, optional
+        Names of variables for which variable importance is computed.
+        Default is None.
+        
+    var_vi_to_dummy_name : List of strings or None, optional
+        Names of variables for which variable importance is computed.
+        These variables will be broken up into dummies. Default is None.
+        
+    var_bb_restrict_name : String (or None), optional
+        Name of variable related to a restriction in case of capacity
+        constraints. If there is a capacity constraint, preference will be
+        given to observations with highest values of this variable.
+        Only relevant if gen_method is 'best_policy_score'.
+        Default is None.
+        
+    var_effect_vs_0  : Tuple of strings (or None), optional
+        Name of variables of effects of treatment relative to first
+        treatment. Dimension is equal to the number of treatments minus 1.
+        Default is None.
+        
+    var_effect_vs_0_se  : Tuple of strings (or None), optional
+        Name of variables of effects of treatment relative to first
+        treatment. Dimension is equal to the number of treatments minus 1.
+        Default is None.
+        
+    var_id_name : (or None), optional
+        Name of identifier in data. Default is None.
+        
+    var_polscore_desc_name : Tuple of tuples of strings (or None), optional
+        Each tuple of dimension equal to the different treatments
+        contains treatment specific variables that are used to evaluate the
+        effect of the allocation with respect to those variables. This
+        could be for example policy score not used in training,but which
+        are relevant nevertheless. Default is None.
+        
     dc_screen_covariates : Boolean (or None), optional
         Check features. Default (or None) is True.
         
@@ -143,61 +198,6 @@ class OptimalPolicy:
         None: Shares of treatments in the allocation under investigation.
         Default is None.
         
-    var_vi_x_name : List of strings or None, optional
-        Names of variables for which variable importance is computed.
-        Default is None.
-        
-    var_vi_to_dummy_name : List of strings or None, optional
-        Names of variables for which variable importance is computed.
-        These variables will be broken up into dummies. Default is None.
-        
-    var_bb_restrict_name : String (or None), optional
-        Name of variable related to a restriction in case of capacity
-        constraints. If there is a capacity constraint, preference will be
-        given to observations with highest values of this variable.
-        Only relevant if gen_method is 'best_policy_score'.
-        Default is None.
-        
-    var_d_name : String (or None), optional
-        Name of (discrete) treatment. Needed in training data only if
-        'changers' (different treatment in alloication than observed
-        treatment) are analysed and if allocation is compared to observed
-        allocation (in :meth:`~OptimalPolicy.evaluate` method). Default is None.
-        
-    var_effect_vs_0  : Tuple of strings (or None), optional
-        Name of variables of effects of treatment relative to first
-        treatment. Dimension is equal to the number of treatments minus 1.
-        Default is None.
-        
-    var_effect_vs_0_se  : Tuple of strings (or None), optional
-        Name of variables of effects of treatment relative to first
-        treatment. Dimension is equal to the number of treatments minus 1.
-        Default is None.
-        
-    var_id_name : (or None), optional
-        Name of identifier in data. Default is None.
-        
-    var_polscore_desc_name : Tuple of tuples of strings (or None), optional
-        Each tuple of dimension equal to the different treatments
-        contains treatment specific variables that are used to evaluate the
-        effect of the allocation with respect to those variables. This
-        could be for example policy score not used in training,but which
-        are relevant nevertheless. Default is None.
-        
-    var_polscore_name : Tuple of strings (or None), optional
-        Names of treatment specific variables to measure the value of
-        individual treatments. This is ususally the estimated potential
-        outcome or any other score related. This is required for the solve
-        method. Default is None.
-        
-    var_x_ord_name : Tuple of strings (or None), optional
-        Name of ordered variables used to build policy tree. They are also
-        used to characterise the allocation. Default is None.
-        
-    var_x_unord_name : Tuple of strings (or None), optional
-        Name of unordered variables used to build policy tree. They are
-        also used to characterise the allocation. Default is None.
-        
     _int_how_many_parallel : Integer (or None), optional
         Number of parallel process. None: 80% of logical cores, if this can
         be effectively implemented. Default is None.
@@ -219,7 +219,12 @@ class OptimalPolicy:
 
 
     def __init__(
-        self, dc_check_perfectcorr=True,
+        self, 
+        var_x_ord_name=None, var_x_unord_name=None, var_polscore_name=None, 
+        var_d_name=None, var_vi_x_name=None, var_vi_to_dummy_name=None,
+        var_bb_restrict_name=None, var_effect_vs_0=None,
+        var_effect_vs_0_se=None, var_id_name=None, var_polscore_desc_name=None,
+        dc_check_perfectcorr=True,
         dc_clean_data=True, dc_min_dummy_obs=10, dc_screen_covariates=True,
         gen_method='best_policy_score', gen_outfiletext='txtFileWithOutput',
         gen_outpath=None, gen_output_type=2, gen_variable_importance=False,
@@ -229,10 +234,6 @@ class OptimalPolicy:
         pt_no_of_evalupoints=100, pt_min_leaf_size=None,
         pt_select_values_cat=False,
         rnd_shares=None,
-        var_bb_restrict_name=None, var_d_name=None, var_effect_vs_0=None,
-        var_effect_vs_0_se=None, var_id_name=None, var_polscore_desc_name=None,
-        var_polscore_name=None, var_vi_x_name=None, var_vi_to_dummy_name=None,
-        var_x_ord_name=None, var_x_unord_name=None,
         _int_how_many_parallel=None, _int_output_no_new_dir=False,
         _int_parallel_processing=True, _int_with_numba=True,
         _int_with_output=True,
