@@ -46,12 +46,12 @@ New in version 0.5.0
 General
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   - change_log.py has become change_log.txt
-   - In general, most changes lead to more efficient code.
-   - A new reporting tool is introduced that produces a pdf file that should be
-     more informative about estimation and results. The existing output via
-     figures, (*.csv) and (*.txt) files continue to exist. They contain more
-     detailed information than the new pdf files.
+- change_log.py has become change_log.txt
+- In general, most changes lead to more efficient code.
+- A new reporting tool is introduced that produces a pdf file that should be
+    more informative about estimation and results. The existing output via
+    figures, (*.csv) and (*.txt) files continue to exist. They contain more
+    detailed information than the new pdf files.
 
 Changes concerning the class :py:class:`~mcf_functions.ModifiedCausalForest`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
