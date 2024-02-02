@@ -7,7 +7,7 @@ from mcf import mcf_general_sys as mcf_sys
 
 class McfOptPolReport:
     """
-    .. versionadded:: 0.5.0
+    .. versionadded:: 0.9.0
         Provides reports about the main specification choices and most 
         important results of the :class:`~mcf_functions.ModifiedCausalForest` and
         :class:`~optpolicy_functions.OptimalPolicy` estimations.
