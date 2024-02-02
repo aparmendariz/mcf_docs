@@ -504,7 +504,7 @@ class ModifiedCausalForest:
         
     p_max_cats_z_vars : Integer (or None), optional
         Maximum number of categories for discretizing continuous z
-        variables. None: :math:`text{Number of observations}^{0.3}`
+        variables. None: :math:`\\text{Number of observations}^{0.3}`
         Default is None.
         
     p_iate : Boolean (or None), optional
