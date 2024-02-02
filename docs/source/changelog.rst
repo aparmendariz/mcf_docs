@@ -74,21 +74,21 @@ Changes concerning the class :py:class:`~mcf_functions.ModifiedCausalForest`
     - If the results dictionary is passed, and it contains IATEs, then the (new) default value for the keyword ``sens_iate`` is True (and False otherwise)
           
 Changes concerning the class :py:class:`~optpolicy_functions.OptimalPolicy`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Bug fixes: Single variables can be passed as strings without leading to errors.
 - General performance improvements: Several parts have been optimized that led to limited increases and reduced memory consumption.
 
 - Change of names of keywords (to use the same names as in the :py:class:`~mcf_functions.ModifiedCausalForest` class)
     - ``var_x_ord_name`` --> ``var_x_name_ord``
-    -``var_x_unord_name`` --> ``var_x_name_unord``
+    - ``var_x_unord_name`` --> ``var_x_name_unord``
 
-- Change of default values:
+- Change of default values
     - The default of ``pt_enforce_restriction`` is set to False.
     - The previous default of ``pt_min_leaf_size`` is now multiplied by the smallest allowed treatment if (and only if) treatment shares are restricted.
 
-   - ``policy tree eff`` becomes the standard method for policy trees and is renamed as ``policy tree``.
-   - Change of default value for ``gen_variable_importance``. New default is True.
+- ``policy tree eff`` becomes the standard method for policy trees and is renamed as ``policy tree``.
+- Change of default value for ``gen_variable_importance``. New default is True.
 
 - There are several changes to speed up the computation of policy trees.
     - New keyword: ``_int_xtr_parallel`` Parallelize to a larger degree to make sure all CPUs are busy for most of the time. Only used for ``policy tree`` and only used if ``_int_parallel_processing`` > 1 (or None). Default is True.
@@ -105,8 +105,8 @@ New class :py:class:`~mcf_functions.McfOptPolReport`
         Reporting tools for the :class:`~mcf_functions.ModifiedCausalForest` and
         :class:`~optpolicy_functions.OptimalPolicy` classes
 
-   - This new class provides informative reports about the main specification choices and most important results of the ModifiedCausalForest and OptimalPolicy estimations. The report is saved in pdf-format.The reporting capabilities in this version are still basic but will be continously extended in the future (if users see them as a useful addition to the package).
-   - Method: report(). The report() method takes the instance of the ModifiedCausalForest and the OptimalPolicy classes as input (after they were used in running the different methods of both classes). It creates the report on a pdf file, which is saved in a user provided location. 
+- This new class provides informative reports about the main specification choices and most important results of the ModifiedCausalForest and OptimalPolicy estimations. The report is saved in pdf-format.The reporting capabilities in this version are still basic but will be continously extended in the future (if users see them as a useful addition to the package).
+- Method: report(). The report() method takes the instance of the ModifiedCausalForest and the OptimalPolicy classes as input (after they were used in running the different methods of both classes). It creates the report on a pdf file, which is saved in a user provided location. 
 --------------------------------------------------------------------------------
 
 Version 0.4.3
