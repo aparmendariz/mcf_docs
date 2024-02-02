@@ -91,6 +91,30 @@ class ModifiedCausalForest:
         Names of unordered variables with not so many values to define
         causal heterogeneity. If not already included in var_x_name_ord,
         they will be added to the list of features. Default is None.
+
+    p_atet : Boolean (or None), optional
+        Compute effects for specific treatment groups. Only possible if
+        treatment is included in prediction data.
+        Default (or None) is False.
+
+    p_gatet : Boolean (or None), optional
+        Compute effects for specific treatment groups. Only possible if
+        treatment is included in prediction data.
+        Default (or None) is False.
+
+    p_bgate : Boolean (or None), optional
+        Estimate a GATE that is balanced in selected features (as specified
+        in var_bgate_name. Default (or None) is False.
+
+    p_cbgate : Boolean (or None), optional
+        Estimate a GATE that is balanced in all other features.
+        Default (or None) is False.
+
+    cf_boot : Integer (or None), optional
+        Number of Causal Trees. Default (or None) is 1000.
+
+    lc_yes : Boolean (or None), optional
+        Local centering. Default (or None) is True.
         
     cf_alpha_reg_grid : Integer (or None), optional
         Minimum remaining share when splitting leaf: Number of grid values.
@@ -104,9 +128,6 @@ class ModifiedCausalForest:
     cf_alpha_reg_min : Float (or None), optional
         Minimum remaining share when splitting leaf: Smallest value of
         grid (keep it below 0.2). Default (or None) is 0.05.
-        
-    cf_boot : Integer (or None), optional
-        Number of Causal Trees. Default (or None) is 1000.
         
     cf_chunks_maxsize : Integer (or None), optional
         Randomly split training data in chunks and take average of the
@@ -438,31 +459,10 @@ class ModifiedCausalForest:
         Share of trainig data (if lc_cs_cv is False).
         Default (or None) is 0.25.
         
-    lc_yes : Boolean (or None), optional
-        Local centering. Default (or None) is True.
-        
     lc_uncenter_po : Boolean (or None), optional
         Predicted potential outcomes are re-adjusted for local centering
         are added to data output (iate and iate_eff in results dictionary).
         Default (or None) is True.
-        
-    p_atet : Boolean (or None), optional
-        Compute effects for specific treatment groups. Only possible if
-        treatment is included in prediction data.
-        Default (or None) is False.
-        
-    p_gatet : Boolean (or None), optional
-        Compute effects for specific treatment groups. Only possible if
-        treatment is included in prediction data.
-        Default (or None) is False.
-        
-    p_cbgate : Boolean (or None), optional
-        Estimate a GATE that is balanced in all other features.
-        Default (or None) is False.
-        
-    p_bgate : Boolean (or None), optional
-        Estimate a GATE that is balanced in selected features (as specified
-        in var_bgate_name. Default (or None) is False.
         
     p_gates_minus_previous : Boolean (or None), optional
         Estimate increase of difference of GATEs, CBGATEs, BGATEs when
@@ -793,8 +793,11 @@ class ModifiedCausalForest:
             var_x_name_ord=None, var_x_name_unord=None, var_y_name=None,
             var_y_tree_name=None, var_z_name_list=None,
             var_z_name_ord=None, var_z_name_unord=None,
+            p_atet=False, p_gatet=False, p_bgate=False, p_cbgate=False,
+            cf_boot=1000,
+            lc_yes=True,
             cf_alpha_reg_grid=1, cf_alpha_reg_max=0.15, cf_alpha_reg_min=0.05,
-            cf_boot=1000, cf_chunks_maxsize=None, cf_n_min_grid=1,
+            cf_chunks_maxsize=None, cf_n_min_grid=1,
             cf_n_min_max=None, cf_n_min_min=None, cf_n_min_treat=None,
             cf_nn_main_diag_only=False, cf_m_grid=1, cf_m_random_poisson=True,
             cf_m_share_max=0.6, cf_m_share_min=0.1,
@@ -811,14 +814,14 @@ class ModifiedCausalForest:
             gen_mp_parallel=None, gen_outfiletext=None, gen_outpath=None,
             gen_output_type=2, gen_panel_in_rf=True, gen_weighted=False,
             lc_cs_cv=True, lc_cs_cv_k=5, lc_cs_share=0.25,
-            lc_uncenter_po=True, lc_yes=True,
-            p_cbgate=False, p_ate_no_se_only=False,
-            p_atet=False, p_bgate=False, p_bt_yes=True,
+            lc_uncenter_po=True, 
+            p_ate_no_se_only=False,
+            p_bt_yes=True,
             p_choice_based_sampling=False, p_choice_based_probs=None,
             p_ci_level=0.90, p_cluster_std=False, p_cond_var=True,
             p_gates_minus_previous=False, p_gates_smooth=True,
             p_gates_smooth_bandwidth=1, p_gates_smooth_no_evalu_points=50,
-            p_gatet=False, p_gate_no_evalu_points=50,
+            p_gate_no_evalu_points=50,
             p_bgate_sample_share=None, p_iate=True, p_iate_se=False,
             p_iate_m_ate=False, p_knn=True, p_knn_const=1, p_knn_min_k=10,
             p_nw_bandw=1, p_nw_kern=1, p_max_cats_z_vars=None,
