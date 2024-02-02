@@ -1,7 +1,7 @@
 class McfOptPolReport:
     """
     .. versionadded:: 0.5.0
-        Provides informative reports about the main specification choices and most 
+        Provides reports about the main specification choices and most 
         important results of the :class:`~mcf_functions.ModifiedCausalForest` and
         :class:`~optpolicy_functions.OptimalPolicy` estimations.
 
