@@ -74,7 +74,7 @@ class OptimalPolicy:
     other_costs_of_treat_mult : Float or tuple of floats (with as many
                                 elements as treatments) (or None), optional
         Multiplier of automatically determined cost values. Use only when
-        automatic costs violate the constraints given by OTHER_MAX_SHARES.
+        automatic costs violate the constraints given by other_max_shares.
         This allows to increase (>1) or decrease (<1) the share of treated
         in particular treatment. None: (1, ..., 1). Default is None.
         
