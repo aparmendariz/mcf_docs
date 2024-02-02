@@ -1,23 +1,48 @@
 Estimation of treatment effects
 ===============================
 
-The Modified Causal Forest estimates three types of average treatment effects, which differ in their aggregation level and are discussed in depth by `Lechner (2019) <https://doi.org/10.48550/arXiv.1812.09487>`_. These effects are the average treatment effect (:math:`\textrm{ATE}`), the group average treatment effect (:math:`\textrm{GATE}`), and the individualized average treatment effect (:math:`\textrm{IATE}`). They are defined as follows:
+Treatment effects
+-----------------
 
-We consider a discrete, multi-valued treatment :math:`D`. The potential outcome of treatment state :math:`d` is denoted by :math:`Y^d`. The covariates are denoted by :math:`X` and :math:`Z \subset X` is a low-dimensional vector of features that defines population groups (e.g. age groups, gender, etc.). The effects of interest are then defined as:
+The Modified Causal Forest estimates three types of average treatment effects, which differ in their aggregation level and are discussed in depth by `Lechner (2019) <https://doi.org/10.48550/arXiv.1812.09487>`_. These effects are the average treatment effect (:math:`\textrm{ATE}`), the group average treatment effect (:math:`\textrm{GATE}`), and the individualized average treatment effect (:math:`\textrm{IATE}`). 
+
+Let us consider a discrete, multi-valued treatment :math:`D`. The potential outcome of treatment state :math:`d` is denoted by :math:`Y^d`. The covariates are denoted by :math:`X` and :math:`Z \subset X` is a low-dimensional vector of features that defines population groups (e.g. age groups, gender, etc.). The effects of interest are then defined as:
 
 .. math::
 
-    \textrm{ATE}(m,l;\Delta) &:= \ \mathbb{E} \big[ Y^m-Y^l \big\vert D\in \Delta \big]
+    \textrm{ATE}(m,l;\Delta) &:= \mathbb{E} \big[ Y^m-Y^l \big\vert D\in \Delta \big]
 
     \textrm{GATE}(m,l;z,\Delta) &:= \mathbb{E} \big[ Y^m-Y^l \big\vert Z=z, D\in \Delta \big]
 
     \textrm{IATE}(m,l;x) &:= \mathbb{E} \big[ Y^m-Y^l \big\vert X=x \big]
 
-If :math:`\Delta = \{m\}` :math:`\textrm{ATE}(m,l;\Delta)` is simply the average treatment effect on the treated (:math:`\textrm{ATET}`) for treatment :math:`m`. 
+If :math:`\Delta = \{m\}` then :math:`\textrm{ATE}(m,l;\Delta)` is better known as the average treatment effect on the treated (:math:`\textrm{ATET}`) for treatment :math:`m`. 
+
+Different aggregation levels
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The :math:`\textrm{ATE's}` measure the average impact of treatment :math:`m` compared to treatment :math:`l` for the entire population. The :math:`\textrm{ATE}` and :math:`\textrm{ATET}` are the classical parameters investigated in many econometric studies. 
+
+Whereas ATE's are population averages, IATE's are average effects at the finest possible aggregation level. They measure the average impact of treatment :math:`m` compared to treatment :math:`l` for units with features :math:`X = x`. 
+
+:math:`\textrm{GATE's}` lie somewhere in-between these two extremes. They measure the average impact of treatment :math:`m` compared to treatment :math:`l` for units in group :math:`Z = z`.
+
+:math:`\textrm{GATE's}` and :math:`\textrm{IATES's}` are special cases of the so-called conditional average treatment effects (:math:`\textrm{CATE's}`).
 
 
-ATEs / ATETs
+TO-DO BELOW
+
+
+
+Estimating ATE's / ATET's
 ----------------------------------
+
+Estimating IATE's
+-----------------
+
+Estimating GATE's
+-----------------
+
 
 ATEs are computed without the need of specifying any input arguments.
 
@@ -33,3 +58,56 @@ Also a quick discussion of the inference here and how to get standard errors
 
 technical details on the inference are in the algorithm reference (different
 types of inference methods available). make a reference to that here.
+
+
+Average effects
+---------------
+
+
+In case of different distributions of $X$ in the estimation and prediction samples, the average treatment effects are based on the distribution of $X$ in the prediction sample.
+
+IATEs
+^^^^^
+
+The program estimates IATEs for each observation in the prediction sample without the need of specifying any input arguments. Predicted IATEs and their standard errors will be saved to a CSV file and descriptive statistics are printed to the text file containing the results.
+
+GATEs
+^^^^^
+
+By default, the program smooths the distribution of the GATEs for continuous features. A smoothing procedure evaluates the effects at a local neighborhood around a pre-defined number of evaluation points. The flag `p_gates_smooth <./mcf_api.md#p_gates_smooth>`_ activates this procedure. The level of discretization depends on the number of evaluation points, which can be defined in `p_gates_smooth_no_evalu_points <./mcf_api.md#p_gates_smooth_no_evalu_points>`_. The local neighborhood is based on an Epanechnikov kernel estimation using Silverman's bandwidth rule. The keyword argument `p_gates_smooth_bandwidth <./mcf_api.md#p_gates_smooth_bandwidth>`_ specifies a multiplier for Silverman's bandwidth rule. In addition, it discretizes continuous features and computes the GATEs for those discrete approximations.
+
+Stabilizing estimates of effects by truncating weights
+------------------------------------------------------
+
+To obtain stable estimates, the program provides the option to truncate estimated forest weights to an upper threshold. After truncation, the program renormalizes the weights for estimation. Because of the renormalization step, the final weights can be slightly above the threshold defined in `p_max_weight_share <./mcf_api.md#p_max_weight_share>`_.
+
+
+Evaluation of effect heterogeneity
+----------------------------------
+
+To see if the estimated treatment effects are heterogeneous in their features, the program presents both, statistics on the treatment effects and on their deviations from the ATE.
+
+Input arguments for estimations of treatment effects
+----------------------------------------------------
+
++-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+| Arguments                                     | Description                                                                                                                      |
++===============================================+==================================================================================================================================+
+| `p_gates_smooth <./mcf_api.md#p_gates_smooth>`| Flag for smoothing the distribution of the estimated GATEs for continuous features. The default is True.                        |
++-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+| `p_gates_smooth_no_evalu_points <./mcf_api.md#p_gates_smooth_no_evalu_points>` | Number of evaluation points for GATEs. The default is 50.                                                                       |
++-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+| `p_gates_smooth_bandwidth <./mcf_api.md#p_gates_smooth_bandwidth>` | Multiplier for Silverman's bandwidth rule for GATEs. The default is 1.                                                         |
++-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+| `p_gmate_no_evalu_points <./mcf_api.md#p_gmate_no_evalu_points>` | Number of evaluation points for marginal treatment effects. The default is 50.                                                  |
++-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+| `p_gmate_sample_share <./mcf_api.md#p_gmate_sample_share>` | Number in the interval $(0,1]$ determining the size of $N_{SS}$ for the computation of AMTEs. Note that $N_{SS}$ also depends on the number of evaluation points. |
++-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+| `p_atet <./mcf_api.md#p_atet>` | If *True*, average treatment effects for subpopulations defined by treatment status are computed. This only works if at least one GATE feature is specified. The default is *False*. |
++-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+| `p_gatet <./mcf_api.md#p_gatet>` | If *True*, group average treatment effects for subpopulations defined by treatment status are computed. The default is *False*. |
++-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+| `p_max_weight_share <./mcf_api.md#p_max_weight_share>` | Maximum value of the weights. The default is 0.05.                                                                              |
++-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
+| `p_gates_minus_previous <./mcf_api.md#p_gates_minus_previous>` | If set to True, GATES will be compared to GATEs computed at the previous evaluation point. GATE estimation is a bit slower as it is not optimized for multiprocessing. No plots are shown. Default is False. |
++-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
