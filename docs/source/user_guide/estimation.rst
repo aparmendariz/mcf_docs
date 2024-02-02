@@ -7,15 +7,11 @@ We consider a discrete, multi-valued treatment :math:`D`. The potential outcome 
 
 .. math::
 
-    \begin{align*}
-
     \textrm{ATE}(m,l;\Delta) &:= \ \mathbb{E} \big[ Y^m-Y^l \big\vert D\in \Delta \big]
 
     \textrm{GATE}(m,l;z,\Delta) &:= \mathbb{E} \big[ Y^m-Y^l \big\vert Z=z, D\in \Delta \big]
 
     \textrm{IATE}(m,l;x) &:= \mathbb{E} \big[ Y^m-Y^l \big\vert X=x \big]
-
-    \end{align*}
 
 If :math:`\Delta = \{m\}` :math:`\textrm{ATE}(m,l;\Delta)` is simply the average treatment effect on the treated (:math:`\textrm{ATET}`) for treatment :math:`m`. 
 
