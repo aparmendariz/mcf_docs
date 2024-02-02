@@ -182,7 +182,7 @@ class ModifiedCausalForest:
                 
         .. math::
         
-            \\frac{\\frac{{\\text{n_min_min}} + {\\text{n_min_max}}}{2}}{\\text{number of treatments} \\times 10}, \\text{at least} 1
+            \\frac{\\frac{{\\text{n_min_min}} + {\\text{n_min_max}}}{2}}{\\text{number of treatments} \\times 10}, \\text{at least 1} 
         
         Default is None.
         
