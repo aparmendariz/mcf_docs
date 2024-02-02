@@ -1,3 +1,5 @@
+import pandas as pd
+
 class ModifiedCausalForest:
     """
     Estimation of heterogenous treatment effects with the Modified Causal Forest
