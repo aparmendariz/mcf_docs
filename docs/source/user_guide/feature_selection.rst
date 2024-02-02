@@ -7,7 +7,7 @@ The class :py:class:`~mcf_functions.ModifiedCausalForest` provides you with the 
 
 Note that, an irrelevant feature is never dropped if
 
-- the variable is required for the estimation of :math:`\textrm{GATE's}`, :math:`\textrm{BGATE's}` and :math:`\textrm{CBGATE's}` 
+- the variable is required for the estimation of :math:`\textrm{GATE's}`, :math:`\textrm{BGATE's}` or :math:`\textrm{CBGATE's}`
 - the variable is specified in the parameters ``var_x_name_remain_ord`` or ``var_x_name_remain_unord`` of your :py:class:`~mcf_functions.ModifiedCausalForest`
 - the correlation between two variables to be deleted is bigger than 0.5. In this case, one of the two variables is kept.
 
