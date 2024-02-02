@@ -1,9 +1,3 @@
-"""Created on Mon May 8 2023.
-
-Contains the class and the functions needed for running the mcf.
-@author: MLechner
--*- coding: utf-8 -*-
-"""
 from time import time
 
 from mcf import mcf_print_stats_functions as ps
