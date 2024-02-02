@@ -46,7 +46,7 @@ class McfOptPolReport:
         self.text = {}
     
     def report(self):
-        """Create a PDF report using instances of the:class:`~mcf_functions.ModifiedCausalForest` and
+        """Create a PDF report using instances of the:class:`~mcf_functions.ModifiedCausalForest` and 
         :class:`~optpolicy_functions.OptimalPolicy` classes and saves the file to a user provided location.
 
         Returns
