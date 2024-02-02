@@ -4,7 +4,7 @@ class ModifiedCausalForest:
 
     Parameters
     ----------
-    var_bgate_name :  String or List of strings (or None), optional
+    TEST_var_bgate_name :  String or List of strings (or None), optional
         Variables to balance the GATEs on. Only relevant if P_BGATE is
         True. The distribution of these variables is kept constant when a
         BGATE is computed. None: Use the other heterogeneity variables
