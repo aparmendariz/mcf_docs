@@ -267,7 +267,7 @@ class ModifiedCausalForest:
     cf_subsample_factor_eval : Float or Boolean  (or None), optional
         Size of subsampling sample used to populate tree.
         False: No subsampling in evaluation subsample
-        True or None: :math:`(2 \\times subsample size)` used for tree building (to
+        True or None: :math:`(2 \\times \\text{subsample size})` used for tree building (to
         avoid too many empty leaves)
         Float (>0): Multiplier of subsample size used for tree building
         In particular for larger samples, using subsampling in evaluation
