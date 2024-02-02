@@ -70,7 +70,7 @@ Changes concerning the class :py:class:`~mcf_functions.ModifiedCausalForest`
     - ``_int_cuda`` : Boolean (or None). Use CUDA based GPU if available on hardware. Default is True.
 
 - Sensitivity analysis
-    - The sensitivity :meth:`~ModifiedCausalForest.sensitivity` has the new keyword  results. Here the standard output dictionary from the :meth:`~ModifiedCausalForest.predict` method is expected. If this dictionary contains estimated IATEs, the same data as in the :meth:`~ModifiedCausalForest.predict` method will be used, IATEs are computed under the no effect (basic) scenario and these IATEs are compared to the IATEs contained in the results dictionary. 
+    - The sensitivity :py:meth:`~mcf_functions.ModifiedCausalForest.sensitivity` has the new keyword  results. Here the standard output dictionary from the :meth:`~mcf_functions.ModifiedCausalForest.predict` method is expected. If this dictionary contains estimated IATEs, the same data as in the :meth:`~mcf_functions.ModifiedCausalForest.predict` method will be used, IATEs are computed under the no effect (basic) scenario and these IATEs are compared to the IATEs contained in the results dictionary. 
     - If the dictionary does not contain estimated IATEs, passing it has no consequence.
     - If the results dictionary is passed, and it contains IATEs, then the (new) default value for the keyword ``sens_iate`` is True (and False otherwise)
           
@@ -107,7 +107,7 @@ New class :py:class:`~mcf_functions.McfOptPolReport`
         :class:`~optpolicy_functions.OptimalPolicy` classes
 
 - This new class provides informative reports about the main specification choices and most important results of the ModifiedCausalForest and OptimalPolicy estimations. The report is saved in pdf-format.The reporting capabilities in this version are still basic but will be continously extended in the future (if users see them as a useful addition to the package).
-- Method: report(). The :meth:`~McfOptPolReport.report` method takes the instance of the ModifiedCausalForest and the OptimalPolicy classes as input (after they were used in running the different methods of both classes). It creates the report on a pdf file, which is saved in a user provided location. 
+- Method: the :py:meth:`~mcf_functions.McfOptPolReport.report` method takes the instance of the ModifiedCausalForest and the OptimalPolicy classes as input (after they were used in running the different methods of both classes). It creates the report on a pdf file, which is saved in a user provided location. 
 --------------------------------------------------------------------------------
 
 Version 0.4.3
