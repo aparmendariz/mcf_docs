@@ -94,6 +94,7 @@ Changes concerning the class :py:class:`~optpolicy_functions.OptimalPolicy`
 - There are several changes to speed up the computation of policy trees.
     - New keyword: ``_int_xtr_parallel`` Parallelize to a larger degree to make sure all CPUs are busy for most of the time. Only used for ``policy tree`` and only used if ``_int_parallel_processing`` > 1 (or None). Default is True.
 - There is the new option to build a new optimal policy trees based on the data in each leaf of the (first) optimal policy tree. Although this second tree will also be optimal, the combined tree is no longer optimal. The advantage is a huge speed increase, i.e. a 3+1 tree computes much, much faster than a 4+0 tree, etc. This increased capabilities require a change in keywords:
+
     - Deleted keyword: ``pt_depth_tree``
     - New keywords
         - ``pt_depth_tree_1``   Depth of 1st optimal tree. Default is 3.
