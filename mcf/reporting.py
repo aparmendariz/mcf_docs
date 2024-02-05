@@ -51,14 +51,113 @@ class McfOptPolReport:
     @property
     def gen_dict(self):
         """
-        General parameters to compute reports.
+        Dictionary, general parameters to compute reports.
         """
         return self._gen_dict
 
     @gen_dict.setter
     def gen_dict(self, value):
         self._gen_dict = value
-    
+
+    @property
+    def mcf_o(self):
+        """
+        Dictionary, content from mcf estimation to compute reports.
+        """
+        return self._mcf_o
+
+    @mcf_o.setter
+    def mcf_o(self, value):
+        self._mcf_o = value
+
+    @property
+    def opt_o(self):
+        """
+        Dictionary, content from optimal policy allocation to compute reports.
+        """
+        return self._opt_o
+
+    @opt_o.setter
+    def opt_o(self, value):
+        self._opt_o = value
+
+    @property
+    def sens_o(self):
+        """
+        Dictionary, content from sensitivity analysis to compute reports.
+        """
+        return self._sens_o
+
+    @sens_o.setter
+    def sens_o(self, value):
+        self._sens_o = value
+
+    @property
+    def blind_o(self):
+        """
+        Dictionary, content from partially blinded IATE estimation to compute reports.
+        """
+        return self._blind_o
+
+    @blind_o.setter
+    def blind_o(self, value):
+        self._blind_o = value
+
+    @property
+    def Text(self):
+        """
+        Dictionary, container for text to compute reports.
+        """
+        return self._Text
+
+    @Text.setter
+    def Text(self, value):
+        self._Text = value
+
+    @property
+    def mcf(self):
+        """
+        Boolean, True if there is anything to report about mcf estimation.
+        """
+        return self._mcf
+
+    @mcf.setter
+    def mcf(self, value):
+        self._mcf = value
+
+    @property
+    def opt(self):
+        """
+        Boolean, True if there is anything to report about optimal policy allocation.
+        """
+        return self._opt
+
+    @opt.setter
+    def opt(self, value):
+        self._opt = value
+
+    @property
+    def sens(self):
+        """
+        Boolean, True if there is anything to report about sensitivity analysis.
+        """
+        return self._sens
+
+    @sens.setter
+    def sens(self, value):
+        self._sens = value
+
+    @property
+    def mcf(self):
+        """
+        Boolean, True if there is anything to report about blinded IATE estimation.
+        """
+        return self._mcf
+
+    @mcf.setter
+    def mcf(self, value):
+        self._mcf = value
+        
     def report(self):
         """Create a PDF report using instances of the :class:`~mcf_functions.ModifiedCausalForest` and 
         :class:`~optpolicy_functions.OptimalPolicy` classes and saves the file to a user provided location.
