@@ -1,8 +1,4 @@
-import datetime
-import os
-
 from mcf import reporting_functions as rep
-from mcf import mcf_general_sys as mcf_sys
 
 
 class McfOptPolReport:
@@ -42,8 +38,8 @@ class McfOptPolReport:
     """
 
     def __init__(self, mcf=None, mcf_blind=None, mcf_sense=None, optpol=None,
-                 outputpath=None, outputfile=None):
-        self.gen_dict = gen_init(outputfile, outputpath)
+                 outputpath=None, outputfile=None):        
+        self.gen_dict = rep.gen_init(outputfile, outputpath)
         self.mcf_o, self.opt_o, self.sens_o = mcf, optpol, mcf_sense
         self.blind_o = mcf_blind
         self.mcf = self.mcf_o is not None
@@ -51,6 +47,17 @@ class McfOptPolReport:
         self.sens = self.sens_o is not None
         self.blind = self.blind_o is not None
         self.text = {}
+
+    @property
+    def gen_dict(self):
+        """
+        General parameters to compute reports.
+        """
+        return self._gen_dict
+
+    @gen_dict.setter
+    def gen_dict(self, value):
+        self._gen_dict = value
     
     def report(self):
         """Create a PDF report using instances of the :class:`~mcf_functions.ModifiedCausalForest` and 
@@ -68,18 +75,3 @@ class McfOptPolReport:
         rep.create_pdf_file(self)
         print(f'\nReport printed: {self.gen_dict["outfilename"]}\n')
 
-
-def gen_init(outputfile, outputpath):
-    """Put control variables for reporting into dictionary."""
-    dic = {}
-    # Get the current date and time
-    current_datetime = datetime.datetime.now()
-    # Format the date and time as a string
-    formatted_datetime = current_datetime.strftime('%Y_%m_%d_%H_%M')
-    outputfile = 'Report' if outputfile is None else outputfile
-    outputpath = os.getcwd() + '/out' if outputpath is None else outputpath
-    outputfile += '_' + formatted_datetime + '.pdf'
-    outputpath = mcf_sys.define_outpath(outputpath, new_outpath=False)
-    dic['outfilename'] = outputpath + '/' + outputfile
-
-    return dic
