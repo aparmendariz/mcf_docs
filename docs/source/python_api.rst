@@ -185,6 +185,15 @@ Attributes
    .. autosummary::
       :toctree:
       McfOptPolReport.gen_dict
+      McfOptPolReport.mcf_o
+      McfOptPolReport.opt_o
+      McfOptPolReport.sens_o
+      McfOptPolReport.blind_o
+      McfOptPolReport.Text
+      McfOptPolReport.mcf
+      McfOptPolReport.opt
+      McfOptPolReport.sens
+      McfOptPolReport.mcf
 
 .. autosummary:: 
     ~McfOptPolReport.gen_dict
