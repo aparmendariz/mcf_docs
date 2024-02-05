@@ -154,7 +154,7 @@ class McfOptPolReport:
         """
         return self._blind
 
-    @mcf.setter
+    @blind.setter
     def blind(self, value):
         self._blind = value
         
