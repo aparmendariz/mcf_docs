@@ -205,7 +205,7 @@ Attributes
     ~McfOptPolReport.mcf
     ~McfOptPolReport.opt
     ~McfOptPolReport.sens
-    ~McfOptPolReport.mcf
+    ~McfOptPolReport.blind
 
 
 Methods
