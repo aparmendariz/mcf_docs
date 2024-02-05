@@ -148,15 +148,15 @@ class McfOptPolReport:
         self._sens = value
 
     @property
-    def mcf(self):
+    def blind(self):
         """
         Boolean, True if there is anything to report about blinded IATE estimation.
         """
-        return self._mcf
+        return self._blind
 
     @mcf.setter
-    def mcf(self, value):
-        self._mcf = value
+    def blind(self, value):
+        self._blind = value
         
     def report(self):
         """Create a PDF report using instances of the :class:`~mcf_functions.ModifiedCausalForest` and 
