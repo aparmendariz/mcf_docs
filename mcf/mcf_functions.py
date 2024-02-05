@@ -1106,6 +1106,9 @@ class ModifiedCausalForest:
 
     @property
     def report(self):
+        """
+        Provides information for McfOptPolReports to construct reports. 
+        """
         return self._report
 
     @report.setter
