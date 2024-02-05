@@ -173,6 +173,22 @@ Reporting
 
 .. autoclass:: McfOptPolReport
 
+Attributes
+^^^^^^^^^^
+
+..
+   HACK -- Also list the attributes in the "commented out" paragraph below. The
+   point here is that we don't want this to appear in the output, but the
+   autosummary below will, even when commented out, generate the separate
+   documentation page that can be cross-referenced.
+
+   .. autosummary::
+      :toctree:
+      McfOptPolReport.gen_dict
+
+.. autosummary:: 
+    ~McfOptPolReport.gen_dict
+
 
 Methods
 ^^^^^^^
