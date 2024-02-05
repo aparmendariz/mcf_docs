@@ -6,7 +6,7 @@ Treatment effects
 
 The Modified Causal Forest estimates three types of average treatment effects, which differ in their aggregation level and are discussed in depth by `Lechner (2019) <https://doi.org/10.48550/arXiv.1812.09487>`_. These effects are the average treatment effect (:math:`\textrm{ATE}`), the group average treatment effect (:math:`\textrm{GATE}`), and the individualized average treatment effect (:math:`\textrm{IATE}`). 
 
-Let us consider a discrete, multi-valued treatment :math:`D`. The potential outcome of treatment state :math:`d` is denoted by :math:`Y^d`. The covariates are denoted by :math:`X` and :math:`Z \subset X` is a low-dimensional vector of features that defines population groups (e.g. age groups, gender, etc.). The effects of interest are then defined as:
+Let us consider a discrete, multi-valued treatment :math:`D`. The potential outcome of treatment state :math:`d` is denoted by :math:`Y^d`. The covariates are denoted by :math:`X` and :math:`Z \subset X` is a vector of features with "few values" that typically define population groups (e.g. age groups, gender, etc.). The effects of interest are then defined as:
 
 .. math::
 
@@ -16,42 +16,32 @@ Let us consider a discrete, multi-valued treatment :math:`D`. The potential outc
 
     \textrm{IATE}(m,l;x) &:= \mathbb{E} \big[ Y^m-Y^l \big\vert X=x \big]
 
-If :math:`\Delta = \{m\}` then :math:`\textrm{ATE}(m,l;\Delta)` is better known as the average treatment effect on the treated (:math:`\textrm{ATET}`) for treatment :math:`m`. 
+If :math:`\Delta = \{m\}` then :math:`\textrm{ATE}(m,l;\Delta)` is better known as the average treatment effect on the treated (:math:`\textrm{ATET}`) for the individuals that received treatment :math:`m`.
 
-Different aggregation levels
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:math:`\textrm{ATE's}` measure the average impact of treatment :math:`m` compared to treatment :math:`l` either for the entire population, or in case of an :math:`ATET`, for the units that actually received a specific treatment. 
 
-The :math:`\textrm{ATE's}` measure the average impact of treatment :math:`m` compared to treatment :math:`l` for the entire population. The :math:`\textrm{ATE}` and :math:`\textrm{ATET}` are the classical parameters investigated in many econometric studies. 
+Whereas :math:`ATE's` are population averages, :math:`IATE's` are average effects at the finest possible aggregation level. They measure the average impact of treatment :math:`m` compared to treatment :math:`l` for units with features :math:`X = x`. :math:`\textrm{GATE's}` lie somewhere in-between these two extremes. They measure the average impact of treatment :math:`m` compared to treatment :math:`l` for units in group :math:`Z = z`. :math:`\textrm{GATE's}` and :math:`\textrm{IATES's}` are special cases of the so-called conditional average treatment effects (:math:`\textrm{CATE's}`).
 
-Whereas ATE's are population averages, IATE's are average effects at the finest possible aggregation level. They measure the average impact of treatment :math:`m` compared to treatment :math:`l` for units with features :math:`X = x`. 
-
-:math:`\textrm{GATE's}` lie somewhere in-between these two extremes. They measure the average impact of treatment :math:`m` compared to treatment :math:`l` for units in group :math:`Z = z`.
-
-:math:`\textrm{GATE's}` and :math:`\textrm{IATES's}` are special cases of the so-called conditional average treatment effects (:math:`\textrm{CATE's}`).
+A recent paper by `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08290>`_ introduced the Balanced Group Average Treatment Effect (:math:`\textrm{BGATE}`). Click :doc:`here <algorithm_reference/bgates_cbgates>` to learn more about estimating :math:`\textrm{BGATE's}` with the Modified Causal Forest.
 
 
-TO-DO BELOW
+WIP below
 
-
-
-Estimating ATE's / ATET's
+Estimating ATE's / IATE's 
 ----------------------------------
 
-Estimating IATE's
------------------
+ATEs are computed without the need of specifying any input arguments.
+
+ATET's
+----------------------------------
+
 
 Estimating GATE's
 -----------------
 
-
-ATEs are computed without the need of specifying any input arguments.
-
-Computing effects for the treated
-----------------------------------
+-> mention effects for the treatment here as well.
 
 The effects for the treated are computed if the input arguments `p_atet <./mcf_api.md#p_atet>`_ or `p_gatet <./mcf_api.md#p_gatet>`_ are set to *True*.
-
-we can make a reference to BGATE's and CBGATE's here
 
 Also a quick discussion of the inference here and how to get standard errors
 (not technical!)
