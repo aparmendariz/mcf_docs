@@ -24,6 +24,7 @@ Whereas :math:`ATE's` are population averages, :math:`IATE's` are average effect
 
 A recent paper by `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08290>`_ introduced the Balanced Group Average Treatment Effect (:math:`\textrm{BGATE}`). Click :doc:`here <algorithm_reference/bgates_cbgates>` to learn more about estimating :math:`\textrm{BGATE's}` with the Modified Causal Forest.
 
+:doc:`algorithm_reference/bgates_cbgates`
 
 WIP below
 
