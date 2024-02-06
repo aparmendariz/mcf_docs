@@ -209,7 +209,7 @@ class OptimalPolicy:
     var_polscore_name : Tuple of strings (or None), optional
         Names of treatment specific variables to measure the value of
         individual treatments. This is ususally the estimated potential
-        outcome or any other score related. This is required for the solve
+        outcome or any other score related. This is required for the :meth:`~OptimalPolicy.solve`
         method. Default is None.
 
     var_x_name_ord : Tuple of strings (or None), optional
