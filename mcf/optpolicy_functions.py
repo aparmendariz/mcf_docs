@@ -53,13 +53,13 @@ class OptimalPolicy:
         Default (or None) is 'best_policy_score'.
 
     gen_outfiletext : String (or None), optional
-        File for text output. *.txt file extension will be automatically
+        File for text output. (\*.txt) file extension will be automatically
         added. Default (or None) is 'txtFileWithOutput'.
 
     gen_outpath : String (or None), optional
         Directory to where to put text output and figures. If it does not
         exist, it will be created.
-        None: *.out directory just below to the directory where the
+        None: (\*.out) directory just below to the directory where the
         programme is run. Default is None.
 
     gen_output_type : Integer (or None), optional
