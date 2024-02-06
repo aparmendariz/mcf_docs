@@ -367,7 +367,7 @@ class OptimalPolicy:
     def other_dict(self, value):
         self._other_dict = value
 
-        @property
+    @property
     def pt_dict(self):
         """
         Dictionary, parameters used to build policy tree.
