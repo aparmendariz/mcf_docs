@@ -97,7 +97,7 @@ class OptimalPolicy:
         Note that tree depth is defined such that a depth of 1 implies 2
         leaves, a depth of implies 4 leaves, a depth of 3 implies 8 leaves, etc.
 
-    pt_depth_tree_2 = 2 : Integer (or None), optional
+    pt_depth_tree_2 : Integer (or None), optional
         Depth of 2nd optimal tree. This set is build within the strata
         obtained from the leaves of the first tree. If set to 0, a second
         tree is not build. Default is 1 (together with the default for
