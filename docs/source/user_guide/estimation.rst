@@ -27,7 +27,11 @@ A recent paper by `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08
 Estimating ATE's / IATE's 
 ----------------------------------
 
-The :math:`\textrm{ATE's}` as well as the :math:`\textrm{IATE's}` are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method of the class :py:class:`~mcf_functions.ModifiedCausalForest`. See :doc:`getting_started` for a quick example on how to access these estimates.
+The :math:`\textrm{ATE's}` as well as the :math:`\textrm{IATE's}` are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method of the class :py:class:`~mcf_functions.ModifiedCausalForest`. See :doc:`../getting_started` for a quick example on how to access these estimates.
+
+:doc:`../getting_started`
+
+:doc:`/getting_started`
 
 Estimating ATET's
 ----------------------------------
@@ -45,7 +49,7 @@ The average treatment effects for the treated are estimated by the :py:meth:`~mc
     )
     my_mcf.train(my_data)
 
-The :math:`\textrm{ATET's}` are, similar to the :math:`\textrm{ATE's}`, stored in the `"ate"` entry of the dictionary returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method. This entry will then contain both the estimated :math:`\textrm{ATET's}` as well as the :math:`\textrm{ATE's}`. The output that is printed to the console during estimation will present you a table with all estimated :math:`\textrm{ATE's}` and :math:`\textrm{ATET's}`, which should give you a good idea of the structure of the `"ate"` entry in the result dictionary.
+The :math:`\textrm{ATET's}` are, similar to the :math:`\textrm{ATE's}`, stored in the `"ate"` entry of the dictionary returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method. This entry will then contain both the estimated :math:`\textrm{ATET's}` as well as the :math:`\textrm{ATE's}`. The output that is printed to the console during prediction will present you a table with all estimated :math:`\textrm{ATE's}` and :math:`\textrm{ATET's}`, which should give you a good idea of the structure of the `"ate"` entry in the result dictionary.
 
 .. code-block:: python
 
