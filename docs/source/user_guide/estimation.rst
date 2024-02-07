@@ -33,13 +33,13 @@ Another way to access the estimated :math:`\textrm{ATE's}` is through the output
 
 You can control whether :math:`\textrm{IATE's}` and their standard errors are estimated by setting the parameters ``p_iate`` and ``p_iate_se`` of the class :py:class:`~mcf_functions.ModifiedCausalForest` to True or False:
 
-+---------------+----------------------------------------------------------------------+
-| Parameter     | Description                                                          |
-+---------------+----------------------------------------------------------------------+
-| ``p_iate``    | If True, IATE's will be estimated. Default: True.                    |
-+---------------+----------------------------------------------------------------------+
-| ``p_iate_se`` | If True, Standard errors of IATEs will be estimated. Default: False. |
-+---------------+----------------------------------------------------------------------+
++---------------+-----------------------------------------------------------------------+
+| Parameter     | Description                                                           |
++---------------+-----------------------------------------------------------------------+
+| ``p_iate``    | If True, IATE's will be estimated. Default: True.                     |
++---------------+-----------------------------------------------------------------------+
+| ``p_iate_se`` | If True, standard errors of IATE's will be estimated. Default: False. |
++---------------+-----------------------------------------------------------------------+
 
 Example
 ~~~~~~~
