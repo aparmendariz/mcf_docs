@@ -27,9 +27,7 @@ A recent paper by `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08
 Estimating ATE's / IATE's 
 ----------------------------------
 
-The :math:`\textrm{ATE's}` as well as the :math:`\textrm{IATE's}` are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method of the class :py:class:`~mcf_functions.ModifiedCausalForest`. See :doc:`getting_started` for a quick example on how to access the estimates.
-
-Note that in case the distribution of the covariates :math:`X` differs between the training and the prediction sample, the estimated treatment effects are based on the distribution of :math:`X` in the prediction sample.
+The :math:`\textrm{ATE's}` as well as the :math:`\textrm{IATE's}` are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method of the class :py:class:`~mcf_functions.ModifiedCausalForest`. See :doc:`getting_started` for a quick example on how to access these estimates.
 
 Estimating ATET's
 ----------------------------------
@@ -45,17 +43,19 @@ The average treatment effects for the treated are estimated by the :py:meth:`~mc
         # Estimating ATET's
         p_atet = True
     )
-    my_mcf.train(train_mcf_df)
+    my_mcf.train(my_data)
 
 The :math:`\textrm{ATET's}` are, similar to the :math:`\textrm{ATE's}`, stored in the `"ate"` entry of the dictionary returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method. This entry will then contain both the estimated :math:`\textrm{ATET's}` as well as the :math:`\textrm{ATE's}`. The output that is printed to the console during estimation will present you a table with all estimated :math:`\textrm{ATE's}` and :math:`\textrm{ATET's}`, which should give you a good idea of the structure of the `"ate"` entry in the result dictionary.
 
 .. code-block:: python
-    results = my_mcf.predict(pred_mcf_train_pt_df)
+
+    results = my_mcf.predict(my_data)
     results["ate"]
 
 The standard errors of the estimates are stored in the `"ate_se"` entry of the same dictionary. The structure of the `"ate_se"` entry is analogous to the `"ate"` entry. 
 
 .. code-block:: python
+
     results["ate_se"]
 
 
