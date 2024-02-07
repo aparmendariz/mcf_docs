@@ -29,10 +29,6 @@ Estimating ATE's / IATE's
 
 The :math:`\textrm{ATE's}` as well as the :math:`\textrm{IATE's}` are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method of the class :py:class:`~mcf_functions.ModifiedCausalForest`. See :doc:`../getting_started` for a quick example on how to access these estimates.
 
-:doc:`../getting_started`
-
-:doc:`/getting_started`
-
 Estimating ATET's
 ----------------------------------
 
@@ -70,16 +66,6 @@ or `p_gatet <./mcf_api.md#p_gatet>`_ are set to *True*.
 
 The effects for the treated are computed if the input arguments `p_atet <./mcf_api.md#p_atet>`_ or `p_gatet <./mcf_api.md#p_gatet>`_ are set to *True*.
 
-Also a quick discussion of the inference here and how to get standard errors
-(not technical!)
-
-technical details on the inference are in the algorithm reference (different
-types of inference methods available). make a reference to that here.
-
-
-GATEs
-^^^^^
-
 By default, the program smooths the distribution of the GATEs for continuous features. A smoothing procedure evaluates the effects at a local neighborhood around a pre-defined number of evaluation points. The flag `p_gates_smooth <./mcf_api.md#p_gates_smooth>`_ activates this procedure. The level of discretization depends on the number of evaluation points, which can be defined in `p_gates_smooth_no_evalu_points <./mcf_api.md#p_gates_smooth_no_evalu_points>`_. The local neighborhood is based on an Epanechnikov kernel estimation using Silverman's bandwidth rule. The keyword argument `p_gates_smooth_bandwidth <./mcf_api.md#p_gates_smooth_bandwidth>`_ specifies a multiplier for Silverman's bandwidth rule. In addition, it discretizes continuous features and computes the GATEs for those discrete approximations.
 
 Stabilizing estimates of effects by truncating weights
@@ -87,11 +73,6 @@ Stabilizing estimates of effects by truncating weights
 
 To obtain stable estimates, the program provides the option to truncate estimated forest weights to an upper threshold. After truncation, the program renormalizes the weights for estimation. Because of the renormalization step, the final weights can be slightly above the threshold defined in `p_max_weight_share <./mcf_api.md#p_max_weight_share>`_.
 
-
-Evaluation of effect heterogeneity
-----------------------------------
-
-To see if the estimated treatment effects are heterogeneous in their features, the program presents both, statistics on the treatment effects and on their deviations from the ATE.
 
 Input arguments for estimations of treatment effects
 ----------------------------------------------------
@@ -104,10 +85,6 @@ Input arguments for estimations of treatment effects
 | `p_gates_smooth_no_evalu_points <./mcf_api.md#p_gates_smooth_no_evalu_points>` | Number of evaluation points for GATEs. The default is 50.                                                                       |
 +-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
 | `p_gates_smooth_bandwidth <./mcf_api.md#p_gates_smooth_bandwidth>` | Multiplier for Silverman's bandwidth rule for GATEs. The default is 1.                                                         |
-+-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
-| `p_gmate_no_evalu_points <./mcf_api.md#p_gmate_no_evalu_points>` | Number of evaluation points for marginal treatment effects. The default is 50.                                                  |
-+-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
-| `p_gmate_sample_share <./mcf_api.md#p_gmate_sample_share>` | Number in the interval $(0,1]$ determining the size of $N_{SS}$ for the computation of AMTEs. Note that $N_{SS}$ also depends on the number of evaluation points. |
 +-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
 | `p_atet <./mcf_api.md#p_atet>` | If *True*, average treatment effects for subpopulations defined by treatment status are computed. This only works if at least one GATE feature is specified. The default is *False*. |
 +-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
