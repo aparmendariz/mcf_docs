@@ -27,7 +27,7 @@ A recent paper by `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08
 Estimating ATE's / IATE's 
 ----------------------------------
 
-The :math:`\textrm{ATE's}` as well as the :math:`\textrm{IATE's}` are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method of the class :py:class:`~mcf_functions.ModifiedCausalForest`. See `Getting started`_ for a quick example on how to access the estimates.
+The :math:`\textrm{ATE's}` as well as the :math:`\textrm{IATE's}` are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method of the class :py:class:`~mcf_functions.ModifiedCausalForest`. See :doc:`getting_started` for a quick example on how to access the estimates.
 
 Note that in case the distribution of the covariates :math:`X` differs between the training and the prediction sample, the estimated treatment effects are based on the distribution of :math:`X` in the prediction sample.
 
