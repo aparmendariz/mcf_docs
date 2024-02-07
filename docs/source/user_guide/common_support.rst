@@ -3,6 +3,8 @@ Common support
 
 Estimating heterogenous treatment effects requires common support in all treatment arms. The class :py:class:`~mcf_functions.ModifiedCausalForest` has several options to check for and enforce common support. 
 
+NOTE: Mention the plots that are generated and that they are saved in the output folder.
+
 Implementation
 ==============
 
