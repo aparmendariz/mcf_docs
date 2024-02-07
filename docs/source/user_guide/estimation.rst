@@ -1,10 +1,10 @@
 Estimation of treatment effects
 ===============================
 
-Treatment effects
------------------
+Different types of treatment effects
+------------------------------------
 
-The Modified Causal Forest estimates three types of average treatment effects, which differ in their aggregation level and are discussed in depth by `Lechner (2019) <https://doi.org/10.48550/arXiv.1812.09487>`_. These effects are the average treatment effect (:math:`\textrm{ATE}`), the group average treatment effect (:math:`\textrm{GATE}`), and the individualized average treatment effect (:math:`\textrm{IATE}`). 
+The Modified Causal Forest estimates three types of treatment effects, which differ in their aggregation level and are discussed in depth by `Lechner (2019) <https://doi.org/10.48550/arXiv.1812.09487>`_. These effects are the average treatment effect (:math:`\textrm{ATE}`), the group average treatment effect (:math:`\textrm{GATE}`), and the individualized average treatment effect (:math:`\textrm{IATE}`).
 
 Let us consider a discrete, multi-valued treatment :math:`D`. The potential outcome of treatment state :math:`d` is denoted by :math:`Y^d`. The covariates are denoted by :math:`X` and :math:`Z \subset X` is a vector of features with "few values" that typically define population groups (e.g. age groups, gender, etc.). The effects of interest are then defined as:
 
@@ -18,26 +18,50 @@ Let us consider a discrete, multi-valued treatment :math:`D`. The potential outc
 
 If :math:`\Delta = \{m\}` then :math:`\textrm{ATE}(m,l;\Delta)` is better known as the average treatment effect on the treated (:math:`\textrm{ATET}`) for the individuals that received treatment :math:`m`.
 
-:math:`\textrm{ATE's}` measure the average impact of treatment :math:`m` compared to treatment :math:`l` either for the entire population, or in case of an :math:`ATET`, for the units that actually received a specific treatment. 
+:math:`\textrm{ATE's}` measure the average impact of treatment :math:`m` compared to treatment :math:`l` either for the entire population, or in case of an :math:`\textrm{ATET}`, for the units that actually received a specific treatment. 
 
-Whereas :math:`ATE's` are population averages, :math:`IATE's` are average effects at the finest possible aggregation level. They measure the average impact of treatment :math:`m` compared to treatment :math:`l` for units with features :math:`X = x`. :math:`\textrm{GATE's}` lie somewhere in-between these two extremes. They measure the average impact of treatment :math:`m` compared to treatment :math:`l` for units in group :math:`Z = z`. :math:`\textrm{GATE's}` and :math:`\textrm{IATES's}` are special cases of the so-called conditional average treatment effects (:math:`\textrm{CATE's}`).
+Whereas :math:`\textrm{ATE's}` are population averages, :math:`\textrm{IATE's}` are average effects at the finest possible aggregation level. They measure the average impact of treatment :math:`m` compared to treatment :math:`l` for units with features :math:`X = x`. :math:`\textrm{GATE's}` lie somewhere in-between these two extremes. They measure the average impact of treatment :math:`m` compared to treatment :math:`l` for units in group :math:`Z = z`. :math:`\textrm{GATE's}` and :math:`\textrm{IATES's}` are special cases of the so-called conditional average treatment effects (:math:`\textrm{CATE's}`).
 
 A recent paper by `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08290>`_ introduced the Balanced Group Average Treatment Effect (:math:`\textrm{BGATE}`). Click :doc:`here </algorithm_reference/bgates_cbgates>` to learn more about estimating :math:`\textrm{BGATE's}` with the Modified Causal Forest.
-
-WIP below
 
 Estimating ATE's / IATE's 
 ----------------------------------
 
-ATEs are computed without the need of specifying any input arguments.
+The :math:`\textrm{ATE's}` as well as the :math:`\textrm{IATE's}` are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method of the class :py:class:`~mcf_functions.ModifiedCausalForest`. See `Getting started`_ for a quick example on how to access the estimates.
 
-ATET's
+Note that in case the distribution of the covariates :math:`X` differs between the training and the prediction sample, the estimated treatment effects are based on the distribution of :math:`X` in the prediction sample.
+
+Estimating ATET's
 ----------------------------------
+
+The average treatment effects for the treated are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method if the parameter ``p_atet`` of the class :py:class:`~mcf_functions.ModifiedCausalForest` is set to True:
+
+.. code-block:: python
+
+    my_mcf = ModifiedCausalForest(
+        var_y_name="y",
+        var_d_name="d",
+        var_x_name_ord=["x1", "x2"],
+        # Estimating ATET's
+        p_atet = True
+    )
+    my_mcf.train(train_mcf_df)
+
+The :math:`\textrm{ATET's}` are, similar to the :math:`\textrm{ATE's}`, stored in the `"ate"` entry of the dictionary returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method. This entry will then contain both the estimated :math:`\textrm{ATET's}` as well as the :math:`\textrm{ATE's}`. The output that is printed to the console during estimation will present you a table with all estimated :math:`\textrm{ATE's}` and :math:`\textrm{ATET's}`, which should give you a good idea of the structure of the `"ate"` entry in the result dictionary.
+
+.. code-block:: python
+    results = my_mcf.predict(pred_mcf_train_pt_df)
+    results["ate"]
+
+The standard errors of the estimates are stored in the `"ate_se"` entry of the same dictionary. The structure of the `"ate_se"` entry is analogous to the `"ate"` entry. 
+
+.. code-block:: python
+    results["ate_se"]
 
 
 Estimating GATE's
 -----------------
-
+or `p_gatet <./mcf_api.md#p_gatet>`_ are set to *True*.
 -> mention effects for the treatment here as well.
 
 The effects for the treated are computed if the input arguments `p_atet <./mcf_api.md#p_atet>`_ or `p_gatet <./mcf_api.md#p_gatet>`_ are set to *True*.
@@ -48,17 +72,6 @@ Also a quick discussion of the inference here and how to get standard errors
 technical details on the inference are in the algorithm reference (different
 types of inference methods available). make a reference to that here.
 
-
-Average effects
----------------
-
-
-In case of different distributions of $X$ in the estimation and prediction samples, the average treatment effects are based on the distribution of $X$ in the prediction sample.
-
-IATEs
-^^^^^
-
-The program estimates IATEs for each observation in the prediction sample without the need of specifying any input arguments. Predicted IATEs and their standard errors will be saved to a CSV file and descriptive statistics are printed to the text file containing the results.
 
 GATEs
 ^^^^^
