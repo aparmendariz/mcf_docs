@@ -27,7 +27,34 @@ A recent paper by `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08
 Estimating ATE's / IATE's 
 ----------------------------------
 
-The :math:`\textrm{ATE's}` as well as the :math:`\textrm{IATE's}` are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method of the class :py:class:`~mcf_functions.ModifiedCausalForest`. See :doc:`../getting_started` for a quick example on how to access these estimates.
+The :math:`\textrm{ATE's}` as well as the :math:`\textrm{IATE's}` are estimated by default through the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method of the class :py:class:`~mcf_functions.ModifiedCausalForest`. See :doc:`../getting_started` for a quick example on how to access these estimates.
+
+Another way to access the estimated :math:`\textrm{ATE's}` is through the output folder that the **mcf** package generates once a Modified Causal Forest is initialized. You can find the location of this folder in your console output (or specify it through the ``gen_outpath`` parameter of the class :py:meth:`~mcf_functions.ModifiedCausalForest`). The folder will contain csv-files with the estimated :math:`\textrm{ATE's}` in the subfolder `ate_iate`.
+
+You can control whether :math:`\textrm{IATE's}` and their standard errors are estimated by setting the parameters ``p_iate`` and ``p_iate_se`` of the class :py:class:`~mcf_functions.ModifiedCausalForest` to True or False:
+
++---------------+----------------------------------------------------------------------+
+| Parameter     | Description                                                          |
++---------------+----------------------------------------------------------------------+
+| ``p_iate``    | If True, IATE's will be estimated. Default: True.                    |
++---------------+----------------------------------------------------------------------+
+| ``p_iate_se`` | If True, Standard errors of IATEs will be estimated. Default: False. |
++---------------+----------------------------------------------------------------------+
+
+Example
+~~~~~~~
+
+.. code-block:: python
+
+    my_mcf = ModifiedCausalForest(
+        var_y_name="y",
+        var_d_name="d",
+        var_x_name_ord=["x1", "x2"],
+        # Estimate IATE's but not their standard errors
+        p_iate = True,
+        p_iate_se = False
+    )
+
 
 Estimating ATET's
 ----------------------------------
