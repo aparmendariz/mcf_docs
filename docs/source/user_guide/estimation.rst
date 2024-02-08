@@ -1,12 +1,17 @@
 Estimation of treatment effects
 ===============================
 
+TO-DO: Need to refer to the API at some point regarding more detailed
+information on the parameters or parameters not mentioned here.
+
+
 Different types of treatment effects
 ------------------------------------
 
 The Modified Causal Forest estimates three types of treatment effects, which differ in their aggregation level and are discussed in depth by `Lechner (2019) <https://doi.org/10.48550/arXiv.1812.09487>`_. These effects are the average treatment effect (:math:`\textrm{ATE}`), the group average treatment effect (:math:`\textrm{GATE}`), and the individualized average treatment effect (:math:`\textrm{IATE}`).
 
-Let us consider a discrete, multi-valued treatment :math:`D`. The potential outcome of treatment state :math:`d` is denoted by :math:`Y^d`. The covariates are denoted by :math:`X` and :math:`Z \subset X` is a vector of features with "few values" that typically define population groups (e.g. age groups, gender, etc.). The effects of interest are then defined as:
+Let us consider a discrete, multi-valued treatment :math:`D`. The potential outcome of treatment state :math:`d` is denoted by :math:`Y^d`. The covariates that are needed to correct for selection bias are denoted by :math:`X`. :math:`Z \subset X` is a vector of features that defines the effect heterogeneity of interest. :math:`Z` can contain continuous and discrete variables, but usually these are variables with
+relatively "few values" that define population groups (e.g. age, gender, etc.). The effects of interest are then defined as:
 
 .. math::
 
