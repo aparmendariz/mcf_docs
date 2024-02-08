@@ -101,13 +101,60 @@ The standard errors of the estimates are stored in the `"ate_se"` entry of the s
 
     results["ate_se"]
 
+Another way to access the estimated :math:`\textrm{ATET's}` is through the output folder that the **mcf** package generates once a Modified Causal Forest is initialized. You can find the location of this folder by accessing the `"outpath"` entry of the `gen_dict` attribute of your Modified Causal Forest:
+
+.. code-block:: python
+
+    my_mcf.gen_dict["outpath"]
+
+You can also specify this path through the ``gen_outpath`` parameter of the class :py:meth:`~mcf_functions.ModifiedCausalForest`. The output folder will contain csv-files with the estimated :math:`\textrm{ATET's}` in the subfolder `ate_iate`.
 
 Estimating GATE's
 -----------------
-or `p_gatet <./mcf_api.md#p_gatet>`_ are set to *True*.
--> mention effects for the treatment here as well.
 
-The effects for the treated are computed if the input arguments `p_atet <./mcf_api.md#p_atet>`_ or `p_gatet <./mcf_api.md#p_gatet>`_ are set to *True*.
+Group average treatment effects are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method if you define heterogeneity variables through the parameters ``var_z_name_list``, ``var_z_name_ord`` or ``var_z_name_unord`` in your :py:class:`~mcf_functions.ModifiedCausalForest`. For every feature in the vector of heterogeneity variables :math:`Z`, a :math:`GATE` will be estimated separately. Please refer to the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details on how to specify you heterogeneity variables with the above mentioned parameters.
+
+.. code-block:: python
+
+    my_mcf = ModifiedCausalForest(
+        var_y_name="y",
+        var_d_name="d",
+        var_x_name_ord=["x1", "x2"],
+        # Specify a heterogeneity variable for GATE estimation
+        var_z_name_unord=["female"]
+    )
+
+You can access the estimated :math:`GATE's` and their standard errors through their corresponding entries in the dictionary that is returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method:
+
+.. code-block:: python
+
+    results = my_mcf.predict(my_data)
+    results["gate_names_values"] # Describes the structure of the 'gate' entry
+    results["gate"] # Estimated GATE's
+    results["gate_se"] # Standard errors of the estimated GATE's
+
+A simpler way to inspect the estimated :math:`GATE's` is through the output folder that the **mcf** package generates once a Modified Causal Forest is initialized. You can find the location of this folder by accessing the `"outpath"` entry of the `gen_dict` attribute of your Modified Causal Forest:
+
+.. code-block:: python
+
+    my_mcf.gen_dict["outpath"]
+
+You can also specify this path through the ``gen_outpath`` parameter of the class :py:meth:`~mcf_functions.ModifiedCausalForest`. The output folder will contain both csv-files with the results as well as plots of the estimated :math:`GATE's` in the subfolder `gate`.
+
+To estimate the :math:`GATE's` for subpopulations defined by treatment status (:math:`GATET's`), you can set the parameter ``p_gatet`` of the class :py:class:`~mcf_functions.ModifiedCausalForest` to True and you can access these estimates the same way as the regular :math:`GATE's`.
+
+.. code-block:: python
+
+    my_mcf = ModifiedCausalForest(
+        var_y_name="y",
+        var_d_name="d",
+        var_x_name_ord=["x1", "x2"],
+        var_z_name_unord=["female"]
+        # Estimating GATE's for subpopulations defined by treatment status
+        p_gatet = True
+    )
+
+
 
 By default, the program smooths the distribution of the GATEs for continuous features. A smoothing procedure evaluates the effects at a local neighborhood around a pre-defined number of evaluation points. The flag `p_gates_smooth <./mcf_api.md#p_gates_smooth>`_ activates this procedure. The level of discretization depends on the number of evaluation points, which can be defined in `p_gates_smooth_no_evalu_points <./mcf_api.md#p_gates_smooth_no_evalu_points>`_. The local neighborhood is based on an Epanechnikov kernel estimation using Silverman's bandwidth rule. The keyword argument `p_gates_smooth_bandwidth <./mcf_api.md#p_gates_smooth_bandwidth>`_ specifies a multiplier for Silverman's bandwidth rule. In addition, it discretizes continuous features and computes the GATEs for those discrete approximations.
 
