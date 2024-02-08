@@ -82,7 +82,13 @@ as follows:
         _int_show_plots=False # Suppress the display of diagnostic plots during estimation
     )
 
-The **mcf** package generates a number of standard outputs for your convenience. After initializing a Modified Causal Forest, the package will create an output folder where these results will be stored. You can find the location of this folder in your console output. Alternatively, you can manually specify the folder location using the ``gen_outpath`` parameter.
+The **mcf** package generates a number of standard outputs for your convenience. After initializing a Modified Causal Forest, the package will create an output folder where these results will be stored. You can find the location of this folder by accessing the `outpath` entry of the `gen_dict` attribute of your Modified Causal Forest:
+
+.. code-block:: python
+
+    my_mcf.gen_dict["outpath"]
+
+You can also specify the location of this folder manually using the ``gen_outpath`` parameter of the class :py:class:`~mcf_functions.ModifiedCausalForest`
 
 .. dropdown:: Commonly used optional parameters 
 
