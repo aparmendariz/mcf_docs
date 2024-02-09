@@ -90,9 +90,9 @@ The **mcf** package generates a number of standard outputs for your convenience.
 
 You can also specify the location of this folder manually using the ``gen_outpath`` parameter of the class :py:class:`~mcf_functions.ModifiedCausalForest`
 
-.. dropdown:: Commonly used optional parameters 
+Below you find a selected list of optional parameters that are often used to initialize a Modified Causal Forest. For a more detailed description of these parameters, please refer to the documentation of :py:class:`~mcf_functions.ModifiedCausalForest`.
 
-    Below you find a selected list of optional parameters that are often used to initialize a Modified Causal Forest. For a more detailed description of these parameters, please refer to the documentation of :py:class:`~mcf_functions.ModifiedCausalForest`.
+.. dropdown:: Commonly used optional parameters
 
     +----------------------------------+------------------------------------------------------------------------------------------------------------------+
     | Parameter                        | Description                                                                                                      |
@@ -107,7 +107,7 @@ You can also specify the location of this folder manually using the ``gen_outpat
     +----------------------------------+------------------------------------------------------------------------------------------------------------------+
     | ``var_z_name_unord``             | Unordered feature(s) used for :math:`\textrm{GATE}` estimation.                                                  |
     +----------------------------------+------------------------------------------------------------------------------------------------------------------+
-    | ``p_gatet``                      | If True, :math:`\textrm{GATET's}` are estimated. Default: False.                      |
+    | ``p_gatet``                      | If True, :math:`\textrm{GATET's}` are estimated. Default: False.                                                 |
     +----------------------------------+------------------------------------------------------------------------------------------------------------------+
     | ``var_x_name_always_in_ord``     | Ordered feature(s) always used in splitting decision.                                                            |
     +----------------------------------+------------------------------------------------------------------------------------------------------------------+
