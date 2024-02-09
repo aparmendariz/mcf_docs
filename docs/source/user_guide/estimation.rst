@@ -210,7 +210,7 @@ Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more
 Stabilizing estimates by truncating weights
 ------------------------------------------------------
 
-The Modified Causal Forest uses weighted averages to estimate treatment effects. If the weights of some observations are very large, they can lead to unstable estimates. To obtain more stable estimates, the **mcf** package provides the option to truncate estimated forest weights to an upper threshold through the parameter ``p_max_weight_share`` of the class :py:class:`mcf_functions.ModifiedCausalForest`. By default, ``p_max_weight_share`` is set to 0.05. After truncation, the program renormalizes the weights for estimation. Because of the renormalization step, the final weights can be slightly above the threshold defined in ``p_max_weight_share``.
+The Modified Causal Forest uses weighted averages to estimate treatment effects. If the weights of some observations are very large, they can lead to unstable estimates. To obtain more stable estimates, the **mcf** package provides the option to truncate estimated forest weights to an upper threshold through the parameter ``p_max_weight_share`` of the class :py:class:`~mcf_functions.ModifiedCausalForest`. By default, ``p_max_weight_share`` is set to 0.05. After truncation, the program renormalizes the weights for estimation. Because of the renormalization step, the final weights can be slightly above the threshold defined in ``p_max_weight_share``.
 
 Example
 ~~~~~~~
