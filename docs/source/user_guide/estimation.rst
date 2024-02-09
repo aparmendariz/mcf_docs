@@ -183,7 +183,7 @@ Instead of smoothing continuous heterogeneity variables, you can also discretize
         p_max_cats_z_vars = 5
     )
 
-Below you find a list of the discussed parameters that are relevant for the estimation of :math:`\textr{GATE's}`:
+Below you find a list of the discussed parameters that are relevant for the estimation of :math:`\textrm{GATE's}`:
 
 +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Parameter                         | Description                                                                                                                                                            |
@@ -194,7 +194,7 @@ Below you find a list of the discussed parameters that are relevant for the esti
 +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | ``var_z_name_unord``              | Unordered feature(s) used for :math:`\textrm{GATE}` estimation.                                                                                                        |
 +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``p_gatet``                       | If True, :math:`\textrm{GATE's}` are computed by treatment status. Default: False.                                                                                     |
+| ``p_gatet``                       | If True, :math:`\textrm{GATE's}` are also computed by treatment status (:math:`\textrm{GATET's}`). Default: False.                                                     |
 +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | ``p_gates_smooth``                | If True, a smoothing procedure is applied to estimate :math:`\textrm{GATE's}` for continuous variables in :math:`Z`. Default: True.                                    |
 +-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -207,10 +207,13 @@ Below you find a list of the discussed parameters that are relevant for the esti
 
 Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters on :math:`GATE` estimation.
 
-Stabilizing estimates of effects by truncating weights
+Stabilizing estimates by truncating weights
 ------------------------------------------------------
 
 The Modified Causal Forest uses weighted averages to estimate treatment effects. If the weights of some observations are very large, they can lead to unstable estimates. To obtain more stable estimates, the **mcf** package provides the option to truncate estimated forest weights to an upper threshold through the parameter ``p_max_weight_share`` of the class :py:class:`mcf_functions.ModifiedCausalForest`. By default, ``p_max_weight_share`` is set to 0.05. After truncation, the program renormalizes the weights for estimation. Because of the renormalization step, the final weights can be slightly above the threshold defined in ``p_max_weight_share``.
+
+Example
+~~~~~~~
 
 .. code-block:: python
 
