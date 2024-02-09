@@ -87,12 +87,12 @@ The average treatment effects for the treated are estimated by the :py:meth:`~mc
         p_atet = True
     )
     my_mcf.train(my_data)
+    results = my_mcf.predict(my_data)
 
 The :math:`\textrm{ATET's}` are, similar to the :math:`\textrm{ATE's}`, stored in the `"ate"` entry of the dictionary returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method. This entry will then contain both the estimated :math:`\textrm{ATET's}` as well as the :math:`\textrm{ATE's}`. The output that is printed to the console during prediction will present you a table with all estimated :math:`\textrm{ATE's}` and :math:`\textrm{ATET's}`, which should give you a good idea of the structure of the `"ate"` entry in the result dictionary.
 
 .. code-block:: python
 
-    results = my_mcf.predict(my_data)
     results["ate"]
 
 The standard errors of the estimates are stored in the `"ate_se"` entry of the same dictionary. The structure of the `"ate_se"` entry is analogous to the `"ate"` entry. 
