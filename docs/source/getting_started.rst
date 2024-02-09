@@ -88,7 +88,7 @@ The **mcf** package generates a number of standard outputs for your convenience.
 
     my_mcf.gen_dict["outpath"]
 
-You can also specify the location of this folder manually using the ``gen_outpath`` parameter of the class :py:class:`~mcf_functions.ModifiedCausalForest`
+You can also specify the location of this folder manually using the ``gen_outpath`` parameter of the class :py:class:`~mcf_functions.ModifiedCausalForest`.
 
 Below you find a selected list of optional parameters that are often used to initialize a Modified Causal Forest. For a more detailed description of these parameters, please refer to the documentation of :py:class:`~mcf_functions.ModifiedCausalForest`.
 
