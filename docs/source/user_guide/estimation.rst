@@ -123,12 +123,12 @@ Group average treatment effects are estimated by the :py:meth:`~mcf_functions.Mo
         # Specify a heterogeneity variable for GATE estimation
         var_z_name_unord=["female"]
     )
+    results = my_mcf.predict(my_data)
 
 You can access the estimated :math:`GATE's` and their standard errors through their corresponding entries in the dictionary that is returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method:
 
 .. code-block:: python
 
-    results = my_mcf.predict(my_data)
     results["gate_names_values"] # Describes the structure of the 'gate' entry
     results["gate"] # Estimated GATE's
     results["gate_se"] # Standard errors of the estimated GATE's
