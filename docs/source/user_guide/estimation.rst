@@ -141,7 +141,7 @@ A simpler way to inspect the estimated :math:`GATE's` is through the output fold
 
 You can also specify this path through the ``gen_outpath`` parameter of the class :py:meth:`~mcf_functions.ModifiedCausalForest`. The output folder will contain both csv-files with the results as well as plots of the estimated :math:`GATE's` in the subfolder `gate`.
 
-To estimate the :math:`GATE's` for subpopulations defined by treatment status (:math:`GATET's`), you can set the parameter ``p_gatet`` of the class :py:class:`~mcf_functions.ModifiedCausalForest` to True and you can access these estimates the same way as the regular :math:`GATE's`.
+To estimate the :math:`GATE's` for subpopulations defined by treatment status (:math:`GATET's`), you can set the parameter ``p_gatet`` of the class :py:class:`~mcf_functions.ModifiedCausalForest` to True. These estimates can be accessed in the same manner as regular :math:`GATE's`.
 
 .. code-block:: python
 
