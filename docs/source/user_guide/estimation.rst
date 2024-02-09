@@ -112,7 +112,7 @@ You can also specify this path through the ``gen_outpath`` parameter of the clas
 Estimating GATE's
 -----------------
 
-Group average treatment effects are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method if you define heterogeneity variables through the parameters ``var_z_name_list``, ``var_z_name_ord`` or ``var_z_name_unord`` in your :py:class:`~mcf_functions.ModifiedCausalForest`. For every feature in the vector of heterogeneity variables :math:`Z`, a :math:`GATE` will be estimated separately. Please refer to the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details on how to specify your heterogeneity variables with the above mentioned parameters.
+Group average treatment effects are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method if you define heterogeneity variables through the parameters ``var_z_name_list``, ``var_z_name_ord`` or ``var_z_name_unord`` in your :py:class:`~mcf_functions.ModifiedCausalForest`. For every feature in the vector of heterogeneity variables :math:`Z`, a :math:`GATE` will be estimated separately. Please refer to the table further below or the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details on how to specify your heterogeneity variables with the above mentioned parameters.
 
 .. code-block:: python
 
@@ -163,7 +163,8 @@ smooth the distribution of the variable. The smoothing procedure evaluates the e
         var_y_name="y",
         var_d_name="d",
         var_x_name_ord=["x1", "x2"],
-        var_z_name_ord=["age"],
+        # Specify the continuous heterogeneity variable 'age' for GATE estimation
+        var_z_name_list=["age"],
         # Smoothing the distribution of the continuous variable 'age' for GATE estimation
         p_gates_smooth = True,
         # The number of evaluation points is set to 40 
@@ -178,41 +179,41 @@ Instead of smoothing continuous heterogeneity variables, you can also discretize
         var_y_name="y",
         var_d_name="d",
         var_x_name_ord=["x1", "x2"],
-        var_z_name_ord=["age"]
+        # Specify the continuous heterogeneity variable 'age' for GATE estimation
+        var_z_name_list=["age"]
         # Discretizing the continuous variable 'age' for GATE estimation
         p_gates_smooth = False,
         # The maximum number of categories for discretizing 'age' is set to 5
         p_max_cats_z_vars = 5
     )
 
+Below you find a list of the discussed parameters that are relevant for the estimation of :math:`\textr{GATE's}`:
 
++-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Parameter                         | Description                                                                                                                                                            |
++-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``var_z_name_list``               | Ordered feature(s) with many values used for :math:`\textrm{GATE}` estimation.                                                                                         |
++-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``var_z_name_ord``                | Ordered feature(s) with few values used for :math:`\textrm{GATE}` estimation.                                                                                          |
++-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``var_z_name_unord``              | Unordered feature(s) used for :math:`\textrm{GATE}` estimation.                                                                                                        |
++-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``p_gatet``                       | If True, :math:`\textrm{GATE's}` are computed by treatment status. Default: False.                                                                                     |
++-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``p_gates_smooth``                | If True, a smoothing procedure is applied to estimate :math:`\textrm{GATE's}` for continuous variables in :math:`Z`. Default: True.                                    |
++-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``p_gates_smooth_no_evalu_points``| If ``p_gates_smooth`` is True, this defines the number of evaluation points. Default: 50.                                                                              |
++-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``p_gates_smooth_bandwidth``      | If ``p_gates_smooth`` is True, this defines the multiplier for Silverman's bandwidth rule. Default: 1.                                                                 |
++-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``p_max_cats_z_vars``             | If ``p_gates_smooth`` is False, this defines the maximum number categorizes when discretizing continuous heterogeneity variables in :math:`Z`. Default: :math:`N^0.3`. |
++-----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-
-
+Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters on :math:`GATE` estimation.
 
 Stabilizing estimates of effects by truncating weights
 ------------------------------------------------------
 
 To obtain stable estimates, the program provides the option to truncate estimated forest weights to an upper threshold. After truncation, the program renormalizes the weights for estimation. Because of the renormalization step, the final weights can be slightly above the threshold defined in `p_max_weight_share <./mcf_api.md#p_max_weight_share>`_.
 
-
-Input arguments for estimations of treatment effects
-----------------------------------------------------
-
-+-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
-| Arguments                                     | Description                                                                                                                      |
-+===============================================+==================================================================================================================================+
-| `p_gates_smooth <./mcf_api.md#p_gates_smooth>`| Flag for smoothing the distribution of the estimated GATEs for continuous features. The default is True.                        |
-+-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
-| `p_gates_smooth_no_evalu_points <./mcf_api.md#p_gates_smooth_no_evalu_points>` | Number of evaluation points for GATEs. The default is 50.                                                                       |
-+-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
-| `p_gates_smooth_bandwidth <./mcf_api.md#p_gates_smooth_bandwidth>` | Multiplier for Silverman's bandwidth rule for GATEs. The default is 1.                                                         |
-+-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
-| `p_atet <./mcf_api.md#p_atet>` | If *True*, average treatment effects for subpopulations defined by treatment status are computed. This only works if at least one GATE feature is specified. The default is *False*. |
-+-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
-| `p_gatet <./mcf_api.md#p_gatet>` | If *True*, group average treatment effects for subpopulations defined by treatment status are computed. The default is *False*. |
-+-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
 | `p_max_weight_share <./mcf_api.md#p_max_weight_share>` | Maximum value of the weights. The default is 0.05.                                                                              |
-+-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
-| `p_gates_minus_previous <./mcf_api.md#p_gates_minus_previous>` | If set to True, GATES will be compared to GATEs computed at the previous evaluation point. GATE estimation is a bit slower as it is not optimized for multiprocessing. No plots are shown. Default is False. |
-+-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
