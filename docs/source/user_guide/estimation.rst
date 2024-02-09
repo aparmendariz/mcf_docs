@@ -112,7 +112,7 @@ You can also specify this path through the ``gen_outpath`` parameter of the clas
 Estimating GATE's
 -----------------
 
-Group average treatment effects are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method if you define heterogeneity variables through the parameters ``var_z_name_list``, ``var_z_name_ord`` or ``var_z_name_unord`` in your :py:class:`~mcf_functions.ModifiedCausalForest`. For every feature in the vector of heterogeneity variables :math:`Z`, a :math:`GATE` will be estimated separately. Please refer to the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details on how to specify you heterogeneity variables with the above mentioned parameters.
+Group average treatment effects are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method if you define heterogeneity variables through the parameters ``var_z_name_list``, ``var_z_name_ord`` or ``var_z_name_unord`` in your :py:class:`~mcf_functions.ModifiedCausalForest`. For every feature in the vector of heterogeneity variables :math:`Z`, a :math:`GATE` will be estimated separately. Please refer to the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details on how to specify your heterogeneity variables with the above mentioned parameters.
 
 .. code-block:: python
 
@@ -120,7 +120,7 @@ Group average treatment effects are estimated by the :py:meth:`~mcf_functions.Mo
         var_y_name="y",
         var_d_name="d",
         var_x_name_ord=["x1", "x2"],
-        # Specify a heterogeneity variable for GATE estimation
+        # Specify the unordered heterogeneity variable 'female' for GATE estimation
         var_z_name_unord=["female"]
     )
     results = my_mcf.predict(my_data)
@@ -150,13 +150,45 @@ To estimate the :math:`GATE's` for subpopulations defined by treatment status (:
         var_d_name="d",
         var_x_name_ord=["x1", "x2"],
         var_z_name_unord=["female"]
-        # Estimating GATE's for subpopulations defined by treatment status
+        # Estimate the GATE's for 'female' by treatment status
         p_gatet = True
+    )
+
+For a continuous heterogeneity variable, the Modified Causal Forest will by default
+smooth the distribution of the variable. The smoothing procedure evaluates the effects at a local neighborhood around a pre-defined number of evaluation points. The number of evaluation points can be specified through the parameter ``p_gates_smooth_no_evalu_points`` of the class :py:class:`~mcf_functions.ModifiedCausalForest`. The local neighborhood is based on an Epanechnikov kernel estimation using Silverman's bandwidth rule. The multiplier for Silverman's bandwidth rule can be chosen through the parameter ``p_gates_smooth_bandwidth``. 
+
+.. code-block:: python
+
+    my_mcf = ModifiedCausalForest(
+        var_y_name="y",
+        var_d_name="d",
+        var_x_name_ord=["x1", "x2"],
+        var_z_name_ord=["age"],
+        # Smoothing the distribution of the continuous variable 'age' for GATE estimation
+        p_gates_smooth = True,
+        # The number of evaluation points is set to 40 
+        p_gates_smooth_no_evalu_points = 40 
+    )
+
+Instead of smoothing continuous heterogeneity variables, you can also discretize them and estimate GATE's for the resulting categories. This can be done by setting the parameter ``p_gates_smooth`` of the class :py:class:`~mcf_functions.ModifiedCausalForest` to False. The maximum number of categories for discretizing continuous variables can be specified through the parameter ``p_max_cats_z_vars``.
+
+.. code-block:: python
+
+    my_mcf = ModifiedCausalForest(
+        var_y_name="y",
+        var_d_name="d",
+        var_x_name_ord=["x1", "x2"],
+        var_z_name_ord=["age"]
+        # Discretizing the continuous variable 'age' for GATE estimation
+        p_gates_smooth = False,
+        # The maximum number of categories for discretizing 'age' is set to 5
+        p_max_cats_z_vars = 5
     )
 
 
 
-By default, the program smooths the distribution of the GATEs for continuous features. A smoothing procedure evaluates the effects at a local neighborhood around a pre-defined number of evaluation points. The flag `p_gates_smooth <./mcf_api.md#p_gates_smooth>`_ activates this procedure. The level of discretization depends on the number of evaluation points, which can be defined in `p_gates_smooth_no_evalu_points <./mcf_api.md#p_gates_smooth_no_evalu_points>`_. The local neighborhood is based on an Epanechnikov kernel estimation using Silverman's bandwidth rule. The keyword argument `p_gates_smooth_bandwidth <./mcf_api.md#p_gates_smooth_bandwidth>`_ specifies a multiplier for Silverman's bandwidth rule. In addition, it discretizes continuous features and computes the GATEs for those discrete approximations.
+
+
 
 Stabilizing estimates of effects by truncating weights
 ------------------------------------------------------
