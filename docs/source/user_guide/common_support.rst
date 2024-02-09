@@ -1,12 +1,12 @@
 Common support
 ==============
 
+WIP here!
+
 Estimating heterogenous treatment effects requires common support in all treatment arms. The class :py:class:`~mcf_functions.ModifiedCausalForest` has several options to check for and enforce common support. 
 
 NOTE: Mention the plots that are generated and that they are saved in the output folder.
-
-Implementation
-==============
+-> use wording from estimation / getting started
 
 Common support checks and corrections are performed before any causal effects are estimated. You can control the type of common support adjustment with the parameter ``cs_type``. If you set ``cs_type`` to 0, there is no common support adjustment. If you set ``cs_type`` to 1 or 2, common support is enforced based on on propensity scores that are the estimated with classification forests. 
 
