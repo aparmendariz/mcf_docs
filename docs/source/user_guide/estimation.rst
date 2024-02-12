@@ -147,7 +147,7 @@ To estimate the :math:`\textrm{GATE's}` for subpopulations defined by treatment 
         var_y_name="y",
         var_d_name="d",
         var_x_name_ord=["x1", "x2"],
-        var_z_name_unord=["female"]
+        var_z_name_unord=["female"],
         # Estimate the GATE's for 'female' by treatment status
         p_gatet = True
     )
