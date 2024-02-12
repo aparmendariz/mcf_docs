@@ -178,7 +178,7 @@ Instead of smoothing continuous heterogeneity variables, you can also discretize
         var_d_name="d",
         var_x_name_ord=["x1", "x2"],
         # Specify the continuous heterogeneity variable 'age' for GATE estimation
-        var_z_name_list=["age"]
+        var_z_name_list=["age"],
         # Discretizing the continuous variable 'age' for GATE estimation
         p_gates_smooth = False,
         # The maximum number of categories for discretizing 'age' is set to 5
