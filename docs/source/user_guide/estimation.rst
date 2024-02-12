@@ -23,6 +23,8 @@ Whereas :math:`\textrm{ATE's}` are population averages, :math:`\textrm{IATE's}` 
 
 The next sections will explain how to estimate these effects with the **mcf** package.
 
+-----------------
+
 .. [1] A recent paper by `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08290>`_ introduced the Balanced Group Average Treatment Effect (:math:`\textrm{BGATE}`). Click :doc:`here </algorithm_reference/bgates_cbgates>` to learn more about estimating :math:`\textrm{BGATE's}` with the Modified Causal Forest.
 
 Estimating ATE's / IATE's 
