@@ -20,19 +20,19 @@ Parameter overview
 
 The following table summarizes the parameters related to sampling weights and clustering in the class :py:class:`~mcf_functions.ModifiedCausalForest`:
 
-+----------------------+----------------------------------------------------------------------------------------------------+
-| Parameter            | Description                                                                                        |
-+======================+====================================================================================================+
-| ``var_w_name``       | Name of the variable holding the sampling weight of each observation.                              |
-+----------------------+----------------------------------------------------------------------------------------------------+
-| ``gen_weighted``     | If True, sampling weights from ``var_w_name`` will be used. Default: False.                        |
-+----------------------+----------------------------------------------------------------------------------------------------+
-| ``var_cluster_name`` | Name of the variable holding the cluster identifier.                                               |
-+----------------------+----------------------------------------------------------------------------------------------------+
-| ``gen_panel_in_rf``  | If True, clusters are used to draw the random samples when building the forest. Default: True.     |
-+----------------------+----------------------------------------------------------------------------------------------------+
-| ``gen_panel_data``   | If True, clustered standard errors are computed. Default: False.                                   |
-+----------------------+----------------------------------------------------------------------------------------------------+
++----------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
+| Parameter            | Description                                                                                                                                 |
++======================+=============================================================================================================================================+
+| ``var_w_name``       | Name of the variable holding the sampling weight of each observation.                                                                       |
++----------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
+| ``gen_weighted``     | If True, sampling weights from ``var_w_name`` will be used. Default: False.                                                                 |
++----------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
+| ``var_cluster_name`` | Name of the variable holding the cluster identifier.                                                                                        |
++----------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
+| ``gen_panel_data``   | If True, clustered standard errors based on ``var_cluster_name`` are computed. Default: False.                                              |
++----------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
+| ``gen_panel_in_rf``  | If True, clusters are used to draw the random samples when building the forest. Default: True. Only relevant if ``gen_panel_data`` is True. |
++----------------------+---------------------------------------------------------------------------------------------------------------------------------------------+
 
 Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details.
 
@@ -58,6 +58,6 @@ Examples
         var_x_name_ord=["x1", "x2"],
         # Parameters for clustering:
         var_cluster_name="cluster_id",
-        gen_panel_in_rf=True,
-        gen_panel_data=True
+        gen_panel_data=True,
+        gen_panel_in_rf=True
     )
