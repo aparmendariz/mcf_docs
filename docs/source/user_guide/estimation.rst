@@ -21,7 +21,7 @@ If :math:`\Delta = \{m\}` then :math:`\textrm{ATE}(m,l;\Delta)` is better known 
 
 Whereas :math:`\textrm{ATE's}` are population averages, :math:`\textrm{IATE's}` are average effects at the finest possible aggregation level. They measure the average impact of treatment :math:`m` compared to treatment :math:`l` for units with features :math:`X = x`. :math:`\textrm{GATE's}` lie somewhere in-between these two extremes. They measure the average impact of treatment :math:`m` compared to treatment :math:`l` for units in group :math:`Z = z`. :math:`\textrm{GATE's}` and :math:`\textrm{IATES's}` are special cases of the so-called conditional average treatment effects (:math:`\textrm{CATE's}`).
 
-The next sections will explain how to estimate these effects with the **mcf** package.
+The following sections will show you how to estimate these different types of treatment effects with the **mcf** package.
 
 -----------------
 
@@ -110,7 +110,7 @@ You can also specify this path through the ``gen_outpath`` parameter of the clas
 Estimating GATE's
 -----------------
 
-Group average treatment effects are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method if you define heterogeneity variables through the parameters ``var_z_name_list``, ``var_z_name_ord`` or ``var_z_name_unord`` in your :py:class:`~mcf_functions.ModifiedCausalForest`. For every feature in the vector of heterogeneity variables :math:`Z`, a :math:`GATE` will be estimated separately. Please refer to the table further below or the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details on how to specify your heterogeneity variables with the above mentioned parameters.
+Group average treatment effects are estimated by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method if you define heterogeneity variables through the parameters ``var_z_name_list``, ``var_z_name_ord`` or ``var_z_name_unord`` in your :py:class:`~mcf_functions.ModifiedCausalForest`. For every feature in the vector of heterogeneity variables :math:`Z`, a :math:`\textrm{GATE}` will be estimated separately. Please refer to the table further below or the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details on how to specify your heterogeneity variables with the above mentioned parameters.
 
 .. code-block:: python
 
@@ -123,7 +123,7 @@ Group average treatment effects are estimated by the :py:meth:`~mcf_functions.Mo
     )
     results = my_mcf.predict(my_data)
 
-You can access the estimated :math:`GATE's` and their standard errors through their corresponding entries in the dictionary that is returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method:
+You can access the estimated :math:`\textrm{GATE's}` and their standard errors through their corresponding entries in the dictionary that is returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method:
 
 .. code-block:: python
 
@@ -131,15 +131,15 @@ You can access the estimated :math:`GATE's` and their standard errors through th
     results["gate"] # Estimated GATE's
     results["gate_se"] # Standard errors of the estimated GATE's
 
-A simpler way to inspect the estimated :math:`GATE's` is through the output folder that the **mcf** package generates once a Modified Causal Forest is initialized. You can find the location of this folder by accessing the `"outpath"` entry of the `gen_dict` attribute of your Modified Causal Forest:
+A simpler way to inspect the estimated :math:`\textrm{GATE's}` is through the output folder that the **mcf** package generates once a Modified Causal Forest is initialized. You can find the location of this folder by accessing the `"outpath"` entry of the `gen_dict` attribute of your Modified Causal Forest:
 
 .. code-block:: python
 
     my_mcf.gen_dict["outpath"]
 
-You can also specify this path through the ``gen_outpath`` parameter of the class :py:meth:`~mcf_functions.ModifiedCausalForest`. The output folder will contain both csv-files with the results as well as plots of the estimated :math:`GATE's` in the subfolder `gate`.
+You can also specify this path through the ``gen_outpath`` parameter of the class :py:meth:`~mcf_functions.ModifiedCausalForest`. The output folder will contain both csv-files with the results as well as plots of the estimated :math:`\textrm{GATE's}` in the subfolder `gate`.
 
-To estimate the :math:`GATE's` for subpopulations defined by treatment status (:math:`GATET's`), you can set the parameter ``p_gatet`` of the class :py:class:`~mcf_functions.ModifiedCausalForest` to True. These estimates can be accessed in the same manner as regular :math:`GATE's`.
+To estimate the :math:`\textrm{GATE's}` for subpopulations defined by treatment status (:math:`\textrm{GATET's}`), you can set the parameter ``p_gatet`` of the class :py:class:`~mcf_functions.ModifiedCausalForest` to True. These estimates can be accessed in the same manner as regular :math:`\textrm{GATE's}`.
 
 .. code-block:: python
 
@@ -207,7 +207,7 @@ Below you find a list of the discussed parameters that are relevant for the esti
 | ``p_max_cats_z_vars``             | If ``p_gates_smooth`` is False, this defines the maximum number categorizes when discretizing continuous heterogeneity variables in :math:`Z`. Default: :math:`N^{0.3}`. |
 +-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters on :math:`GATE` estimation.
+Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters on :math:`\textrm{GATE}` estimation.
 
 Stabilizing estimates by truncating weights
 ------------------------------------------------------
