@@ -187,7 +187,7 @@ Instead of smoothing continuous heterogeneity variables, you can also discretize
 
 Below you find a list of the discussed parameters that are relevant for the estimation of :math:`\textrm{GATE's}`. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters on :math:`\textrm{GATE}` estimation.
 
-.. dropdown:: Commonly used parameters to estimate :math:`\textrm{GATE's}`
+.. dropdown:: Commonly used parameters to estimate :math:`\ \textrm{GATE's}`
 
     +-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
     | Parameter                         | Description                                                                                                                                                              |
