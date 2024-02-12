@@ -185,29 +185,30 @@ Instead of smoothing continuous heterogeneity variables, you can also discretize
         p_max_cats_z_vars = 5
     )
 
-Below you find a list of the discussed parameters that are relevant for the estimation of :math:`\textrm{GATE's}`:
+Below you find a list of the discussed parameters that are relevant for the estimation of :math:`\textrm{GATE's}`. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters on :math:`\textrm{GATE}` estimation.
 
-+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Parameter                         | Description                                                                                                                                                              |
-+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``var_z_name_list``               | Ordered feature(s) with many values used for :math:`\textrm{GATE}` estimation.                                                                                           |
-+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``var_z_name_ord``                | Ordered feature(s) with few values used for :math:`\textrm{GATE}` estimation.                                                                                            |
-+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``var_z_name_unord``              | Unordered feature(s) used for :math:`\textrm{GATE}` estimation.                                                                                                          |
-+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``p_gatet``                       | If True, :math:`\textrm{GATE's}` are also computed by treatment status (:math:`\textrm{GATET's}`). Default: False.                                                       |
-+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``p_gates_smooth``                | If True, a smoothing procedure is applied to estimate :math:`\textrm{GATE's}` for continuous variables in :math:`Z`. Default: True.                                      |
-+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``p_gates_smooth_no_evalu_points``| If ``p_gates_smooth`` is True, this defines the number of evaluation points. Default: 50.                                                                                |
-+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``p_gates_smooth_bandwidth``      | If ``p_gates_smooth`` is True, this defines the multiplier for Silverman's bandwidth rule. Default: 1.                                                                   |
-+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``p_max_cats_z_vars``             | If ``p_gates_smooth`` is False, this defines the maximum number categorizes when discretizing continuous heterogeneity variables in :math:`Z`. Default: :math:`N^{0.3}`. |
-+-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+.. dropdown:: Commonly used parameters to estimate :math:`\textrm{GATE's}`
 
-Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters on :math:`\textrm{GATE}` estimation.
+    +-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | Parameter                         | Description                                                                                                                                                              |
+    +-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | ``var_z_name_list``               | Ordered feature(s) with many values used for :math:`\textrm{GATE}` estimation.                                                                                           |
+    +-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | ``var_z_name_ord``                | Ordered feature(s) with few values used for :math:`\textrm{GATE}` estimation.                                                                                            |
+    +-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | ``var_z_name_unord``              | Unordered feature(s) used for :math:`\textrm{GATE}` estimation.                                                                                                          |
+    +-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | ``p_gatet``                       | If True, :math:`\textrm{GATE's}` are also computed by treatment status (:math:`\textrm{GATET's}`). Default: False.                                                       |
+    +-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | ``p_gates_smooth``                | If True, a smoothing procedure is applied to estimate :math:`\textrm{GATE's}` for continuous variables in :math:`Z`. Default: True.                                      |
+    +-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | ``p_gates_smooth_no_evalu_points``| If ``p_gates_smooth`` is True, this defines the number of evaluation points. Default: 50.                                                                                |
+    +-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | ``p_gates_smooth_bandwidth``      | If ``p_gates_smooth`` is True, this defines the multiplier for Silverman's bandwidth rule. Default: 1.                                                                   |
+    +-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    | ``p_max_cats_z_vars``             | If ``p_gates_smooth`` is False, this defines the maximum number categorizes when discretizing continuous heterogeneity variables in :math:`Z`. Default: :math:`N^{0.3}`. |
+    +-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
 
 Stabilizing estimates by truncating weights
 ------------------------------------------------------
