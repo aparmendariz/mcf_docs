@@ -4,9 +4,9 @@ Estimation of treatment effects
 Different types of treatment effects
 ------------------------------------
 
-The Modified Causal Forest estimates three types of treatment effects, which differ in their aggregation level and are discussed in depth by `Lechner (2019) <https://doi.org/10.48550/arXiv.1812.09487>`_. These effects are the average treatment effect (:math:`\textrm{ATE}`), the group average treatment effect (:math:`\textrm{GATE}`), and the individualized average treatment effect (:math:`\textrm{IATE}`). [#]_
+The Modified Causal Forest estimates three types of treatment effects, which differ in their aggregation level and are discussed in depth by `Lechner (2019) <https://doi.org/10.48550/arXiv.1812.09487>`_. These effects are the average treatment effect (:math:`\textrm{ATE}`), the group average treatment effect (:math:`\textrm{GATE}`), and the individualized average treatment effect (:math:`\textrm{IATE}`). [1]_
 
-Let us consider a discrete, multi-valued treatment :math:`D`. The potential outcome of treatment state :math:`d` is denoted by :math:`Y^d`. The covariates that are needed to correct for selection bias are denoted by :math:`X`. :math:`Z \subset X` is a vector of features that defines the effect heterogeneity of interest. :math:`Z` can contain continuous and discrete variables, but usually these are variables with
+Let us consider a discrete, multi-valued treatment :math:`D`. The potential outcome of treatment state :math:`d` is denoted by :math:`Y^d`. The covariates that are needed to correct for selection bias are denoted by :math:`X`. :math:`Z \subset X` is a vector of features that defines the effect heterogeneity of interest. :math:`Z` can contain continuous and discrete variables. Often these are variables with
 relatively "few values" that define population groups (e.g. age, gender, etc.). The effects of interest are then defined as:
 
 .. math::
@@ -17,13 +17,13 @@ relatively "few values" that define population groups (e.g. age, gender, etc.). 
 
     \textrm{IATE}(m,l;x) &:= \mathbb{E} \big[ Y^m-Y^l \big\vert X=x \big]
 
-If :math:`\Delta = \{m\}` then :math:`\textrm{ATE}(m,l;\Delta)` is better known as the average treatment effect on the treated (:math:`\textrm{ATET}`) for the individuals that received treatment :math:`m`.
-
-:math:`\textrm{ATE's}` measure the average impact of treatment :math:`m` compared to treatment :math:`l` either for the entire population, or in case of an :math:`\textrm{ATET}`, for the units that actually received a specific treatment. 
+If :math:`\Delta = \{m\}` then :math:`\textrm{ATE}(m,l;\Delta)` is better known as the average treatment effect on the treated (:math:`\textrm{ATET}`) for the individuals that received treatment :math:`m`. :math:`\textrm{ATE's}` measure the average impact of treatment :math:`m` compared to treatment :math:`l` either for the entire population, or in case of an :math:`\textrm{ATET}`, for the units that actually received a specific treatment.
 
 Whereas :math:`\textrm{ATE's}` are population averages, :math:`\textrm{IATE's}` are average effects at the finest possible aggregation level. They measure the average impact of treatment :math:`m` compared to treatment :math:`l` for units with features :math:`X = x`. :math:`\textrm{GATE's}` lie somewhere in-between these two extremes. They measure the average impact of treatment :math:`m` compared to treatment :math:`l` for units in group :math:`Z = z`. :math:`\textrm{GATE's}` and :math:`\textrm{IATES's}` are special cases of the so-called conditional average treatment effects (:math:`\textrm{CATE's}`).
 
-.. [#] A recent paper by `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08290>`_ introduced the Balanced Group Average Treatment Effect (:math:`\textrm{BGATE}`). Click :doc:`here </algorithm_reference/bgates_cbgates>` to learn more about estimating :math:`\textrm{BGATE's}` with the Modified Causal Forest.
+The next sections will explain how to estimate these effects with the **mcf** package.
+
+.. [1] A recent paper by `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08290>`_ introduced the Balanced Group Average Treatment Effect (:math:`\textrm{BGATE}`). Click :doc:`here </algorithm_reference/bgates_cbgates>` to learn more about estimating :math:`\textrm{BGATE's}` with the Modified Causal Forest.
 
 Estimating ATE's / IATE's 
 ----------------------------------
