@@ -1,27 +1,63 @@
 Common support
 ==============
 
-WIP here!
-
 Estimating heterogenous treatment effects requires common support in all treatment arms. The class :py:class:`~mcf_functions.ModifiedCausalForest` has several options to check for and enforce common support. 
 
-NOTE: Mention the plots that are generated and that they are saved in the output folder.
--> use wording from estimation / getting started
+Common support checks and corrections are performed before any causal effects are estimated. You can control the type of common support adjustment with the parameter ``cs_type`` of the class :py:class:`~mcf_functions.ModifiedCausalForest`. If you set ``cs_type`` to 0, there is no common support adjustment. 
 
-Common support checks and corrections are performed before any causal effects are estimated. You can control the type of common support adjustment with the parameter ``cs_type``. If you set ``cs_type`` to 0, there is no common support adjustment. If you set ``cs_type`` to 1 or 2, common support is enforced based on on propensity scores that are the estimated with classification forests. 
+If you set ``cs_type`` to 1 (the default) or 2, common support is enforced based on propensity scores that are estimated with classification forests. [1]_ The Modified Causal Forest will then remove all observations whose propensity scores lie outside certain cut-off probabilities. For a value of 1, which is the default, the cut-off probabilities are determined automatically by the **mcf** package. For a value of 2, you can specify the cut-off probabilities yourself using the parameter ``cs_min_p``. Any observation with an estimated propensity score :math:`\widehat{P(D = m| X)}` less than or equal to ``cs_min_p`` for at least one treatment arm will then be removed from the data set.
 
-For a value of 1, the min-max rules for the estimated probabilities in the treatment subsamples are deployed. For 2, the minimum and maximum probabilities for all observations are deployed. All observations off support are removed.
+When common support adjustments are enabled, the **mcf** package will display standard common support plots to help you understand the distribution of propensity scores across treatment arms. These plots are also saved in the output folder that the **mcf** package generates. You can find the location of this folder by accessing the `"outpath"` entry of the `gen_dict` attribute of your Modified Causal Forest:
+
+.. code-block:: python
+
+    my_mcf = ModifiedCausalForest(
+        var_y_name="y",
+        var_d_name="d",
+        var_x_name_ord="x"
+    )
+    my_mcf.gen_dict["outpath"]
+
+The common support plots will be stored in the subfolder `common_suppport`.
+
+.. [1] Out of bag predictions are used to avoid overfitting.
+
+
+Advanced options
+----------------
+
+In a setting with multiple treatments the restrictiveness of a common support criterion increases with the number of treatments. The parameter ``cs_adjust_limits`` allows you to reduce this restrictiveness. The upper cut-off will be multiplied by :math:`1 + \text{cs_adjust_limits}` and the lower cut-off will be multiplied by :math:`1 - \text{cs_adjust_limits}`. 
+
+The parameter ``cs_max_del_train`` allows you to specify a maximum share of observations in the training data set that are allowed to be dropped to enforce common support. If this threshold is exceeded, the program will terminates raise a corresponding exception. By default an error will be raised if more than 50% of the observations are dropped. In this case, you should consider using a more balanced input data set.
+
+
+WIP here
+
+The parameter ``cs_quantil`` allows you to deviate from the default cut-off probabilities when ``cs_type`` is set to 1, which are based on min-max rules. 
+
+If ``cs_quantil`` is set to a value of less than 1, the respective quantile is used to determine the upper and lower cut-off probabilities. 
+
+Concretely, observations are dropped if at least one of their propensity scores
+is smaller than the largest ``cs_quantil``-quantile or larger than the ``1-cs_quantil``) quantile of the treatment groups.
+
+propensity scores are smaller than the largest :math:`q` or larger than the smallest (:math:`1-q`) quantile of the treatment groups. 
+
+
+Parameter overview
+------------------
+
+Below is an overview of the above mentioned parameters related to common support adjustments in the class :py:class:`~mcf_functions.ModifiedCausalForest`:  
+
+
+
+Examples
+------------------
 
         cs_quantil : Float (or None), optional
             Common support adjustment: How to determine upper and lower bounds.
                 If CS_TYPE == 1: 1 or None: min-max rule
                                  < 1: respective quantil
             Default (or None) is 1.
-
-        cs_min_p : Float (or None), optional
-            Common support adjustment: If cs_type == 2, observations are
-               deleted if p(d=m|x) is less or equal than cs_min_p for at least
-               one treatment. Default (or None) is 0.01.
 
 interpretation:
     if cs_type is 1,
@@ -42,25 +78,11 @@ interpretation:
             Default (or None) is 1.
 
 
-This is a prameter uses to adjust the upper and lower limits to account for multiple treatments:
 
-        cs_adjust_limits : Float (or None), optional
-            Common support adjustment: Accounting for multiple treatments.
-                None: (number of treatments - 2) * 0.05
-                If cs_type > 0:
-                    upper limit *= 1+support_adjust_limits,
-                    lower limit *= 1-support_adjust_limits
-            The restrictiveness of the common support criterion increases with
-            the number of treatments. This parameter allows to reduce this
-            restrictiveness. Default is None.
 
-Parameter to raise an exception should a large share of observations be off support.
 
-        cs_max_del_train : Float (or None), optional
-            Common support adjustment: If share of observations in training
-               data used that are off support is larger than cs_max_del_train
-               (0-1), an exception is raised. In this case, user should change
-               input data. Default (or None) is 0.5.
+
+
 
 
 
