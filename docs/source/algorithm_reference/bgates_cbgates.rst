@@ -3,6 +3,9 @@
 
 -> former arguments now renamed to p_bgate
 
+- ``p_gmate_no_evalu_points`` --> ``p_gate_no_evalu_points``
+- ``p_gmate_sample_share`` --> ``p_bgate_sample_share``
+
 +-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
 | `p_gmate_no_evalu_points <./mcf_api.md#p_gmate_no_evalu_points>` | Number of evaluation points for marginal treatment effects. The default is 50.                                |                   
 +-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
