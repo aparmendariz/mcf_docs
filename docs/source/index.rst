@@ -125,8 +125,8 @@ To demonstrate how to use **mcf**, let's simulate some data and apply the Modifi
     my_optimal_policy = OptimalPolicy(
         var_d_name="d",
         var_polscore_name=["Y_LC0_un_lc_pot", "Y_LC1_un_lc_pot"],
-        var_x_ord_name=["x1", "x2"],
-        var_x_unord_name=["female"]
+        var_x_name_ord=["x1", "x2"],
+        var_x_name_unord=["female"]
         )
 
     # Learn an optimal policy rule using the predicted potential outcomes

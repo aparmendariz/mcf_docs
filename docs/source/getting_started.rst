@@ -205,7 +205,7 @@ Now that we understand this, we are ready to build an Optimal Policy Tree. To do
 
 - the treatment through the ``var_d_name`` parameter
 - the potential outcomes through the ``var_polscore_name`` parameter
-- ordered and/or unordered features used to build the policy tree using the ``var_x_ord_name`` and ``var_x_unord_name`` parameter respectively
+- ordered and/or unordered features used to build the policy tree using the ``var_x_name_ord`` and ``var_x_name_unord`` parameter respectively
 
 as follows:
 
@@ -214,15 +214,15 @@ as follows:
     my_policy_tree = OptimalPolicy(
         var_d_name="d", 
         var_polscore_name=["Y_LC0_un_lc_pot", "Y_LC1_un_lc_pot", "Y_LC2_un_lc_pot"],
-        var_x_ord_name=["x1", "x2"],
-        var_x_unord_name=["female"],
+        var_x_name_ord=["x1", "x2"],
+        var_x_name_unord=["female"],
         gen_method="policy tree",
-        pt_depth=2
+        pt_depth_tree_1=2
         )
 
-Note that the ``pt_depth`` parameter specifies the depth of the policy tree. For demonstration purposes we set it to 2. In practice, you should choose a larger value which will increase the computational burden.
+Note that the ``pt_depth_tree_1`` parameter specifies the depth of the (first) policy tree. For demonstration purposes we set it to 2. In practice, you should choose a larger value which will increase the computational burden. See the :doc:`User guide <user_guide/optimal-policy_example>` and the :doc:`Algorithm reference <algorithm_reference/optimal-policy_algorithm>` for more detailed explanations.
 
-After initializing a Optimal Policy Tree, the **mcf** package will automatically create an output folder. This folder will contain a number of standard outputs for your convenience. You can find the location of this folder in your console output. Alternatively, you can manually specify the folder location using the ``gen_outpath`` parameter.
+After initializing an Optimal Policy Tree, the **mcf** package will automatically create an output folder. This folder will contain a number of standard outputs for your convenience. You can find the location of this folder in your console output. Alternatively, you can manually specify the folder location using the ``gen_outpath`` parameter.
 
 
 Fit an Optimal Policy Tree
