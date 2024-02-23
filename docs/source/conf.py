@@ -70,7 +70,7 @@ autosummary_generate = True
 from sphinx.ext.autodoc import between
 
 def setup(app):
-    app.connect('autodoc-process-docstring', between('^<not_in_api>$', exclude=True))
+    app.connect('autodoc-process-docstring', between('^.*<not_in_api>.*$', exclude=True))
     return app
 
 # -- Options for HTML output -------------------------------------------------
