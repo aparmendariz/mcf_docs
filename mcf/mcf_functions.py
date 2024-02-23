@@ -804,7 +804,7 @@ class ModifiedCausalForest:
         computation and may lead to undesirable behaviour).
         Default is False.
 
-    <not_in_api>
+    IGNORE
 
     Attributes
     ----------
@@ -815,7 +815,7 @@ class ModifiedCausalForest:
     cf_dict : Dictionary
         Parameters used in training the forest (directly).
 
-    <not_in_api>
+    IGNORE
 
     """
 
