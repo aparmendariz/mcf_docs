@@ -66,25 +66,28 @@ To demonstrate how to use **mcf**, let's simulate some data and apply the Modifi
     from mcf import ModifiedCausalForest
     from mcf import OptimalPolicy
 
-    def simulate_data(n: int) -> pd.DataFrame:
+    def simulate_data(n: int, seed: int) -> pd.DataFrame:
         """
         Simulate data with a binary treatment 'd', outcome 'y', unordered control
         variable 'female' and two ordered controls 'x1', 'x2'.
 
         Parameters:
         - n (int): Number of observations in the simulated data.
+        - seed (int): Seed for the random number generator.
 
         Returns:
         pd.DataFrame: Simulated data in a Pandas DataFrame.
 
         """
-        d = np.random.choice([0, 1], n, replace=True)
-        female = np.random.choice([0, 1], n, replace=True)
-        x_ordered = np.random.normal(size=(n, 2))
+        rng = np.random.default_rng(seed)
+
+        d = rng.integers(low=0, high=1, size=n, endpoint=True)
+        female = rng.integers(low=0, high=1, size=n, endpoint=True)
+        x_ordered = rng.normal(size=(n, 2))
         y = (x_ordered[:, 0] +
             x_ordered[:, 1] * (d == 1) +
             0.5 * female +
-            np.random.normal(size=n))
+            rng.normal(size=n))
 
         data = {"y": y, "d": d, "female": female}
 
@@ -93,9 +96,7 @@ To demonstrate how to use **mcf**, let's simulate some data and apply the Modifi
 
         return pd.DataFrame(data)
 
-    np.random.seed(123)
-    df = simulate_data(n=100)
-
+    df = simulate_data(n=100, seed=1234)
 
     # Create an instance of class ModifiedCausalForest:
     my_mcf = ModifiedCausalForest(

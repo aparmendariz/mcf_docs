@@ -19,26 +19,29 @@ First, we'll create some synthetic data to showcase the functionality of the **m
     from mcf import ModifiedCausalForest
     from mcf import OptimalPolicy
 
-    def simulate_data(n: int) -> pd.DataFrame:
+    def simulate_data(n: int, seed: int) -> pd.DataFrame:
         """
         Simulate data with treatment 'd', outcome 'y', an unordered control
         variable 'female' and two ordered controls 'x1', 'x2'.
 
         Parameters:
         - n (int): Number of observations in the simulated data.
+        - seed (int): Seed for the random number generator.
 
         Returns:
         pd.DataFrame: Simulated data in a Pandas DataFrame.
 
         """
-        d = np.random.choice([0, 1, 2], n, replace=True)
-        female = np.random.choice([0, 1], n, replace=True)
-        x_ordered = np.random.normal(size=(n, 2))
+        rng = np.random.default_rng(seed)
+
+        d = rng.integers(low=0, high=2, size=n, endpoint=True)
+        female = rng.integers(low=0, high=1, size=n, endpoint=True)
+        x_ordered = rng.normal(size=(n, 2))
         y = (x_ordered[:, 0] +
             x_ordered[:, 1] * (d == 1) +
             x_ordered[:, 1] * (d == 2) +
             0.5 * female +
-            np.random.normal(size=n))
+            rng.normal(size=n))
 
         data = {"y": y, "d": d, "female": female}
 
@@ -47,7 +50,7 @@ First, we'll create some synthetic data to showcase the functionality of the **m
 
         return pd.DataFrame(data)
 
-    df = simulate_data(1000)
+    df = simulate_data(n=1000, seed=1234)
 
 To estimate both a Modified Causal Forest and an Optimal Policy Tree, we will use a simple sample splitting approach, dividing the simulated data into three equally sized parts:
 
