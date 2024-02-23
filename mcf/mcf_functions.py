@@ -803,6 +803,16 @@ class ModifiedCausalForest:
         Keep all zeros weights when computing standard errors (slows down
         computation and may lead to undesirable behaviour).
         Default is False.
+
+    Attributes
+    ----------
+
+    blind_dict : Dictionary
+        Parameters to compute (partially) blinded IATEs.
+
+    cf_dict : Dictionary
+        Parameters used in training the forest (directly).
+
     """
 
     def __init__(
