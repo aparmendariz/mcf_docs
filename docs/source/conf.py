@@ -63,6 +63,13 @@ autoclass_content = 'class'
 # directives (even if those autosummary directives are "commented out"!).
 autosummary_generate = True
 
+from sphinx.ext.autodoc import between
+
+def setup(app):
+    # Register a sphinx.ext.autodoc.between listener to ignore everything
+    # between lines that contain the word IGNORE
+    app.connect('autodoc-process-docstring', between('^.*IGNORE.*$', exclude=True))
+    return app
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -93,8 +100,3 @@ html_theme_options = {
         },
     ]
 }
-
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-# html_static_path = ['_static']
