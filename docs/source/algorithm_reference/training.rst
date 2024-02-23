@@ -10,8 +10,6 @@ However, random forests solve these problems (to some extent) by building many d
 
 **Note**: the **mcf** differs from the causal forest of `Wager & Athey (2018) <https://doi.org/10.1080/01621459.2017.1319839>` with respect to the splitting criterion when growing the forest. Setting ``cf_mce_vart`` to ``2``, you may switch to the splitting rule of  `Wager & Athey (2018) <https://doi.org/10.1080/01621459.2017.1319839>`. 
 
-Abstracting from the difference in the splitting criterion, the regression forest may seem very much related to the ``mcf``. However, note that the underlying prediction tasks are fundamentally different. The ``mcf`` aims to predict causal effects, for which there is no data, and provides (asymptotically) valid inference. To impute the missing data, the ``mcf`` requires a causal model. 
-To provide valid inference, the mcf borrows the concept of honesty introduced by `Athey & Imbens (2016) <https://doi.org/10.1073/pnas.1510489113>`. For a textbook-like discussion refer to Bodory, Busshoff and Lechner (2022).
-
-
-Ignoring the difference in the splitting criterion, it might appear that the regression forest is closely related to the mcf. However, it's essential to note that their underlying prediction tasks differ significantly. The mcf focuses on predicting causal effects, which often lack direct data, and aims to provide (asymptotically) valid inference. To handle missing data and ensure valid inference, the mcf relies on a causal model and incorporates the concept of honesty introduced by Athey and Imbens (2016). For a more detailed discussion, refer to `Athey & Imbens (2016) <https://www.pnas.org/doi/10.1073/pnas.1510489113>`.
+Apart from the difference in the splitting criterion, the regression forest may seem much related to the ``mcf``. However, note that the underlying prediction tasks are fundamentally different. The ``mcf`` aims to predict causal effects, for which there is no data, and provides (asymptotically) valid inference. 
+To impute the missing data, the ``mcf`` requires a causal model. 
+To provide valid inference, the mcf borrows the concept of honesty introduced by `Athey & Imbens (2016) <https://doi.org/10.1073/pnas.1510489113>`. For a textbook-like discussion refer to `Athey & Imbens (2016) <https://www.pnas.org/doi/10.1073/pnas.1510489113>`.
