@@ -145,10 +145,11 @@ Results
 The easiest way to get an overview of your results is to read the PDF-report that can be generated using the class :py:class:`~reporting.McfOptPolReport`:
 
 .. code-block:: python
+
     mcf_report = McfOptPolReport(mcf=my_mcf, outputfile='Modified-Causal-Forest_Report')
     mcf_report.report()
 
-Below we describe ways to access the results programmatically.
+Next, we describe ways to access the results programmatically:
 
 The :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method returns a dictionary containing the estimation results. To gain an overview, have a look at the keys of the dictionary:
 
