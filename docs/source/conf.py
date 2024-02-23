@@ -63,12 +63,16 @@ autoclass_content = 'class'
 # directives (even if those autosummary directives are "commented out"!).
 autosummary_generate = True
 
+# Exclude lines that that lie between the following markers:
+# <not_in_api>
+# ...
+# </not_in_api>
 from sphinx.ext.autodoc import between
 
 def setup(app):
     # Register a sphinx.ext.autodoc.between listener to ignore everything
     # between lines that contain the word IGNORE
-    app.connect('autodoc-process-docstring', between('^.*IGNORE.*$', exclude=True))
+    app.connect('autodoc-process-docstring', between('^<(/?)not_in_api>$', exclude=True))
     return app
 
 # -- Options for HTML output -------------------------------------------------
