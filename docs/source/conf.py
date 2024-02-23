@@ -63,12 +63,14 @@ autoclass_content = 'class'
 # directives (even if those autosummary directives are "commented out"!).
 autosummary_generate = True
 
+# Ignore lines in the docstrings that are enclosed by the following lines:
+# <NOT-ON-API>
+# ...
+# </NOT-ON-API>
 from sphinx.ext.autodoc import between
 
 def setup(app):
-    # Register a sphinx.ext.autodoc.between listener to ignore everything
-    # between lines that contain the word IGNORE
-    app.connect('autodoc-process-docstring', between('^.*<NOT-ON-API>.*$', exclude=True))
+    app.connect('autodoc-process-docstring', between('^.*</?NOT-ON-API>.*$', exclude=True))
     return app
 
 # -- Options for HTML output -------------------------------------------------
