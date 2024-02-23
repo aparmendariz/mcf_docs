@@ -1,7 +1,7 @@
 Modified Causal Forests
 =======================
 
-Welcome to the documentation of **mcf**, the Python package implementing the Modified Causal Forest introduced by `Lechner (2019) <https://doi.org/10.48550/arXiv.1812.09487>`_. This package allows you to estimate heterogeneous treatment effects for binary and multiple treatments from experimental or observational data. Additionally, mcf offers the capability to learn optimal policy allocations.
+Welcome to the documentation of **mcf**, the Python package implementing the Modified Causal Forest introduced by `Lechner (2018) <https://doi.org/10.48550/arXiv.1812.09487>`_. This package allows you to estimate heterogeneous treatment effects for binary and multiple treatments from experimental or observational data. Additionally, mcf offers the capability to learn optimal policy allocations.
 
 If you're new to the **mcf** package, we recommend following these steps:
 
@@ -151,7 +151,7 @@ References
 
 - Bodory H, Busshoff H, Lechner M. **High Resolution Treatment Effects Estimation: Uncovering Effect Heterogeneities with the Modified Causal Forest**. *Entropy*. 2022; 24(8):1039. `Read Paper <https://doi.org/10.3390/e24081039>`__
 
-- Lechner M. **Modified Causal Forests for Estimating Heterogeneous Causal Effects**. 2019. `Read Paper <https://doi.org/10.48550/arXiv.1812.09487>`__
+- Lechner M. **Modified Causal Forests for Estimating Heterogeneous Causal Effects**. 2018. `Read Paper <https://doi.org/10.48550/arXiv.1812.09487>`__
 
 - Lechner M, Mareckova J. **Modified Causal Forest**. 2022. `Read Paper <https://doi.org/10.48550/arXiv.2209.03744>`__
 
