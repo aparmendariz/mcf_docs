@@ -3,6 +3,7 @@ from time import time
 
 import pandas as pd
 
+from mcf import mcf_ate_functions as mcf_ate
 from mcf import mcf_common_support_functions as mcf_cs
 from mcf import mcf_data_functions as mcf_data
 from mcf import mcf_estimation_functions as mcf_est
@@ -25,8 +26,26 @@ class ModifiedCausalForest:
 
     Parameters
     ----------
+    var_y_name : String or List of strings (or None), optional
+        Name of outcome variables. If several variables are specified,
+        either var_y_tree_name is used for tree building, or (if
+        var_y_tree_name is None), the 1st variable in the list is used.
+        Only necessary for :meth:`~ModifiedCausalForest.train` method. Default is None.
+
+    var_d_name : String or List of string (or None), optional
+        Name of treatment variable. Must be provided to use the :meth:`~ModifiedCausalForest.train`
+        method. Can be provided for the :meth:`~ModifiedCausalForest.predict` method.
+
+    var_x_name_ord : String or List of strings (or None), optional
+        Name of ordered features. Either ordered or unordered features
+        must be provided. Default is None.
+
+    var_x_name_unord : String or List of strings (or None), optional
+        Name of unordered features. Either ordered or unordered features
+        must be provided. Default is None.
+
     var_bgate_name :  String or List of strings (or None), optional
-        Variables to balance the GATEs on. Only relevant if P_BGATE is
+        Variables to balance the GATEs on. Only relevant if p_bgate is
         True. The distribution of these variables is kept constant when a
         BGATE is computed. None: Use the other heterogeneity variables
         (var\_z\_ ...) (if there are any) for balancing. Default is None.
@@ -35,16 +54,8 @@ class ModifiedCausalForest:
         Name of variable defining clusters. Only relevant if p_cluster_std
         is True. Default is None.
         
-    var_d_name : String or List of string (or None), optional
-        Name of treatment variable. Must be provided to use the :meth:`~ModifiedCausalForest.train`
-        method. Can be provided for the :meth:`~ModifiedCausalForest.predict` method.
-        
     var_id_name : String or List of string (or None)
-        Identifier. None: Identifier will be added the data.
-        Default is None.
-        
-    var_w_name : String or List of string (or None), optional
-        Name of weight. Only relevant if gen_weighted is True.
+        Identifier. None: Identifier will be added to the data.
         Default is None.
         
     var_x_balance_name_ord : String or List of strings (or None), optional
@@ -76,26 +87,11 @@ class ModifiedCausalForest:
     var_x_name_remain_unord : String or List of strings (or None), optional
         Name of unordered variables that cannot be removed by feature
         selection. Only relevant for :meth:`~ModifiedCausalForest.train` method. Default is None.
-        
-    var_x_name_ord : String or List of strings (or None), optional
-        Name of ordered features. Either ordered or unordered features
-        must be provided. Default is None.
-        
-    var_x_name_unord : String or List of strings (or None), optional
-        Name of unordered features. Either ordered or unordered features
-        must be provided. Default is None.
-        
-    var_y_name : String or List of strings (or None), optional
-        Name of outcome variables. If several variables are specified,
-        either var_y_tree_name is used for tree building, or (if
-        var_y_tree_name is None), the 1st variable in the list is used.
-        Only necessary for :meth:`~ModifiedCausalForest.train` method. Default is None.
-        
-    var_y_tree_name : String or List of string (or None), optional
-        Name of outcome variables to be used to build trees. This is only
-        relevant if many outcome variables are specified in var_y_name.
-        Only relevant for :meth:`~ModifiedCausalForest.train` method. Default is None.
-        
+
+    var_w_name : String or List of string (or None), optional
+        Name of weight. Only relevant if gen_weighted is True.
+        Default is None.
+
     var_z_name_list : String or List of strings (or None), optional
         Names of ordered variables with many values to define
         causal heterogeneity. They will be discretized (and dependening
@@ -113,30 +109,11 @@ class ModifiedCausalForest:
         causal heterogeneity. If not already included in var_x_name_ord,
         they will be added to the list of features. Default is None.
 
-    p_atet : Boolean (or None), optional
-        Compute effects for specific treatment groups. Only possible if
-        treatment is included in prediction data.
-        Default (or None) is False.
+    var_y_tree_name : String or List of string (or None), optional
+        Name of outcome variables to be used to build trees. This is only
+        relevant if many outcome variables are specified in var_y_name.
+        Only relevant for :meth:`~ModifiedCausalForest.train` method. Default is None.
 
-    p_gatet : Boolean (or None), optional
-        Compute effects for specific treatment groups. Only possible if
-        treatment is included in prediction data.
-        Default (or None) is False.
-
-    p_bgate : Boolean (or None), optional
-        Estimate a GATE that is balanced in selected features (as specified
-        in var_bgate_name. Default (or None) is False.
-
-    p_cbgate : Boolean (or None), optional
-        Estimate a GATE that is balanced in all other features.
-        Default (or None) is False.
-
-    cf_boot : Integer (or None), optional
-        Number of Causal Trees. Default (or None) is 1000.
-
-    lc_yes : Boolean (or None), optional
-        Local centering. Default (or None) is True.
-        
     cf_alpha_reg_grid : Integer (or None), optional
         Minimum remaining share when splitting leaf: Number of grid values.
         If grid is used, optimal value is determined by out-of-bag
@@ -149,6 +126,9 @@ class ModifiedCausalForest:
     cf_alpha_reg_min : Float (or None), optional
         Minimum remaining share when splitting leaf: Smallest value of
         grid (keep it below 0.2). Default (or None) is 0.05.
+
+    cf_boot : Integer (or None), optional
+        Number of Causal Trees. Default (or None) is 1000.
         
     cf_chunks_maxsize : Integer (or None), optional
         Randomly split training data in chunks and take average of the
@@ -422,7 +402,7 @@ class ModifiedCausalForest:
         Feature selection: Share of sample used for feature selection
         (only relevant if fs_other_sample is True).
         Default (or None) is 0.33.
-        
+
     gen_d_type : String (or None), optional
         Type of treatment. 'discrete': Discrete treatment.
         'continuous': Continuous treatment.
@@ -465,6 +445,9 @@ class ModifiedCausalForest:
         Use of sampling weights to be provided in var_w_name.
         Default (or None) is False.
         
+    lc_yes : Boolean (or None), optional
+        Local centering. Default (or None) is True.
+
     lc_cs_cv : Boolean (or None), optional
         Data to be used for local centering & common support adjustment.
         True: Crossvalidation. False: Random sample not to be used for
@@ -484,7 +467,12 @@ class ModifiedCausalForest:
         Predicted potential outcomes are re-adjusted for local centering
         are added to data output (iate and iate_eff in results dictionary).
         Default (or None) is True.
-        
+
+    p_atet : Boolean (or None), optional
+        Compute effects for specific treatment groups. Only possible if
+        treatment is included in prediction data.
+        Default (or None) is False.
+
     p_gates_minus_previous : Boolean (or None), optional
         Estimate increase of difference of GATEs, CBGATEs, BGATEs when
         evaluated at next larger observed value.
@@ -504,10 +492,23 @@ class ModifiedCausalForest:
     p_gates_smooth_no_evalu_points : Integer (or None), optional
         Number of evaluation points for discretized variables in GATE
         estimation. Default (or None) is 50.
+
+    p_gatet : Boolean (or None), optional
+        Compute effects for specific treatment groups. Only possible if
+        treatment is included in prediction data.
+        Default (or None) is False.
         
     p_gate_no_evalu_points : Integer (or None), optional
         Number of evaluation points for discretized variables in (C)BGATE
         estimation. Default (or None) is 50.
+
+    p_bgate : Boolean (or None), optional
+        Estimate a GATE that is balanced in selected features (as specified
+        in var_bgate_name. Default (or None) is False.
+
+    p_cbgate : Boolean (or None), optional
+        Estimate a GATE that is balanced in all other features.
+        Default (or None) is False.
         
     p_bgate_sample_share : Float (or None), optional
         Implementation of (C)BGATE estimation is very cpu intensive.
@@ -815,6 +816,56 @@ class ModifiedCausalForest:
     cf_dict : Dictionary
         Parameters used in training the forest (directly).
 
+    cs_dict : Dictionary
+        Parameters used in common support adjustments.
+
+    ct_dict : Dictionary
+        Parameters used in dealing with continuous treatments.
+
+    data_train_dict : Dictionary
+
+    dc_dict : Dictionary
+        Parameters used in data cleaning.
+
+    fs_dict : Dictionary
+        Parameters used in feature selection.
+
+    forest : List
+        List of lists containing the estimated causal forest.
+
+    gen_dict : Dictionary
+        General parameters used in various parts of the programme.
+
+    int_dict : Dictionary
+        Internal parameters used in various parts of the class.
+
+    lc_dict : Dictionary
+        Parameters used in local centering.
+
+    p_dict : Dictionary
+        Parameters used by prediction method.
+
+    post_dict : Dictionary
+        Parameters used in analyse method.
+
+    report :
+        Provides information for McfOptPolReports to construct reports.
+
+    sens_dict : Dictionary
+        Parameters used in sensitivity method.
+
+    time_strings : String
+        Detailed information on how the long the different methods needed.
+
+    var_dict : Dictionary
+        Variable names.
+
+    var_x_type : Dictionary
+        Types of covariates (internal).
+
+    var_x_values : Dictionary
+        Values of covariates (internal).
+
     </NOT-ON-API>
 
     """
@@ -988,201 +1039,6 @@ class ModifiedCausalForest:
         self.forest, self.time_strings = None, {}
         self.report = {'predict_list': [],   # Needed for multiple predicts
                        'analyse_list': []}
-
-    @property
-    def blind_dict(self):
-        """
-        Dictionary, parameters to compute (partially) blinded IATEs.
-        """
-        return self._blind_dict
-
-    @blind_dict.setter
-    def blind_dict(self, value):
-        self._blind_dict = value
-        
-    @property
-    def cf_dict(self):
-        """
-        Dictionary, parameters used in training the forest (directly).
-        """
-        return self._cf_dict
-
-    @cf_dict.setter
-    def cf_dict(self, value):
-        self._cf_dict = value
-        
-    @property
-    def cs_dict(self):
-        """
-        Dictionary, parameters used in common support adjustments.
-        """
-        return self._cs_dict
-
-    @cs_dict.setter
-    def cs_dict(self, value):
-        self._cs_dict = value
-
-    @property
-    def ct_dict(self):
-        """
-        Dictionary, parameters used in dealing with continuous treatments.
-        """
-        return self._ct_dict
-
-    @ct_dict.setter
-    def ct_dict(self, value):
-        self._ct_dict = value
-
-    @property
-    def data_train_dict(self):
-        return self._data_train_dict
-
-    @data_train_dict.setter
-    def data_train_dict(self, value):
-        self._data_train_dict = value
-
-    @property
-    def dc_dict(self):
-        """
-        Dictionary, parameters used in data cleaning.
-        """
-        return self._dc_dict
-
-    @dc_dict.setter
-    def dc_dict(self, value):
-        self._dc_dict = value
-
-    @property
-    def fs_dict(self):
-        """
-        Dictionary, parameters used in feature selection.
-        """
-        return self._fs_dict
-
-    @fs_dict.setter
-    def fs_dict(self, value):
-        self._fs_dict = value
-        
-    @property
-    def forest(self):
-        """
-        List of list containing the estimated causal forest.
-        """
-        return self._forest
-
-    @forest.setter
-    def forest(self, value):
-        self._forest = value
-
-    @property
-    def gen_dict(self):
-        """
-        Dictionary, general parameters used in various parts of the programme.
-        """
-        return self._gen_dict
-
-    @gen_dict.setter
-    def gen_dict(self, value):
-        self._gen_dict = value
-
-    @property
-    def int_dict(self):
-        """
-        Dictionary, internal parameters used in various parts of the class.
-        """
-        return self._int_dict
-
-    @int_dict.setter
-    def int_dict(self, value):
-        self._int_dict = value
-
-    @property
-    def p_dict(self):
-        """
-        Dictionary, parameters used by prediction method.
-        """
-        return self._p_dict
-
-    @p_dict.setter
-    def p_dict(self, value):
-        self._p_dict = value
-        
-    @property
-    def post_dict(self):
-        """
-        Dictionary, parameters used in analyse method.
-        """
-        return self._post_dict
-
-    @post_dict.setter
-    def post_dict(self, value):
-        self._post_dict = value
-
-    @property
-    def report(self):
-        """
-        Provides information for McfOptPolReports to construct reports. 
-        """
-        return self._report
-
-    @report.setter
-    def report(self, value):
-        self._report = value
-
-    @property
-    def sens_dict(self):
-        """
-        Dictionary, parameters used in sensitivity method.
-        """
-        return self._sens_dict
-
-    @sens_dict.setter
-    def sens_dict(self, value):
-        self._sens_dict = value
-
-    @property
-    def time_strings(self):
-        """
-        String, detailed information on how the long the different methods needed.
-        """
-        return self._time_strings
-
-    @time_strings.setter
-    def time_strings(self, value):
-        self._time_strings = value
-
-    @property
-    def var_dict(self):
-        """
-        Dictionary, variable names.
-        """
-        return self._var_dict
-
-    @var_dict.setter
-    def var_dict(self, value):
-        self._var_dict = value
-        
-    @property
-    def var_x_type(self):
-        """
-        Dictionary, types of covariates (internal).
-        """
-        return self._var_x_type
-
-    @var_x_type.setter
-    def var_x_type(self, value):
-        self._var_x_type = value
-
-    @property
-    def var_x_values(self):
-        """
-        Dictionary, values of covariates (internal).
-        """
-        return self._var_x_values
-
-    @var_x_values.setter
-    def var_x_values(self, value):
-        self._var_x_values = value
 
     def train(self, data_df):
         """

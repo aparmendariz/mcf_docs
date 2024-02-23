@@ -246,7 +246,45 @@ class OptimalPolicy:
         Parallelize to a larger degree to make sure all CPUs are busy for
         most of the time. Default is True. Only used for 'policy tree' and
         only used if _int_parallel_processing > 1 (or None)
-        """
+
+    <NOT-ON-API>
+
+    Attributes
+    ----------
+
+    dc_dict : Dictionary
+        Parameters used in data cleaning.
+
+    gen_dict : Dictionary
+        General parameters used in various parts of the programme.
+
+    int_dict : Dictionary
+        Parameters used in many parts of the class.
+
+    other_dict : Dictionary
+        Contains other relevant information needed for allocation (like cost, constraints).
+
+    pt_dict : Dictionary
+        Parameters used to build policy tree.
+
+    rnd_dict : Dictionary
+        Shares for random allocation.
+
+    time_strings : String
+        Detailed information on how the long the different methods needed.
+
+    var_dict : Dictionary
+        Variable names.
+
+    var_x_type : Dictionary
+        Types of covariates (internal).
+
+    var_x_values : Dictionary
+        Values of covariates (internal).
+
+    </NOT-ON-API>
+
+    """
 
     def __init__(
         self, dc_check_perfectcorr=True,
@@ -318,120 +356,6 @@ class OptimalPolicy:
                        'alloc_list': [],   # List because of possible multiple
                        'evalu_list': [],   # allocation, evaluation methods
                        }                   # might be used multiple times.
-
-    
-    @property
-    def dc_dict(self):
-        """
-        Dictionary, parameters used in data cleaning.
-        List of list containing the estimated causal forest.
-        """
-        return self._dc_dict
-
-    @dc_dict.setter
-    def dc_dict(self, value):
-        self._dc_dict = value
-    
-    @property
-    def gen_dict(self):
-        """
-        Dictionary, general parameters used in various parts of the programme.
-        """
-        return self._gen_dict
-
-    @gen_dict.setter
-    def gen_dict(self, value):
-        self._gen_dict = value
-    
-    @property
-    def int_dict(self):
-        """
-        Dictionary, parameters used in many parts of the class.
-        """
-        return self._int_dict
-
-    @int_dict.setter
-    def int_dict(self, value):
-        self._int_dict = value
-
-    @property
-    def other_dict(self):
-        """
-        Contains other relevant information needed for allocation (like
-        cost, constraints)
-        """
-        return self._other_dict
-
-    @other_dict.setter
-    def other_dict(self, value):
-        self._other_dict = value
-
-    @property
-    def pt_dict(self):
-        """
-        Dictionary, parameters used to build policy tree.
-        """
-        return self._pt_dict
-    
-    @pt_dict.setter
-    def pt_dict(self, value):
-        self._pt_dict = value
-
-    @property
-    def rnd_dict(self):
-        """
-        Dictionary, shares for random allocation.
-        """
-        return self._rnd_dict
-        
-    @rnd_dict.setter
-    def rnd_dict(self, value):
-        self._rnd_dict = value
-
-    @property
-    def time_strings(self):
-        """
-        String, detailed information on how the long the different methods needed.
-        """
-        return self._time_strings
-        
-    @time_strings.setter
-    def time_strings(self, value):
-        self._time_strings = value
-
-    @property
-    def var_dict(self):
-        """
-        Dictionary, variable names.
-        """
-        return self._var_dict
-
-    @var_dict.setter
-    def var_dict(self, value):
-        self._var_dict = value
-
-    @property
-    def var_x_type(self):
-        """
-        Dictionary, types of covariates (internal).
-        """
-        return self._var_x_type
-
-    @var_x_type.setter
-    def var_x_type(self, value):
-        self._var_x_type = value
-
-    @property
-    def var_x_values(self):
-        """
-        Dictionary, values of covariates (internal).
-        """
-        return self._var_x_values
-
-    @var_x_values.setter
-    def var_x_values(self, value):
-        self._var_x_values = value
-
 
     def solve(self, data_df, data_title=''):
         """

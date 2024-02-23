@@ -35,10 +35,48 @@ class McfOptPolReport:
             If None, 'Reporting' is used as name. Any name will always appended
             by string that contains the day and time (measured when the
             programme ends).
+
+    <NOT-ON-API>
+
+    Attributes
+    ----------
+
+    gen_dict : Dictionary
+        General parameters to compute reports.
+
+    mcf_o : Dictionary
+        Content from mcf estimation to compute reports.
+
+    opt_o : Dictionary
+        Content from optimal policy allocation to compute reports.
+
+    sens_o : Dictionary
+        Content from sensitivity analysis to compute reports.
+
+    blind_o : Dictionary
+        Content from partially blinded IATE estimation to compute reports.
+
+    text : Dictionary
+        Container for text to compute reports.
+
+    mcf : Boolean
+        True if there is anything to report about mcf estimation.
+
+    opt : Boolean
+        True if there is anything to report about optimal policy allocation.
+
+    sens : Boolean
+        True if there is anything to report about sensitivity analysis.
+
+    blind : Boolean.
+        True if there is anything to report about blinded IATE estimation.
+
+    </NOT-ON-API>
+
     """
 
     def __init__(self, mcf=None, mcf_blind=None, mcf_sense=None, optpol=None,
-                 outputpath=None, outputfile=None):        
+                 outputpath=None, outputfile=None):
         self.gen_dict = rep.gen_init(outputfile, outputpath)
         self.mcf_o, self.opt_o, self.sens_o = mcf, optpol, mcf_sense
         self.blind_o = mcf_blind
@@ -48,116 +86,6 @@ class McfOptPolReport:
         self.blind = self.blind_o is not None
         self.text = {}
 
-    @property
-    def gen_dict(self):
-        """
-        Dictionary, general parameters to compute reports.
-        """
-        return self._gen_dict
-
-    @gen_dict.setter
-    def gen_dict(self, value):
-        self._gen_dict = value
-
-    @property
-    def mcf_o(self):
-        """
-        Dictionary, content from mcf estimation to compute reports.
-        """
-        return self._mcf_o
-
-    @mcf_o.setter
-    def mcf_o(self, value):
-        self._mcf_o = value
-
-    @property
-    def opt_o(self):
-        """
-        Dictionary, content from optimal policy allocation to compute reports.
-        """
-        return self._opt_o
-
-    @opt_o.setter
-    def opt_o(self, value):
-        self._opt_o = value
-
-    @property
-    def sens_o(self):
-        """
-        Dictionary, content from sensitivity analysis to compute reports.
-        """
-        return self._sens_o
-
-    @sens_o.setter
-    def sens_o(self, value):
-        self._sens_o = value
-
-    @property
-    def blind_o(self):
-        """
-        Dictionary, content from partially blinded IATE estimation to compute reports.
-        """
-        return self._blind_o
-
-    @blind_o.setter
-    def blind_o(self, value):
-        self._blind_o = value
-
-    @property
-    def Text(self):
-        """
-        Dictionary, container for text to compute reports.
-        """
-        return self._Text
-
-    @Text.setter
-    def Text(self, value):
-        self._Text = value
-
-    @property
-    def mcf(self):
-        """
-        Boolean, True if there is anything to report about mcf estimation.
-        """
-        return self._mcf
-
-    @mcf.setter
-    def mcf(self, value):
-        self._mcf = value
-
-    @property
-    def opt(self):
-        """
-        Boolean, True if there is anything to report about optimal policy allocation.
-        """
-        return self._opt
-
-    @opt.setter
-    def opt(self, value):
-        self._opt = value
-
-    @property
-    def sens(self):
-        """
-        Boolean, True if there is anything to report about sensitivity analysis.
-        """
-        return self._sens
-
-    @sens.setter
-    def sens(self, value):
-        self._sens = value
-
-    @property
-    def blind(self):
-        """
-        Boolean, True if there is anything to report about blinded IATE estimation.
-        """
-        return self._blind
-
-    @blind.setter
-    def blind(self, value):
-        self._blind = value
-        
     def report(self):
         """Create a PDF report using instances of the :class:`~mcf_functions.ModifiedCausalForest` and 
         :class:`~optpolicy_functions.OptimalPolicy` classes and saves the file to a user provided location.
