@@ -815,7 +815,7 @@ class ModifiedCausalForest:
     cf_dict : Dictionary
         Parameters used in training the forest (directly).
 
-    </not_in_api>
+    <not_in_api>
 
     """
 
