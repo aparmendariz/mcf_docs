@@ -1002,7 +1002,7 @@ class ModifiedCausalForest:
             gates_smooth=p_gates_smooth,
             gates_smooth_bandwidth=p_gates_smooth_bandwidth,
             gates_smooth_no_evalu_points=p_gates_smooth_no_evalu_points,
-            gatet=p_gatet, gate_no_evalu_points=p_gate_no_evalu_points,
+            gatet=p_gatet, gate_no_evalu_points=p_gates_no_evalu_points,
             bgate_sample_share=p_bgate_sample_share,
             iate=p_iate, iate_se=p_iate_se, iate_m_ate=p_iate_m_ate, knn=p_knn,
             knn_const=p_knn_const, knn_min_k=p_knn_min_k, nw_bandw=p_nw_bandw,
