@@ -22,57 +22,6 @@ Modified Causal Forest
 .. autoclass:: ModifiedCausalForest
 
 
-Attributes
-^^^^^^^^^^
-
-..
-   HACK -- Also list the attributes in the "commented out" paragraph below. The
-   point here is that we don't want this to appear in the output, but the
-   autosummary below will, even when commented out, generate the separate
-   documentation page that can be cross-referenced.
-
-   .. autosummary::
-      :toctree:
-
-      ModifiedCausalForest.blind_dict
-      ModifiedCausalForest.cf_dict
-      ModifiedCausalForest.cs_dict
-      ModifiedCausalForest.ct_dict
-      ModifiedCausalForest.data_train_dict
-      ModifiedCausalForest.dc_dict
-      ModifiedCausalForest.forest
-      ModifiedCausalForest.fs_dict
-      ModifiedCausalForest.gen_dict
-      ModifiedCausalForest.int_dict
-      ModifiedCausalForest.p_dict
-      ModifiedCausalForest.post_dict
-      ModifiedCausalForest.report
-      ModifiedCausalForest.sens_dict
-      ModifiedCausalForest.time_strings
-      ModifiedCausalForest.var_dict
-      ModifiedCausalForest.var_x_type
-      ModifiedCausalForest.var_x_values
-
-.. autosummary:: 
-    ~ModifiedCausalForest.blind_dict
-    ~ModifiedCausalForest.cf_dict
-    ~ModifiedCausalForest.cs_dict
-    ~ModifiedCausalForest.ct_dict
-    ~ModifiedCausalForest.data_train_dict
-    ~ModifiedCausalForest.dc_dict
-    ~ModifiedCausalForest.forest
-    ~ModifiedCausalForest.fs_dict
-    ~ModifiedCausalForest.gen_dict
-    ~ModifiedCausalForest.int_dict
-    ~ModifiedCausalForest.p_dict
-    ~ModifiedCausalForest.post_dict
-    ~ModifiedCausalForest.report
-    ~ModifiedCausalForest.sens_dict
-    ~ModifiedCausalForest.time_strings
-    ~ModifiedCausalForest.var_dict
-    ~ModifiedCausalForest.var_x_type
-    ~ModifiedCausalForest.var_x_values
-
 Methods
 ^^^^^^^
 
@@ -105,40 +54,6 @@ Optimal Policy
 
 .. autoclass:: OptimalPolicy
 
-
-Attributes
-^^^^^^^^^^
-
-..
-   HACK -- Also list the attributes in the "commented out" paragraph below. The
-   point here is that we don't want this to appear in the output, but the
-   autosummary below will, even when commented out, generate the separate
-   documentation page that can be cross-referenced.
-
-   .. autosummary::
-      :toctree:
-      OptimalPolicy.dc_dict
-      OptimalPolicy.gen_dict
-      OptimalPolicy.int_dict
-      OptimalPolicy.other_dict
-      OptimalPolicy.pt_dict
-      OptimalPolicy.rnd_dict
-      OptimalPolicy.time_strings
-      OptimalPolicy.var_dict
-      OptimalPolicy.var_x_type
-      OptimalPolicy.var_x_values
-
-.. autosummary:: 
-    ~OptimalPolicy.dc_dict
-    ~OptimalPolicy.gen_dict
-    ~OptimalPolicy.int_dict
-    ~OptimalPolicy.other_dict
-    ~OptimalPolicy.pt_dict
-    ~OptimalPolicy.rnd_dict    
-    ~OptimalPolicy.time_strings
-    ~OptimalPolicy.var_dict
-    ~OptimalPolicy.var_x_type    
-    ~OptimalPolicy.var_x_values
 
 Methods
 ^^^^^^^
@@ -173,40 +88,6 @@ Reporting
 
 .. autoclass:: McfOptPolReport
 
-Attributes
-^^^^^^^^^^
-
-..
-   HACK -- Also list the attributes in the "commented out" paragraph below. The
-   point here is that we don't want this to appear in the output, but the
-   autosummary below will, even when commented out, generate the separate
-   documentation page that can be cross-referenced.
-
-   .. autosummary::
-      :toctree:
-      McfOptPolReport.gen_dict
-      McfOptPolReport.mcf_o
-      McfOptPolReport.opt_o
-      McfOptPolReport.sens_o
-      McfOptPolReport.blind_o
-      McfOptPolReport.Text
-      McfOptPolReport.mcf
-      McfOptPolReport.opt
-      McfOptPolReport.sens
-      McfOptPolReport.mcf
-
-.. autosummary:: 
-    ~McfOptPolReport.gen_dict
-    ~McfOptPolReport.mcf_o
-    ~McfOptPolReport.opt_o
-    ~McfOptPolReport.sens_o
-    ~McfOptPolReport.blind_o
-    ~McfOptPolReport.Text
-    ~McfOptPolReport.mcf
-    ~McfOptPolReport.opt
-    ~McfOptPolReport.sens
-    ~McfOptPolReport.blind
-
 
 Methods
 ^^^^^^^
@@ -224,4 +105,3 @@ Methods
 
 .. autosummary:: 
     ~McfOptPolReport.report
-
