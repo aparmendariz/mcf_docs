@@ -68,7 +68,7 @@ from sphinx.ext.autodoc import between
 def setup(app):
     # Register a sphinx.ext.autodoc.between listener to ignore everything
     # between lines that contain the word IGNORE
-    app.connect('autodoc-process-docstring', between('^.*NOT-ON-API.*$', exclude=True))
+    app.connect('autodoc-process-docstring', between('^.*<NOT-ON-API>.*$', exclude=True))
     return app
 
 # -- Options for HTML output -------------------------------------------------
