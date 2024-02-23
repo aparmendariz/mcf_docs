@@ -65,6 +65,7 @@ To demonstrate how to use **mcf**, let's simulate some data and apply the Modifi
 
     from mcf import ModifiedCausalForest
     from mcf import OptimalPolicy
+    from mcf import McfOptPolReport
 
     def simulate_data(n: int, seed: int) -> pd.DataFrame:
         """
@@ -138,6 +139,11 @@ To demonstrate how to use **mcf**, let's simulate some data and apply the Modifi
 
     # Compare the optimal policy rule to the observed and a random allocation:
     print(alloc_df)
+
+    # Produce a PDF-report that summarises the most important results
+    my_report = McfOptPolReport(mcf=my_mcf, optpol=my_optimal_policy,
+                                outputfile='mcf_report')
+    my_report.report()
 
 For a more detailed example, see the :doc:`getting_started` section.
 

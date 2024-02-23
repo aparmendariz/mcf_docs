@@ -18,6 +18,7 @@ First, we'll create some synthetic data to showcase the functionality of the **m
     import pandas as pd
     from mcf import ModifiedCausalForest
     from mcf import OptimalPolicy
+    from mcf import McfOptPolReport
 
     def simulate_data(n: int, seed: int) -> pd.DataFrame:
         """
@@ -141,6 +142,14 @@ Now we are ready to estimate heterogeneous treatment effects on the *pred_mcf_tr
 Results
 ~~~~~~~
 
+The easiest way to get an overview of your results is to read the PDF-report that can be generated using the class :py:class:`~reporting.McfOptPolReport`:
+
+.. code-block:: python
+    mcf_report = McfOptPolReport(mcf=my_mcf, outputfile='Modified-Causal-Forest_Report')
+    mcf_report.report()
+
+Below we describe ways to access the results programmatically.
+
 The :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method returns a dictionary containing the estimation results. To gain an overview, have a look at the keys of the dictionary:
 
 .. code-block:: python
@@ -252,6 +261,16 @@ Next, we can use the :py:meth:`~optpolicy_functions.OptimalPolicy.evaluate` meth
 
     print(pt_eval)
     print(alloc_df.head())
+
+A great way to get an overview of the results is to read the PDF-report that can be generated using the class :py:class:`~reporting.McfOptPolReport`:
+
+.. code-block:: python
+
+    policy_tree_report = McfOptPolReport(
+        optpol = my_policy_tree,
+        outputfile = 'Optimal-Policy_Report'
+        )
+    policy_tree_report.report()
 
 Finally, it is straightforward to apply our Optimal Policy Tree to new data. To do so, we simply apply the :py:meth:`~optpolicy_functions.OptimalPolicy.allocate` method
 to the DataFrame holding the potential outcomes, treatment variable and the features for the data that was held out for evaluation:
