@@ -1,11 +1,11 @@
 Common support
 ==============
 
-Common support is crucial in estimating heterogeneous treatment effects. It requires that the covariate distributions in all treatment arms overlap. The :py:class:`~mcf_functions.ModifiedCausalForest` class provides several options to check for and enforce common support.
+Common support is crucial in estimating heterogeneous treatment effects. Loosely speaking, it requires that the distributions of the covariates overlap across all treatment arms. The :py:class:`~mcf_functions.ModifiedCausalForest` class provides several options to check for and enforce common support.
 
 Common support checks and adjustments are performed before any causal effects are estimated. You can control the type of common support adjustment with the parameter ``cs_type`` of the class :py:class:`~mcf_functions.ModifiedCausalForest`. If you set ``cs_type`` to 0, there is no common support adjustment.
 
-If you set ``cs_type`` to 1 or 2, common support is enforced based on propensity scores that are estimated with classification forests [1]_. The Modified Causal Forest will then remove all observations whose propensity scores lie outside certain cut-off probabilities. For a value of 1, which is the default, the cut-off probabilities are determined automatically by the **mcf** package. For a value of 2, you can specify the cut-off probabilities yourself using the parameter ``cs_min_p``: Any observation with a propensity score :math:`P(D = m| X)` of less than or equal to ``cs_min_p`` - for at least one treatment arm - will be removed from the data set.
+If you set ``cs_type`` to 1 or 2, common support is enforced based on propensity scores that are estimated with classification forests[1]_. The Modified Causal Forest will then remove all observations whose propensity scores lie outside certain cut-off probabilities. For a value of 1, which is the default, the cut-off probabilities are determined automatically by the **mcf** package. For a value of 2, you can specify the cut-off probabilities yourself using the parameter ``cs_min_p``: Any observation with a propensity score :math:`P(D = m| X)` of less than or equal to ``cs_min_p`` - for at least one treatment arm - will be removed from the data set.
 
 When common support adjustments are enabled, the **mcf** package will display standard common support plots to help you understand the distribution of propensity scores across treatment arms. These plots are also saved in the output folder that the **mcf** package generates. You can find the location of this folder by accessing the `"outpath"` entry of the `gen_dict` attribute of your Modified Causal Forest:
 
