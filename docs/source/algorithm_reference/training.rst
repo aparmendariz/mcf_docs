@@ -38,10 +38,26 @@ The number of trees forming the forest is given by the argument cf_boot.
 As a tree is grown, the algorithm greedily chooses the split which leads to the best possible reduction of the objective function specified in ``cf_mce_vart``. To this end, the following objective criteria are implemented: (i) the outcome mean squared error (MSE), (ii) the outcome MSE and mean correlated errors (MCE), (iii) the variance of the effect, and (iv) the criterion randomly switches between outcome MSE and MCE and penalty functions which are defined under ``cf_p_diff_penalty``. 
 
 The outcome MSE is estimated as the sum of mean squared errors of the outcome regression in each treatment. 
-The MCE depends on correlations between treatment states. For this reason, before building the trees, for each observation in each treatment state, the program finds a close ‘neighbor’ in every other treatment state and saves its outcome to then estimate the MCE. How the program matches is governed by the argument ``cf_match_nn_prog_score``. The program matches either by outcome scores (one per treatment) or on all covariates by Mahalanobis matching. If there are many covariates, it is advisable to match on outcome scores due to the curse of dimensionality. When performing Mahalanobis matching, a practical issue may be that the required inverse of the covariance matrix is unstable. For this reason the program allows to only use the main diagonal to invert the covariance matrix. This is regulated via the argument cf_nn_main_diag_only. Likewise, the program allows for a modification of the splitting rule by adding a penalty to the objective function specified in cf_mce_vart. The idea for deploying a penalty based upon the propensity score is to increase treatment homogeneity within new splits in order to reduce selection bias. Which specific penalty function is used is passed over to the program via the argument cf_p_diff_penalty. Note that from cf_mce_vart only option (iv) cannot work without the penalty. More details on choosing the minimum number of observations in a leaf are given below in section Parameter tuning. Once the forest is settled for the training data, the splits obtained in the training data are transferred to all data subsamples (by treatment state) in the held-out data. Finally, the mean of the outcomes in the respective leaf is the prediction.
+The MCE depends on correlations between treatment states. For this reason, before building the trees, for each observation in each treatment state, the program finds a close ‘neighbor’ in every other treatment state and saves its outcome to then estimate the MCE. How the program matches is governed by the argument ``cf_match_nn_prog_score``. 
+
+The program matches either by outcome scores (one per treatment) or on all covariates by Mahalanobis matching. If there are many covariates, it is advisable to match on outcome scores due to the curse of dimensionality. When performing Mahalanobis matching, a practical issue may be that the required inverse of the covariance matrix is unstable. For this reason the program allows to only use the main diagonal to invert the covariance matrix. This is regulated via the argument ``cf_nn_main_diag_only``. 
+
+Likewise, the program allows for a modification of the splitting rule by adding a penalty to the objective function specified in ``cf_mce_vart``. The idea for deploying a penalty based upon the propensity score is to increase treatment homogeneity within new splits in order to reduce selection bias. Which specific penalty function is used is passed over to the program via the argument ``cf_p_diff_penalty``. Note that from ``cf_mce_vart`` only option (iv) cannot work without the penalty. 
+
+More details on choosing the minimum number of observations in a leaf are given below in section Parameter tuning. Once the forest is settled for the training data, the splits obtained in the training data are transferred to all data subsamples (by treatment state) in the held-out data. 
+Finally, the mean of the outcomes in the respective leaf is the prediction.
 
 Below you find a list of the discussed parameters that are relevant for forest growing. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters. 
 
+During tree growth, the algorithm selects splits to optimize the specified objective function in `cf_mce_vart`, including MSE, MSE and MCE, variance of effect, or a random switch between MSE, MCE, and penalty functions defined in `cf_p_diff_penalty`. 
+
+MSE is computed as the sum of squared errors for each treatment, while MCE depends on treatment state correlations, estimated by matching observations using `cf_match_nn_prog_score`. Matching can be based on outcome scores or covariates via Mahalanobis matching, with an option to stabilize covariance matrix inversion using `cf_nn_main_diag_only`.
+
+A penalty function based on propensity score can be added to modify the splitting rule and enhance treatment homogeneity, specified in `cf_p_diff_penalty`. 
+
+The forest's splits from training data are applied to all subsamples in held-out data, and predictions are made by averaging outcomes in each leaf.
+
+For detailed parameter tuning, refer to the API documentation for `ModifiedCausalForest`.
 
 .. dropdown:: Commonly used parameters for forest growing
 
