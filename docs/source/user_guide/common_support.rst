@@ -21,6 +21,8 @@ When common support adjustments are enabled, the **mcf** package will display st
 
 The common support plots will be stored in the subfolder `common_support`.
 
+------
+
 .. [1] Out of bag predictions are used to avoid overfitting.
 
 
