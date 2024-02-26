@@ -8,7 +8,7 @@ Sensitivity checks
 
 The method :py:meth:`~mcf_functions.ModifiedCausalForest.sensitivity` of the :class:`~mcf_functions.ModifiedCausalForest` class contains some simulation-based tools to check how well the Modified Causal Forest works in removing selection bias and how sensitive the results are with respect to potentially missing confounding covariates (i.e., those related to treatment and potential outcomes).
 
-A paper by Armendariz-Pacheco, Frischknecht, Lechner, and Mareckova (2024) will discuss and investigate the different methods in detail. So far, please note that all methods are simulation based.
+A paper by Armendariz-Pacheco, Lechner, and Mareckova (2024) will discuss and investigate the different methods in detail. So far, please note that all methods are simulation based.
 
 The sensitivity checks consist of the following steps:
 

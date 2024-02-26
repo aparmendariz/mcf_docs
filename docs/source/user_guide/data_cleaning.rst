@@ -24,7 +24,7 @@ Example
 
     from mcf import ModifiedCausalForest
 
-    my_mcf = ModifiedCausalForest(
+    ModifiedCausalForest(
         var_y_name="y",
         var_d_name="d",
         var_x_name_ord=["x1", "x2"],
