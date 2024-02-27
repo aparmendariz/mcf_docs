@@ -1,7 +1,7 @@
 Policy Tree algorithm
 =====================
 
-You may choose between two methods in determining policy allocation:
+You may choose between two methods when determining policy allocation:
 
 - Policy Tree: This method follows `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ . To opt for this method, set ``gen_method`` or ``policy tree``.
 
@@ -9,11 +9,6 @@ You may choose between two methods in determining policy allocation:
 
 Optimal Policy Tree
 -------------------
-
-In what follows, we briefly explain the solution method for finding the optimal policy tree.
-
-A Primer
------------
 
 The optpoltree function is designed to discover the optimal policy tree in a computationally cheap and tractable manner. While the basic logic follows `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ , the details of the programmatic implementation differ. 
 For instance, in contrast to policytree, the optpoltree allows you to consider constraints in terms of the maximal shares of treated and to detail treatment costs as well as using different policy scores.
@@ -80,7 +75,7 @@ The optimal policy tree comes with several options:
 - Cost Multiplier: If there are restrictions, and ``other_costs_of_treat`` is left to its default, the ``other_costs_of_treat_mult`` can be specified. Admissible values are either a scalar greater zero or a tuple with values greater zero. The tuple needs as many entries as there are treatments. The imputed cost vector is then multiplied by this factor.
 
 
-.. list-table:: Optimal Policy Tree Options
+.. list-table:: 
    :widths: 25 75
    :header-rows: 1
 
@@ -122,7 +117,7 @@ You can control aspects of the algorithm, which impact running time:
 - Numba Optimization: A further speed up is accomplished through Numba. Numba is a Python library, which translates Python functions to optimized machine code at runtime. By default, the program uses Numba. To disable Numba, set ``_int_with_numba`` to False.
 
 
-.. list-table:: Algorithm Control Options
+.. list-table:: 
    :widths: 30 70
    :header-rows: 1
 
