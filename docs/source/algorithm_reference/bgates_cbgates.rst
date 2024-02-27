@@ -16,7 +16,7 @@
 CBGATEs and BGATEs
 ==================
 
-Causal balanced group average treatment effects (CBGATEs) and balanced group average treatment effects (BGATEs) have been introduced by Bearth and Lechner (2024).
+Causal balanced group average treatment effects (CBGATEs) and balanced group average treatment effects (BGATEs) have been introduced by `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08290>`_. 
 
 The CBGATE is comparing the treatment effects for two groups of the heterogeneity variable of interest, while accounting for differences in other covariates, i.e.
 
@@ -26,7 +26,7 @@ The CBGATE is comparing the treatment effects for two groups of the heterogeneit
 
 Here, :math:`p` is a single feature of :math:`X` and :math:`X^{-p}` denotes the remaining features of :math:`X` without :math:`p`. :math:`p` and :math:`u` are two possible values of the variable of interest :math:`X^p`. 
 
-Hence, the CBGATE overcomes the causal attribution problem related to a simple GATE, where other relevant variables may confound effect heterogeneity. Bearth and Lechner (2024) discuss the assumptions required for a causal interpretation.
+Hence, the CBGATE overcomes the causal attribution problem related to a simple GATE, where other relevant variables may confound effect heterogeneity. `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08290>`_ discuss the assumptions required for a causal interpretation.
 
 The balanced group average treatment effect (BGATE) relaxes the CBGATE in the sense that only a subset of the variables in the computation of the pseudo-derivative is balanced. Hence, both CBGATE and the plain-vanilla GATE are limiting cases of the BGATE.
 
@@ -39,6 +39,6 @@ Algorithmically, the BGATE and the CBGATE are implemented as follows:
 5. Form a new sample with all selected neighbours.
 6. Compute GATEs and their standard errors.
 
-This implementation differs from Bearth and Lechner's (2024) estimation approach. They use double/debiased machine learning to estimate the parameters of interest.
+This implementation differs from `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08290>`_ estimation approach. They use double/debiased machine learning to estimate the parameters of interest.
 
 To turn on the CBGATE, set ``p_cbgate`` to True. To turn on the BGATE, set ``p_bgate`` to True.
