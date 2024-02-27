@@ -32,7 +32,6 @@ The number of trees forming the forest is given by the argument cf_boot.
         # Number of trees (default is 1000)
         cf_boot = 500
     )
-    my_mcf.gen_dict["outpath"]
 
 
 As a tree is grown, the algorithm greedily chooses the split which yields the best possible reduction of the objective function specified in ``cf_mce_vart``. The following objective criteria are implemented:
@@ -55,6 +54,22 @@ Likewise, the program allows for a modification of the splitting rule by adding 
 
 Once the forest is ready for training, the splits obtained in the training dataset are transferred to all data subsamples (by treatment state) in the held-out data set. Finally, the mean of the outcomes in each leaf is the prediction.
 
+.. code-block:: python
+
+    my_mcf = ModifiedCausalForest(
+        var_y_name="y",
+        var_d_name="d",
+        var_x_name_ord=["x1", "x2"],
+        # Number of trees (default is 1000)
+        cf_boot = 500, 
+        # Determine splitting rule when growing trees
+        cf_mce_vart = 3, 
+        # Determine penalty function
+        cf_p_diff_penalty = 3, 
+        # Determine method of nearest neighbour matching
+        cf_match_nn_prog_score = True
+    )
+
 Below you find a list of the discussed parameters that are relevant for forest growing. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters. 
 
 .. dropdown:: Commonly used parameters for forest growing
@@ -70,6 +85,24 @@ Below you find a list of the discussed parameters that are relevant for forest g
     +-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
     | ``cf_nn_main_diag_only``          | Nearest neighbour matching: Use main diagonal of covariance matrix only. Only relevant if match_nn_prog_score == False. Default (or None) is False.                      |
     +-----------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Parameter tuning
+------------------------------------
+
+The **mcf** allows for a grid search over tree tuning parameters: 
+
+- Number of variables drawn at each split
+
+- Alpha-Regularity
+
+- Minimum leaf size
+
+In practical terms, for all possible combinations, a forest is estimated fixing a random seed. 
+
+**Note**: The finer the grid-search, the more forests are estimated, which slows down computation time. To identify the best values from the grid-search, the program implements the out-of-bag estimation of the chosen objective. The best performing forest based on its out-of-bag value of its objective function is taken for further computations.
+
+Below you find a list of the discussed parameters that are relevant for parameter tuning. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters.
+
 
 
 
