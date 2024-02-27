@@ -72,8 +72,6 @@ Once the forest is ready for training, the splits obtained in the training datas
 
 Below you find a list of the discussed parameters that are relevant for forest growing. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters. 
 
-.. dropdown:: Commonly used parameters for forest growing
-
 +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Parameter                 | Description                                                                                                                                                                                                     |
 +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -119,4 +117,4 @@ Below you find a list of the discussed parameters that are relevant for paramete
 | ``cf_n_min_max``      | Determines largest minimum leaf size. Default is None.                      |
 +-----------------------+-----------------------------------------------------------------------------+
 
-
+**Note**: The smaller the minimum leaf size, the longer is the computation time, as the tree is grown deeper. This increase in computation time can be substantial for large data.
