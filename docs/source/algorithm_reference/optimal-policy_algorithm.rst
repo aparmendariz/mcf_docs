@@ -81,21 +81,21 @@ The optimal policy tree comes with several options:
 
    * - Keyword
      - Details
-   * - var_effect_vs_0
+   * - ``var_effect_vs_0``
      - Specifies effects relative to the default treatment zero.
-   * - var_effect_vs_0_se
+   * - ``var_effect_vs_0_se``
      - Specifies standard errors of the effects given in var_effect_vs_0.
    * - other_max_shares
      - Specifies maximum shares of treated for each policy.
-   * - other_costs_of_treat_mult
+   * - ``other_costs_of_treat_mult``
      - Specifies a multiplier to costs; valid values range from 0 to 1; the default is 1. Note that parameter is only relevant if other_costs_of_treat is set to its default None.
-   * - other_costs_of_treat
+   * - ``other_costs_of_treat``
      - Specifies costs per unit of treatment. Costs will be subtracted from policy scores; 0 is no costs; the default is None, which implies 0 costs if there are no constraints. Accordingly, the program determines individually best treatments fulfilling the restrictions in other_max_shares and implying the smallest possible costs.
-   * - pt_min_leaf_size
+   * - ``pt_min_leaf_size``
      - Specifies minimum leaf size; the default is the integer part of 10% of the sample size divided by the number of leaves.
-   * - pt_depth
+   * - ``pt_depth_tree_1``
      - Regulates depth of the policy tree; the default is 3; the programme accepts any number strictly greater 0.
-   * - pt_no_of_evalupoints
+   * - ``pt_no_of_evalupoints``
      - Implicitly set the approximation parameter of Zhou, Athey, and Wager (2022) - :math:`A`. Accordingly, :math:`A=N/n_{evalupoints}`, where :math:`N` is the number of observations and :math:`n_{evalupoints}` the number of evaluation points; default value is 100.
 
 Example
@@ -123,11 +123,11 @@ You can control aspects of the algorithm, which impact running time:
 
    * - Keyword
      - Details
-   * - _int_parallel_processing
+   * - ``_int_parallel_processing``
      - If True, the program is run in parallel with the number of processes equal to _int_how_many_parallel. If False, the program is run on one core; the default is True.
-   * - _int_how_many_parallel
+   * - ``_int_how_many_parallel``
      - Specifies the number of parallel processes; the default number of processes is set equal to the logical number of cores of the machine.
-   * - _int_with_numba
+   * - ``_int_with_numba``
      - Specifies if Numba is deployed to speed up computation time; the default is True.
 
 
