@@ -1,70 +1,66 @@
 Policy Tree algorithm
 =====================
 
-You may choose between two methods when determining policy allocation:
+To determine the policy allocation, you may choose between two methods:
 
 - Policy Tree: This method follows `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ . To opt for this method, set ``gen_method`` or ``policy tree``.
 
-- Blackbox Rule: This method follows the logic of allocating the treatment, which implies the best potential outcome (potentially taking estimation uncertainty into account if passed over to the program via ``var_effect_vs_0_se``). 
+- Blackbox Rule: This method follows the logic of allocating the treatment, which implies the best potential outcome (potentially taking estimation uncertainty into account if ``var_effect_vs_0_se`` is used). 
 
 Optimal Policy Tree
 -------------------
 
-The optpoltree function is designed to discover the optimal policy tree in a computationally cheap and tractable manner. While the basic logic follows `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ , the details of the programmatic implementation differ. 
-For instance, in contrast to policytree, the optpoltree allows you to consider constraints in terms of the maximal shares of treated and to detail treatment costs as well as using different policy scores.
+The OptimalPolicy function is designed to discover the optimal policy tree in a computationally cheap and tractable manner. While the basic logic follows `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ , the details of the programmatic implementation differ. 
+For instance, in contrast to policytree, the optpoltree allows you to consider constraints regarding the maximal shares of treated observations, detail treatment costs and using different policy scores.
 
 
 Algorithmic Implementation
 -----------------------------
 
-The optpoltree function explores the space of all viable policy trees and picks the optimal one, i.e. the one which maximizes the value function, i.e. the sum of all individual-specific policy scores, by assigning one treatment to all observations in a specific terminal node. 
+The OptimalPolicy function explores the space of all viable policy trees and picks the optimal one. This optimal tree maximizes the value function, computed as the sum of individual-specific policy scores, by assigning treatments to observations within terminal nodes.
 
-The algorithmic idea is immediate. Given a fixed choice of previous partitions, the problem of finding an optimal solution simplifies to solving two subproblems: 
+Given a fixed choice of previous partitions, the problem of finding an optimal solution simplifies to solving two subproblems: finding optimal left and right subtrees. 
+Once we have reached a terminal node, we are no longer permitted to perform splits of the feature space, the treatment is chosen, which maximises the score of all observations in the respective leaf. 
+This recursive approach breaks down the problem into smaller, more manageable subproblems, facilitating the overall solution.
 
-- find an optimal left and right subtree. Once, we have reached a terminal node, i.e. we are no longer permitted to perform splits of the feature space, the treatment is chosen, which maximises the score of all observations in the respective leaf. This train-of-thought motivates a recursive algorithm as the overall problem naturally disaggregates into smaller and easier subproblems, which feed into the overall solution. 
-
-The tree-search procedure is outlined in the subsequent pseudocode Algorithm: Tree-search Exact.
+The tree-search procedure is outlined in Tree-search Exact Algorithm section:
 
 Notation
 ----------------------------
 
 Before we delve into the solution method for finding the optimal policy tree, let's introduce some notation:
 
-- :math:`i=1, \ldots, n`: There are :math:`n` observations.
-- :math:`p_1`: The number of ordered features observed.
-- :math:`p_2`: The number of unordered features observed.
-- :math:`M`: The number of distinct treatments.
-- :math:`\hat{\Theta}_i`: The vector where estimated policy scores, the potential outcomes, for the :math:`M+1` distinct potential outcomes are stacked for each observation :math:`i`.
-- :math:`\hat{\Theta}_i(d)`: The potential outcome for observation :math:`i` for treatment :math:`d`.
-- :math:`L`: The depth of the tree, which equals the number of splitting nodes plus one.
+- :math:`i=1, \ldots, n`: are :math:`n` observations
+- :math:`p_1`: number of ordered features 
+- :math:`p_2`: number of unordered features
+- :math:`M`: number of treatments
+- :math:`\hat{\Theta}_i`: vector of estimated policy scores, the potential outcomes, for the :math:`M+1` distinct potential outcomes are stacked for each observation :math:`i`.
+- :math:`\hat{\Theta}_i(d)`: potential outcome for observation :math:`i` for treatment :math:`d`.
+- :math:`L`: depth of the tree, which equals the number of splitting nodes plus one.
 
-With this notation in place, we can now describe the Tree-Search Exact algorithm.
+With this notation, we can now describe the Tree-Search Exact algorithm.
 
 
 Tree-search Exact Algorithm
 -----------------------------
-
-The Tree-search Exact algorithm can be described as follows:
 
 1. If :math:`L = 1`:
    - Choose :math:`j^* \in \{0, 1, \ldots, M\}`, which maximizes :math:`\sum \hat{\Theta}_i(j)` and return the corresponding reward = :math:`\sum_{\forall i} \hat{\Theta}_i(j^*)`.
 
 2. Else:
    - Initialize reward = :math:`-\infty`, and an empty tree = :math:`\emptyset` for all :math:`m = 1, \ldots, p_1 + p_2`.
-   - Pick the m-th feature; for ordered features return the unique values observed and sorted; if unordered return the unique categories to derive all         
-     possible splits.
-     - Then, for all possible splitting values of the m-th feature split the sample accordingly into a sample_left and sample_right.
-     - (reward_left, tree_left) = Tree-search(sample_left, L-1).
-     - (reward_right, tree_right) = Tree-search(sample_right, L-1).
+   - Pick the m-th feature; for ordered features return the unique values observed and sorted; if unordered return the unique categories to derive all possible splits.
+   - Then, for all possible splitting values of the m-th feature split the sample accordingly into a sample_left and sample_right.
+   - (reward_left, tree_left) = Tree-search(sample_left, L-1).
+   - (reward_right, tree_right) = Tree-search(sample_right, L-1).
    - If reward_left + reward_right > reward:
      - reward = reward_left + reward_right.
      - tree = Tree-search(m, splitting value, tree_left, tree_right).
 
 
+
 Options for Optimal Policy Tree
 -----------------------------------
-
-The optimal policy tree comes with several options:
 
 - Minimum Observations in a Partition: To control how many observations are required at minimum in a partition, inject a number into ``pt_min_leaf_size``.
 
