@@ -63,10 +63,10 @@ Options for Optimal Policy Tree
 -----------------------------------
 
 You can personalize various parameters defined in the :py:class:`~optpolicy_functions.OptimalPolicy` class. 
-To tailor the minimum number of observations needed in a partition, adjust ``pt_min_leaf_size``.
-For limiting the number of individuals receiving specific treatments, use ``other_max_shares``. Note that the information must come as a tuple with as many entries as there are treatments.
+
 When considering treatment costs, input them via `other_costs_of_treat`.  When evaluating the reward, the aggregate costs (costs per unit times units) of the policy allocation are subtracted. If left as default (None), the program determines a cost vector that imply an optimal reward (policy score minus costs) for each individual, while guaranteeing that the restrictions as specified in ``other_max_shares`` are satisfied. This is of course only relevant when ``other_max_shares`` is specified.
-Alternatively, if restrictions are present and `other_costs_of_treat` is default, you can specify `other_costs_of_treat_mult`. Admissible values are either a scalar greater zero or a tuple with values greater zero. The tuple needs as many entries as there are treatments. The imputed cost vector is then multiplied by this factor.
+
+Alternatively, if restrictions are present and `other_costs_of_treat` is default, you can specify `other_costs_of_treat_mult`. Admissible values for this parameter are either a scalar greater zero or a tuple with values greater zero. The tuple needs as many entries as there are treatments. The imputed cost vector is then multiplied by this factor.
 
 
 .. list-table:: 
@@ -78,13 +78,13 @@ Alternatively, if restrictions are present and `other_costs_of_treat` is default
    * - ``var_effect_vs_0_se``
      - Variables of effects of treatment relative to first treatment. Dimension is equal to the number of treatments minus 1. Default is None.
    * - ``pt_min_leaf_size``
-     - Minimum leaf size. A larger number reduces computation time and avoids some overfitting. Only relevant if gen_method is ‘policy tree’ or ‘policy tree old’. Default is None.
+     - Minimum leaf size. Leaves that are smaller will not be considered. A larger number reduces computation time and avoids some overfitting. Only relevant if ``gen_method`` is ``policy tree`` or ``policy tree old``. Default is None.
    * - ``other_max_shares``
-     - Maximum share allowed for each treatment. Default is None.
+     - Maximum share allowed for each treatment. Note that the information must come as a tuple with as many entries as there are treatments. Default is None.
    * - ``other_costs_of_treat``
-     - Treatment specific costs. Subtracted from policy scores. None (when there are no constraints): 0 None (when are constraints): Costs will be automatically determined such as to enforce constraints in the training data by finding cost values that lead to an allocation (‘best_policy_score’) that fulfils restrictions other_max_shares. Default is None.
+     - Treatment specific costs. Subtracted from policy scores. None (when there are no constraints): 0 None (when are constraints): Costs will be automatically determined such as to enforce constraints in the training data by finding cost values that lead to an allocation (``best_policy_score``) that fulfils restrictions ``other_max_shares``. Default is None.
    * - ``other_costs_of_treat_mult``
-     - Multiplier of automatically determined cost values. Use only when automatic costs violate the constraints given by other_max_shares. This allows to increase (>1) or decrease (<1) the share of treated in particular treatment. None: (1, …, 1). Default is None.
+     - Multiplier of automatically determined cost values. Use only when automatic costs violate the constraints given by ``other_max_shares``. This allows to increase (>1) or decrease (<1) the share of treated in particular treatment. Default is None.
 
 Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters. 
 
