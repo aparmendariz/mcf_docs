@@ -62,15 +62,11 @@ Tree-search Exact Algorithm
 Options for Optimal Policy Tree
 -----------------------------------
 
-You can personalize various parameters defined in the :py:class:`~optpolicy_functions.OptimalPolicy` class:
-
-- Minimum observations in a partition: To control how many observations are required at minimum in a partition, inject a number into ``pt_min_leaf_size``.
-
-- Admissible treatment shares: If the number of individuals who receive a specific treatment is constrained, you may specify admissible treatment shares via the keyword argument ``other_max_shares``. Note that the information must come as a tuple with as many entries as there are treatments.
-
-- Treatment costs: If costs of the respective treatment(s) are relevant, you may input ``other_costs_of_treat``. When evaluating the reward, the aggregate costs (costs per unit times units) of the policy allocation are subtracted. If you leave the costs to their default, ``None``, the program determines a cost vector that imply an optimal reward (policy score minus costs) for each individual, while guaranteeing that the restrictions as specified in ``other_max_shares`` are satisfied. This is of course only relevant when ``other_max_shares`` is specified.
-
-- Cost multiplier: If there are restrictions, and ``other_costs_of_treat`` is left to its default, the ``other_costs_of_treat_mult`` can be specified. Admissible values are either a scalar greater zero or a tuple with values greater zero. The tuple needs as many entries as there are treatments. The imputed cost vector is then multiplied by this factor.
+You can personalize various parameters defined in the :py:class:`~optpolicy_functions.OptimalPolicy` class. 
+To tailor the minimum number of observations needed in a partition, adjust ``pt_min_leaf_size``.
+For limiting the number of individuals receiving specific treatments, use ``other_max_shares``. Note that the information must come as a tuple with as many entries as there are treatments.
+When considering treatment costs, input them via `other_costs_of_treat`.  When evaluating the reward, the aggregate costs (costs per unit times units) of the policy allocation are subtracted. If left as default (None), the program determines a cost vector that imply an optimal reward (policy score minus costs) for each individual, while guaranteeing that the restrictions as specified in ``other_max_shares`` are satisfied. This is of course only relevant when ``other_max_shares`` is specified.
+Alternatively, if restrictions are present and `other_costs_of_treat` is default, you can specify `other_costs_of_treat_mult`. Admissible values are either a scalar greater zero or a tuple with values greater zero. The tuple needs as many entries as there are treatments. The imputed cost vector is then multiplied by this factor.
 
 
 .. list-table:: 
@@ -79,26 +75,33 @@ You can personalize various parameters defined in the :py:class:`~optpolicy_func
 
    * - Keyword
      - Details
-   * - ``var_effect_vs_0``
-     - Specifies effects relative to the default treatment zero.
    * - ``var_effect_vs_0_se``
-     - Specifies standard errors of the effects given in var_effect_vs_0.
-   * - ``other_max_shares``
-     - Specifies maximum shares of treated for each policy.
-   * - ``other_costs_of_treat_mult``
-     - Specifies a multiplier to costs; valid values range from 0 to 1; the default is 1. Note that parameter is only relevant if other_costs_of_treat is set to its default None.
-   * - ``other_costs_of_treat``
-     - Specifies costs per unit of treatment. Costs will be subtracted from policy scores; 0 is no costs; the default is None, which implies 0 costs if there are no constraints. Accordingly, the program determines individually best treatments fulfilling the restrictions in other_max_shares and implying the smallest possible costs.
+     - Variables of effects of treatment relative to first treatment. Dimension is equal to the number of treatments minus 1. Default is None.
    * - ``pt_min_leaf_size``
-     - Specifies minimum leaf size; the default is the integer part of 10% of the sample size divided by the number of leaves.
-   * - ``pt_depth_tree_1``
-     - Regulates depth of the policy tree; the default is 3; the programme accepts any number strictly greater 0.
-   * - ``pt_no_of_evalupoints``
-     - Implicitly set the approximation parameter of Zhou, Athey, and Wager (2022) - :math:`A`. Accordingly, :math:`A=N/n_{evalupoints}`, where :math:`N` is the number of observations and :math:`n_{evalupoints}` the number of evaluation points; default value is 100.
+     - Minimum leaf size. A larger number reduces computation time and avoids some overfitting. Only relevant if gen_method is ‘policy tree’ or ‘policy tree old’. Default is None.
+   * - ``other_max_shares``
+     - Maximum share allowed for each treatment. Default is None.
+   * - ``other_costs_of_treat``
+     - Treatment specific costs. Subtracted from policy scores. None (when there are no constraints): 0 None (when are constraints): Costs will be automatically determined such as to enforce constraints in the training data by finding cost values that lead to an allocation (‘best_policy_score’) that fulfils restrictions other_max_shares. Default is None.
+   * - ``other_costs_of_treat_mult``
+     - Multiplier of automatically determined cost values. Use only when automatic costs violate the constraints given by other_max_shares. This allows to increase (>1) or decrease (<1) the share of treated in particular treatment. None: (1, …, 1). Default is None.
+
+Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters. 
+
 
 Example
 ---------
 
+.. code-block:: python
+
+   my_policy_tree = OptimalPolicy(
+       var_d_name="d",
+       var_polscore_name=["Y_LC0_un_lc_pot", "Y_LC1_un_lc_pot", "Y_LC2_un_lc_pot"],
+       var_x_name_ord=["x1", "x2"],
+       var_x_name_unord=["female"],
+       gen_method="policy tree",
+       pt_depth_tree_1=2
+       )
 
 
 Speed Considerations
@@ -108,7 +111,7 @@ You can control aspects of the algorithm, which impact running time:
 
 - Number of evaluation points: Specify the number of evaluation points via ``pt_no_of_evalupoints``. This regulates when performing the tree search how many of the possible splits in the feature space are considered. If the ``pt_no_of_evalupoints`` is smaller than the number of distinct values of a certain feature, the algorithm visits fewer splits, thus increasing computational efficiency.
 
-- Tree depth: Specify the admissible depth of the tree via the keyword argument ``pt_depth``.
+- Tree depth: Specify the admissible depth of the tree via the keyword argument ``pt_depth_tree_1`` or ``pt_depth_tree_2``.
 
 - Parallel execution: Run the program in parallel. You can set the number of processes via the keyword argument ``_int_how_many_parallel``. By default, the number is set equal to the 80 percent of the number of logical cores on your machine.
 
@@ -127,11 +130,25 @@ You can control aspects of the algorithm, which impact running time:
      - Specifies the number of parallel processes; the default number of processes is set equal to the logical number of cores of the machine.
    * - ``_int_with_numba``
      - Specifies if Numba is deployed to speed up computation time; the default is True.
+   * - ``pt_depth_tree_1``
+     - ; the default is True.
+   * - ``pt_no_of_evalupoints``
+     - Implicitly set the approximation parameter of Zhou, Athey, and Wager (2022) - :math:`A`. Accordingly, :math:`A=N/n_{evalupoints}`, where :math:`N` is the number of observations and :math:`n_{evalupoints}` the number of evaluation points; default value is 100.
 
 
 Example
 ---------
 
+.. code-block:: python
+
+   my_policy_tree = OptimalPolicy(
+       var_d_name="d",
+       var_polscore_name=["Y_LC0_un_lc_pot", "Y_LC1_un_lc_pot", "Y_LC2_un_lc_pot"],
+       var_x_name_ord=["x1", "x2"],
+       var_x_name_unord=["female"],
+       gen_method="policy tree",
+       pt_depth_tree_1=2
+       )
 
 
 Changes concerning the class OptimalPolicy
