@@ -10,14 +10,14 @@ To determine the policy allocation, you may choose between two methods:
 Optimal Policy Tree
 -------------------
 
-The OptimalPolicy function is designed to discover the optimal policy tree in a computationally cheap and tractable manner. While the basic logic follows `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ , the details of the programmatic implementation differ. 
+The OptimalPolicy class is designed to discover the optimal policy tree in a computationally cheap and tractable manner. While the basic logic follows `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ , the details of the programmatic implementation differ. 
 For instance, in contrast to policytree, the optpoltree allows you to consider constraints regarding the maximal shares of treated observations, detail treatment costs and using different policy scores.
 
 
 Algorithmic Implementation
 -----------------------------
 
-The OptimalPolicy function explores the space of all viable policy trees and picks the optimal one. This optimal tree maximizes the value function, computed as the sum of individual-specific policy scores, by assigning treatments to observations within terminal nodes.
+The OptimalPolicy class explores the space of all viable policy trees and picks the optimal one. This optimal tree maximizes the value function, computed as the sum of individual-specific policy scores, by assigning treatments to observations within terminal nodes.
 
 Given a fixed choice of previous partitions, the problem of finding an optimal solution simplifies to solving two subproblems: finding optimal left and right subtrees. 
 Once we have reached a terminal node, we are no longer permitted to perform splits of the feature space, the treatment is chosen, which maximises the score of all observations in the respective leaf. 
@@ -62,13 +62,15 @@ Tree-search Exact Algorithm
 Options for Optimal Policy Tree
 -----------------------------------
 
-- Minimum Observations in a Partition: To control how many observations are required at minimum in a partition, inject a number into ``pt_min_leaf_size``.
+You can personalize various parameters defined in the OptimalPolicy class:
 
-- Admissible Treatment Shares: If the number of individuals who receive a specific treatment is constrained, you may specify admissible treatment shares via the keyword argument ``other_max_shares``. Note that the information must come as a tuple with as many entries as there are treatments.
+- Minimum oservations in a partition: To control how many observations are required at minimum in a partition, inject a number into ``pt_min_leaf_size``.
 
-- Treatment Costs: If costs of the respective treatment(s) are relevant, you may input ``other_costs_of_treat``. When evaluating the reward, the aggregate costs (costs per unit times units) of the policy allocation are subtracted. If you leave the costs to their default, ``None``, the program determines a cost vector that imply an optimal reward (policy score minus costs) for each individual, while guaranteeing that the restrictions as specified in ``other_max_shares`` are satisfied. This is of course only relevant when ``other_max_shares`` is specified.
+- Admissible treatment shares: If the number of individuals who receive a specific treatment is constrained, you may specify admissible treatment shares via the keyword argument ``other_max_shares``. Note that the information must come as a tuple with as many entries as there are treatments.
 
-- Cost Multiplier: If there are restrictions, and ``other_costs_of_treat`` is left to its default, the ``other_costs_of_treat_mult`` can be specified. Admissible values are either a scalar greater zero or a tuple with values greater zero. The tuple needs as many entries as there are treatments. The imputed cost vector is then multiplied by this factor.
+- Treatment costs: If costs of the respective treatment(s) are relevant, you may input ``other_costs_of_treat``. When evaluating the reward, the aggregate costs (costs per unit times units) of the policy allocation are subtracted. If you leave the costs to their default, ``None``, the program determines a cost vector that imply an optimal reward (policy score minus costs) for each individual, while guaranteeing that the restrictions as specified in ``other_max_shares`` are satisfied. This is of course only relevant when ``other_max_shares`` is specified.
+
+- Cost multiplier: If there are restrictions, and ``other_costs_of_treat`` is left to its default, the ``other_costs_of_treat_mult`` can be specified. Admissible values are either a scalar greater zero or a tuple with values greater zero. The tuple needs as many entries as there are treatments. The imputed cost vector is then multiplied by this factor.
 
 
 .. list-table:: 
@@ -104,13 +106,13 @@ Speed Considerations
 
 You can control aspects of the algorithm, which impact running time:
 
-- Number of Evaluation Points: Specify the number of evaluation points via ``pt_no_of_evalupoints``. This regulates when performing the tree search how many of the possible splits in the feature space are considered. If the ``pt_no_of_evalupoints`` is smaller than the number of distinct values of a certain feature, the algorithm visits fewer splits, thus increasing computational efficiency.
+- Number of evaluation points: Specify the number of evaluation points via ``pt_no_of_evalupoints``. This regulates when performing the tree search how many of the possible splits in the feature space are considered. If the ``pt_no_of_evalupoints`` is smaller than the number of distinct values of a certain feature, the algorithm visits fewer splits, thus increasing computational efficiency.
 
-- Tree Depth: Specify the admissible depth of the tree via the keyword argument ``pt_depth``.
+- Tree depth: Specify the admissible depth of the tree via the keyword argument ``pt_depth``.
 
-- Parallel Execution: Run the program in parallel. You can set the number of processes via the keyword argument ``_int_how_many_parallel``. By default, the number is set equal to the 80 percent of the number of logical cores on your machine.
+- Parallel execution: Run the program in parallel. You can set the number of processes via the keyword argument ``_int_how_many_parallel``. By default, the number is set equal to the 80 percent of the number of logical cores on your machine.
 
-- Numba Optimization: A further speed up is accomplished through Numba. Numba is a Python library, which translates Python functions to optimized machine code at runtime. By default, the program uses Numba. To disable Numba, set ``_int_with_numba`` to False.
+- Numba optimization: A further speed up is accomplished through Numba. Numba is a Python library, which translates Python functions to optimized machine code at runtime. By default, the program uses Numba. To disable Numba, set ``_int_with_numba`` to False.
 
 
 .. list-table:: 
