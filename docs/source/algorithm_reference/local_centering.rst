@@ -30,6 +30,7 @@ To turn the procedure off, overrule the default ``lc_yes`` and set it to ``False
 
 Alternatively, two separate data sets can be generated for running the local centering procedure with ``lc_cs_cv``. In this case, the size of the first data set can be defined in ``lc_cs_share`` and it is used for training a Random Forest, again by applying the RandomForestRegressor method. The predicted and centered outcomes :math:`\hat{y}_{-i}(X_i)` and :math:`\tilde{Y}_i`, respectively, are computed in the second data set. Finally, this second data set is divided into mutually exclusive data sets for feature selection (optionally), tree building, and effect estimation.
 
+Below, you find a table with a brief description of the relevant keyword arguments for local centering:
 
 +-------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Argument          | Description                                                                                                                                                        |
