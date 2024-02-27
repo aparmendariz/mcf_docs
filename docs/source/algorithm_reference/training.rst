@@ -21,20 +21,7 @@ For a textbook-like discussion refer to `Athey & Imbens (2016) <https://www.pnas
 Implementation
 ------------------------------------
 
-The number of trees forming the forest is given by the argument cf_boot. 
-
-.. code-block:: python
-
-    my_mcf = ModifiedCausalForest(
-        var_y_name="y",
-        var_d_name="d",
-        var_x_name_ord=["x1", "x2"],
-        # Number of trees (default is 1000)
-        cf_boot = 500
-    )
-
-
-As a tree is grown, the algorithm greedily chooses the split which yields the best possible reduction of the objective function specified in ``cf_mce_vart``. The following objective criteria are implemented:
+The number of trees forming the forest is given by the argument cf_boot. As a tree is grown, the algorithm greedily chooses the split which yields the best possible reduction of the objective function specified in ``cf_mce_vart``. The following objective criteria are implemented:
 
 - Outcome Mean Squared Error (MSE)
 
@@ -58,6 +45,8 @@ Below you find a list of the discussed parameters that are relevant for forest g
 
 +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Parameter                 | Description                                                                                                                                                                                                     |
++---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| ``cf_boot``               | Number of Causal Trees. Default (or None) is 1000.                                                                                                                                                              |
 +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | ``cf_mce_vart``           | Splitting rule for tree building, 0 for MSE, 1 for MSE+MCE, 2 for heterogeneity maximization, or 3 for random switching between MSE, MCE and penalty function defined in ``cf_p_diff_penalty`` . Default is 1.  |
 +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
