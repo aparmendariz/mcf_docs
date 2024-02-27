@@ -10,17 +10,18 @@ To determine the policy allocation, you may choose between two methods:
 Optimal Policy Tree
 -------------------
 
-The :py:class:`~optpolicy_functions.OptimalPolicy` is designed to discover the optimal policy tree in a computationally cheap and tractable manner. While the basic logic follows `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ , the details of the programmatic implementation differ. 
+The :py:class:`~optpolicy_functions.OptimalPolicy` class is designed to discover the optimal policy tree in a computationally cheap and tractable manner. While the basic logic follows `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ , the details of the programmatic implementation differ. 
 For instance, in contrast to policytree, the optpoltree allows you to consider constraints regarding the maximal shares of treated observations, detail treatment costs and using different policy scores.
 
 
 Algorithmic Implementation
 -----------------------------
 
-The :py:class:`~optpolicy_functions.OptimalPolicy` explores the space of all viable policy trees and picks the optimal one. This optimal tree maximizes the value function, computed as the sum of individual-specific policy scores, by assigning treatments to observations within terminal nodes.
+The :py:class:`~optpolicy_functions.OptimalPolicy` class explores the space of all viable policy trees and picks the optimal one. This optimal tree maximizes the value function, computed as the sum of individual-specific policy scores, by assigning treatments to observations within terminal nodes.
 
 Given a fixed choice of previous partitions, the problem of finding an optimal solution simplifies to solving two subproblems: finding optimal left and right subtrees. 
-Once we have reached a terminal node, we are no longer permitted to perform splits of the feature space, the treatment is chosen, which maximises the score of all observations in the respective leaf. 
+
+Once we have reached a terminal node, we are no longer allowed to perform splits of the feature space, the treatment is chosen, which maximises the score of all observations in the respective leaf. 
 This recursive approach breaks down the problem into smaller, more manageable subproblems, facilitating the overall solution.
 
 
@@ -153,12 +154,6 @@ Example
 Changes concerning the class OptimalPolicy
 -------------------------------------------------
 
-Change of  names of keywords (to use the same names as in the ModifiedCausalForest class)
-
-var_x_ord_name –> var_x_name_ord
-
-var_x_unord_name –> var_x_name_unord
-
 Change of default values
 
 The default of pt_enforce_restriction is set to False.
@@ -168,8 +163,6 @@ The previous default of pt_min_leaf_size is now multiplied by the smallest allow
 “policy tree eff” becomes the standard method for policy trees and is renamed as “policy tree”.
 
 Change of default value for gen_variable_importance. New default is True.
-
-There are several changes to speed up the computation of policy trees.
 
 New keyword: _int_xtr_parallel Parallelize to a larger degree to make sure all CPUs are busy for most of the time. Only used for “policy tree” and only used if _int_parallel_processing > 1 (or None). Default is True.
 
