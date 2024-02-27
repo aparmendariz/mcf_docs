@@ -23,3 +23,23 @@ where:
 
 Implementation
 ---------------
+
+The local centering procedure applies the RandomForestRegressor method of the sklearn.ensemble module to compute the predicted outcomes :math:`\hat{y}_{-i}(X_i)` for each observation i non-parametrically. 
+To turn the procedure off, overrule the default lc_yes and set it to ``False``. The predicted outcomes are computed in distinct subsets by cross-validation, where the number of folds can be specified in ``lc_cs_cv_k``. Finally, the centered outcomes are obtained by subtracting the predicted from the observed outcomes.
+
+
+Alternatively, two separate data sets can be generated for running the local centering procedure with ``lc_cs_cv``. In this case, the size of the first data set can be defined in ``lc_cs_share`` and it is used for training a Random Forest, again by applying the RandomForestRegressor method. The predicted and centered outcomes :math:`\hat{y}_{-i}(X_i)` and :math:`\tilde{Y}_i`, respectively, are computed in the second data set. Finally, this second data set is divided into mutually exclusive data sets for feature selection (optionally), tree building, and effect estimation.
+
+
++-----------------------+-----------------------------------------------------------------------------+
+| Argument              | Description                                                                 |
++-----------------------+-----------------------------------------------------------------------------+
+| ``cf_m_shareccccn``    | Minimum share of variables used at each new split of tree. Default is 0.1.  |
++-----------------------+-----------------------------------------------------------------------------+
+| ``cf_m_share_max``    | Maximum share of variables used at each new split of tree. Default is 0.6.  |
++-----------------------+-----------------------------------------------------------------------------+
+| ``cf_m_grid``         | Number of variables used at each new split of tree. Default is 1.           |
++-----------------------+-----------------------------------------------------------------------------+
+| ``cf_alpha_reg_grid`` | Number of grid values. Default is 1.                                        |
++-----------------------+-----------------------------------------------------------------------------+
+
