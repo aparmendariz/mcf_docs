@@ -12,10 +12,6 @@
 | `p_gmate_sample_share <./mcf_api.md#p_gmate_sample_share>` | Number in the interval $(0,1]$ determining the size of $N_{SS}$ for the computation of AMTEs. Note that $N_{SS}$ also depends on the number of evaluation points. |
 +-----------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------+
 
-
-CBGATEs and BGATEs
-==================
-
 Causal balanced group average treatment effects (CBGATEs) and balanced group average treatment effects (BGATEs) have been introduced by `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08290>`_. 
 
 The CBGATE is comparing the treatment effects for two groups of the heterogeneity variable of interest, while accounting for differences in other covariates, i.e.
