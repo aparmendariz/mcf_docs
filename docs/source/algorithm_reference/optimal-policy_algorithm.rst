@@ -23,12 +23,11 @@ Given a fixed choice of previous partitions, the problem of finding an optimal s
 Once we have reached a terminal node, we are no longer permitted to perform splits of the feature space, the treatment is chosen, which maximises the score of all observations in the respective leaf. 
 This recursive approach breaks down the problem into smaller, more manageable subproblems, facilitating the overall solution.
 
-The tree-search procedure is outlined in Tree-search Exact Algorithm section:
 
 Notation
 ----------------------------
 
-Before we delve into the solution method for finding the optimal policy tree, let's introduce some notation:
+Before we delve into the solution method for finding the optimal policy tree (Tree-search Exact Algorithm), let's introduce some notation:
 
 - :math:`i=1, \ldots, n`: are :math:`n` observations
 - :math:`p_1`: number of ordered features 
