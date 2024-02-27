@@ -54,6 +54,23 @@ Likewise, the program allows for a modification of the splitting rule by adding 
 
 Once the forest is ready for training, the splits obtained in the training dataset are transferred to all data subsamples (by treatment state) in the held-out data set. Finally, the mean of the outcomes in each leaf is the prediction.
 
+Below you find a list of the discussed parameters that are relevant for forest growing. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters. 
+
++---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Parameter                 | Description                                                                                                                                                                                                     |
++---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``cf_mce_vart``           | Splitting rule for tree building, 0 for MSE, 1 for MSE+MCE, 2 for heterogeneity maximization, or 3 for random switching between MSE, MCE and penalty function defined in ``cf_p_diff_penalty`` . Default is 1.  |
++---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``cf_p_diff_penalty``     | Penalty function used during tree building, dependent on ``cf_mce_vart``. Default is None.                                                                                                                      |
++---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``cf_match_nn_prog_score``| Choice of method of nearest neighbour matching. True: Prognostic scores. False: Inverse of covariance matrix of features. Default (or None) is True.                                                            |
++---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``cf_nn_main_diag_only``  | Nearest neighbour matching: Use main diagonal of covariance matrix only. Only relevant if match_nn_prog_score == False. Default (or None) is False.                                                             |
++---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Example
+~~~~~~~
+
 .. code-block:: python
 
     my_mcf = ModifiedCausalForest(
@@ -70,19 +87,6 @@ Once the forest is ready for training, the splits obtained in the training datas
         cf_match_nn_prog_score = True
     )
 
-Below you find a list of the discussed parameters that are relevant for forest growing. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters. 
-
-+---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Parameter                 | Description                                                                                                                                                                                                     |
-+---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``cf_mce_vart``           | Splitting rule for tree building, 0 for MSE, 1 for MSE+MCE, 2 for heterogeneity maximization, or 3 for random switching between MSE, MCE and penalty function defined in ``cf_p_diff_penalty`` . Default is 1.  |
-+---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``cf_p_diff_penalty``     | Penalty function used during tree building, dependent on ``cf_mce_vart``. Default is None.                                                                                                                      |
-+---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``cf_match_nn_prog_score``| Choice of method of nearest neighbour matching. True: Prognostic scores. False: Inverse of covariance matrix of features. Default (or None) is True.                                                            |
-+---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``cf_nn_main_diag_only``  | Nearest neighbour matching: Use main diagonal of covariance matrix only. Only relevant if match_nn_prog_score == False. Default (or None) is False.                                                             |
-+---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 Parameter tuning
 ------------------------------------
@@ -118,3 +122,21 @@ Below you find a list of the discussed parameters that are relevant for paramete
 +-----------------------+-----------------------------------------------------------------------------+
 
 **Note**: The smaller the minimum leaf size, the longer is the computation time, as the tree is grown deeper. This increase in computation time can be substantial for large data.
+
+
+Example
+~~~~~~~
+
+.. code-block:: python
+
+    my_mcf = ModifiedCausalForest(
+        var_y_name="y",
+        var_d_name="d",
+        var_x_name_ord=["x1", "x2"],
+        # Minimum share of variables used at each new split of tree
+        cf_m_share_min = 0.15, 
+        # Number of variables used at each new split of tree
+        cf_m_grid = 2, 
+        # Determines smallest minimum leaf size
+        cf_n_min_min = 5
+    )
