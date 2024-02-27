@@ -21,7 +21,7 @@ For a textbook-like discussion refer to `Athey & Imbens (2016) <https://www.pnas
 Implementation
 ------------------------------------
 
-The number of trees forming the forest is given by the argument cf_boot. As a tree is grown, the algorithm greedily chooses the split which yields the best possible reduction of the objective function specified in ``cf_mce_vart``. The following objective criteria are implemented:
+The number of trees forming the forest is given by the argument ``cf_boot``. As a tree is grown, the algorithm greedily chooses the split which yields the best possible reduction of the objective function specified in ``cf_mce_vart``. The following objective criteria are implemented:
 
 - Outcome Mean Squared Error (MSE)
 
