@@ -103,7 +103,20 @@ In practical terms, for all possible combinations, a forest is estimated fixing 
 
 Below you find a list of the discussed parameters that are relevant for parameter tuning. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters.
 
-
-
++-----------------------+-----------------------------------------------------------------------------+
+| Argument              | Description                                                                 |
++-----------------------+-----------------------------------------------------------------------------+
+| ``cf_m_share_min``    | Minimum share of variables used at each new split of tree. Default is 0.1.  |
++-----------------------+-----------------------------------------------------------------------------+
+| ``cf_m_share_max``    | Maximum share of variables used at each new split of tree. Default is 0.6.  |
++-----------------------+-----------------------------------------------------------------------------+
+| ``cf_m_grid``         | Number of variables used at each new split of tree. Default is 1.           |
++-----------------------+-----------------------------------------------------------------------------+
+| ``cf_alpha_reg_grid`` | Number of grid values. Default is 1.                                        |
++-----------------------+-----------------------------------------------------------------------------+
+| ``cf_n_min_min``      | Determines smallest minimum leaf size. Default is None.                     |
++-----------------------+-----------------------------------------------------------------------------+
+| ``cf_n_min_max``      | Determines largest minimum leaf size. Default is None.                      |
++-----------------------+-----------------------------------------------------------------------------+
 
 
