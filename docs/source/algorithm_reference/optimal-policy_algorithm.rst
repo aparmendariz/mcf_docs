@@ -83,7 +83,7 @@ You can personalize various parameters defined in the OptimalPolicy class:
      - Specifies effects relative to the default treatment zero.
    * - ``var_effect_vs_0_se``
      - Specifies standard errors of the effects given in var_effect_vs_0.
-   * - other_max_shares
+   * - ``other_max_shares``
      - Specifies maximum shares of treated for each policy.
    * - ``other_costs_of_treat_mult``
      - Specifies a multiplier to costs; valid values range from 0 to 1; the default is 1. Note that parameter is only relevant if other_costs_of_treat is set to its default None.
