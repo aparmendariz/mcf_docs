@@ -44,7 +44,22 @@ Below, you find a table with a brief description of the relevant keyword argumen
 | ``lc_cs_cv_k``    | Number of folds in cross-validation (if lc_cs_cv is True). Default is 5.                                                                                           |
 +-------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
+Example
+~~~~~~~
 
+.. code-block:: python
+
+    my_mcf = ModifiedCausalForest(
+        var_y_name="y",
+        var_d_name="d",
+        var_x_name_ord=["x1", "x2"],
+        # Activates local centering
+        lc_yes = True, 
+        # Data for local centering & common support adjustment by crossvalidation
+        lc_cs_cv = True, 
+        # Number of folds in cross-validation
+        lc_cs_cv_k = 5
+    )
 
 
 
