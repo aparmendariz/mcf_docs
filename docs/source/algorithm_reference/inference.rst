@@ -19,9 +19,7 @@ One way to do inference for treatment effects is to estimate the variance of the
 
 - Variance of the conditional expectation, given the weights. 
 
-This variance decomposition takes heteroscedasticity in the weights into account. 
-
-The conditional means and variances are estimated non-parametrically, either by the Nadaraya-Watson kernel estimator or by the k-Nearest Neighbor (k-NN) estimator (default).
+This variance decomposition takes heteroscedasticity in the weights into account. The conditional means and variances are estimated non-parametrically, either by the Nadaraya-Watson kernel estimator or by the k-Nearest Neighbor (k-NN) estimator (default).
 
 Another way to obtain inference is to compute the variance of a treatment effect estimator as the sum of the variances of the weighted outcomes in the respective treatment states. A drawback of this inference method is that it implicitly assumes homoscedasticity in the weights for each treatment state.
 
