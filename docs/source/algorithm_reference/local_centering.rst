@@ -37,11 +37,11 @@ Below, you find a table with a brief description of the relevant keyword argumen
 +-------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | ``lc_yes``        | Activates local centering. Default is True                                                                                                                         |
 +-------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``lc_cs_cv``      | Data for local centering & common support adjustment. True: Crossvalidation. False: Random sample not to be used for forest building. Default (or None) is True.   |
+| ``lc_cs_cv``      | Data for local centering & common support adjustment. True: Crossvalidation. False: Random sample not used for forest building. Default is True.                   |
 +-------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``lc_cs_share``   | Data for local centering & common support adjustment. Share of trainig data (if lc_cs_cv is False). Default (or None) is 0.25.                                     |
+| ``lc_cs_share``   | Data for local centering & common support adjustment. Share of trainig data (if lc_cs_cv is False). Default is 0.25.                                               |
 +-------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``lc_cs_cv_k``    | Number of folds in cross-validation (if lc_cs_cv is True). Default (or None) is 5.                                                                                 |
+| ``lc_cs_cv_k``    | Number of folds in cross-validation (if lc_cs_cv is True). Default is 5.                                                                                           |
 +-------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
