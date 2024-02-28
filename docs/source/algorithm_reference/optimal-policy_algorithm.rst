@@ -78,7 +78,7 @@ You can personalize various parameters defined in the :py:class:`~optpolicy_func
 
 You can use the ``var_effect_vs_0_se`` parameter to specify the standard errors of variables of effects of treatment relative to first treatment. Dimension is equal to the number of treatments minus 1. 
 
-To control how many observations are required at minimum in a partition, you can define such number by using ``pt_min_leaf_size``. Minimum leaf size. Leaves that are smaller than ``pt_min_leaf_size`` in the training data will not be considered. A larger number reduces computation time and avoids overfitting. Default is :math:`0.1 \times \frac{\text{{number of training observations}}}{\text{{number of leaves}}}`.
+To control how many observations are required at minimum in a partition, you can define such number by using ``pt_min_leaf_size``. Minimum leaf size. Leaves that are smaller than ``pt_min_leaf_size`` in the training data will not be considered. A larger number reduces computation time and avoids overfitting. Default is :math:`0.1 \times \frac{\text{{number of training observations}}}{\text{{number of leaves}}}`. The previous default of pt_min_leaf_size is now multiplied by the smallest allowed treatment if (and only if) treatment shares are restricted.
 
 If the number of individuals who receive a specific treatment is constrained, you may specify admissible treatment shares via the keyword argument ``other_max_shares``. Note that the information must come as a tuple with as many entries as there are treatments.
 
@@ -148,7 +148,7 @@ Additionally, you can control certain aspects of the algorithm, which impact run
 - **Number of Evaluation Points (`pt_no_of_evalupoints`)**: This parameter specifies the number of evaluation points for continuous variables during the tree search. It determines how many of the possible splits in the feature space are considered. If the value of `pt_no_of_evalupoints` is smaller than the number of distinct values of a certain feature, the algorithm visits fewer splits, thus increasing computational efficiency. However, a lower value may also deviate more from the optimal splitting rule. This parameter is closely related to the approximation parameter of `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ . (:math:`A`) with :math:`A = N/n_{evalupoints}`, where :math:`N` is the number of observations and :math:`n_{evalupoints}` is the number of evaluation points. Lastly, note that this parameter is only relevant if `gen_method` is 'policy tree' or 'policy tree old'. The default value (or `None`) is 100.
 
 - **Parallel execution**: The ``_int_parallel_processing`` parameter controls whether multiprocessing is used. It is by default set to True. 
-You can set the number of parallel processes via the keyword argument ``_int_how_many_parallel``. By default (None), the number is set equal to the 80 percent of the number of logical cores on your machine, provided that this can be effectively implemented.  This allows for efficient use of your machine's processing power. 
+You can set the number of parallel processes via the keyword argument ``_int_how_many_parallel``. By default (None), the number is set equal to the 80 percent of the number of logical cores on your machine, provided that this can be effectively implemented.  This allows for efficient use of your machine's processing power. Lastly, ``_int_xtr_parallel`` allows you to parallelize to a large degree. 
 
 - **Numba optimization**: A further speed up is accomplished through Numba. Numba is a Python library, which translates Python functions to optimized machine code at runtime. By default, the program uses Numba. To disable Numba, set ``_int_with_numba`` to False.
 
@@ -171,7 +171,8 @@ You can set the number of parallel processes via the keyword argument ``_int_how
      -   Number of parallel processes. Default is 80% of logical cores.
    * - ``_int_with_numba``
      -   Numba is used to speed up computation time. Default is True.
-
+   * - ``_int_xtr_parallel ``
+     -   Parallelize to a larger degree to make sure all CPUs are busy most of the time.  Default is True.
 
 
 Example
@@ -193,28 +194,3 @@ Example
        pt_no_of_evalupoints = 100
        )
 
-
-Changes concerning the class OptimalPolicy
--------------------------------------------------
-
-Change of default values
-
-The default of pt_enforce_restriction is set to False.
-
-The previous default of pt_min_leaf_size is now multiplied by the smallest allowed treatment if (and only if) treatment shares are restricted.
-
-“policy tree eff” becomes the standard method for policy trees and is renamed as “policy tree”.
-
-Change of default value for gen_variable_importance. New default is True.
-
-New keyword: _int_xtr_parallel Parallelize to a larger degree to make sure all CPUs are busy for most of the time. Only used for “policy tree” and only used if _int_parallel_processing > 1 (or None). Default is True.
-
-There is the new option to build a new optimal policy trees based on the data in each leaf of the (first) optimal policy tree. Although this second tree will also be optimal, the combined tree is no longer optimal. The advantage is a huge speed increase, i.e. a 3+1 tree computes much, much faster than a 4+0 tree, etc. This increased capabilities require a change in keywords:
-
-Deleted keyword: pt_depth_tree
-
-New keywords
-
-pt_depth_tree_1 Depth of 1st optimal tree. Default is 3.
-
-pt_depth_tree_2 Depth of 2nd optimal tree. This tree is build within the strata obtained from the leaves of the first tree. If set to 0, a second tree is not build. Default is 1. Using both defaults leads to a (not optimal) total tree of level of 4.
