@@ -1,3 +1,4 @@
+
 from time import time
 
 from mcf import mcf_print_stats_functions as ps
@@ -95,7 +96,7 @@ class OptimalPolicy:
     pt_depth_tree_1 : Integer (or None), optional
         Depth of 1st optimal tree. Default is 3.
         Note that tree depth is defined such that a depth of 1 implies 2
-        leaves, a depth of implies 4 leaves, a depth of 3 implies 8 leaves, etc.
+        leaves, a depth of 2 implies 4 leaves, a depth of 3 implies 8 leaves, etc.
 
     pt_depth_tree_2 : Integer (or None), optional
         Depth of 2nd optimal tree. This set is build within the strata
@@ -103,7 +104,7 @@ class OptimalPolicy:
         tree is not build. Default is 1 (together with the default for
         pt_depth_tree_1 this leads to a (not optimal) total tree of level
         of 4. Note that tree depth is defined such that a depth of 1 implies 2
-        leaves, a depth of implies 4 leaves, a depth of 3 implies 8 leaves,
+        leaves, a depth of 2 implies 4 leaves, a depth of 3 implies 8 leaves,
         etc.
 
     pt_enforce_restriction : Boolean (or None), optional
@@ -192,9 +193,9 @@ class OptimalPolicy:
         Default is None.
 
     var_effect_vs_0_se  : Tuple of strings (or None), optional
-        Name of variables of effects of treatment relative to first
-        treatment. Dimension is equal to the number of treatments minus 1.
-        Default is None.
+        Name of variables of standard errors of the effects of treatment
+        relative to first treatment. Dimension is equal to the number of
+        treatments minus 1. Default is None.
 
     var_id_name : (or None), optional
         Name of identifier in data. Default is None.
