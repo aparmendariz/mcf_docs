@@ -60,16 +60,17 @@ The Tree-search Exact algorithm can be described as follows:
 
    - Pick the m-th feature; for ordered features return the unique values observed and sorted; if unordered return the unique categories to derive all possible splits.
 
-   - Then, for all possible splitting values of the m-th feature split the sample accordingly into a sample_left and sample_right.
-
-   - :math:`(\text{reward left}, \text{tree left}) = \text{Tree-search}(\text{sample left}, L-1)`.
-
-   - :math:`(\text{reward right}, \text{tree right}) = \text{Tree-search}(\text{sample right}, L-1)`.
+      a. Then, for all possible splitting values of the m-th feature split the sample accordingly into a sample_left and sample_right.
+   
+      b. :math:`(\text{reward left}, \text{tree left}) = \text{Tree-search}(\text{sample left}, L-1)`.
+   
+      c. :math:`(\text{reward right}, \text{tree right}) = \text{Tree-search}(\text{sample right}, L-1)`.
 
    - If :math:`\text{reward left} + \text{reward right} > \text{reward}`:
 
-        - :math:`\text{reward} = \text{reward left} + \text{reward right}`.
-        - :math:`\text{tree} = \text{Tree-search}(m, \text{splitting value}, \text{tree left}, \text{tree right})`.
+        a. :math:`\text{reward} = \text{reward left} + \text{reward right}`.
+   
+        b. :math:`\text{tree} = \text{Tree-search}(m, \text{splitting value}, \text{tree left}, \text{tree right})`.
 
 
 Options for Optimal Policy Tree
