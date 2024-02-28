@@ -48,9 +48,6 @@ With this notation, we can now describe the Tree-Search Exact algorithm.
 Tree-search Exact Algorithm
 -----------------------------
 
-Tree-search Exact Algorithm
-===========================
-
 The Tree-search Exact algorithm can be described as follows:
 
 1. If :math:`L = 1`:
@@ -79,9 +76,9 @@ Options for Optimal Policy Tree
 
 You can personalize various parameters defined in the :py:class:`~optpolicy_functions.OptimalPolicy` class. 
 
-You can use the ``var_effect_vs_0_se`` parameter to specify the name of variables of effects of treatment relative to first treatment. Dimension is equal to the number of treatments minus 1. 
+You can use the ``var_effect_vs_0_se`` parameter to specify the standard errors of variables of effects of treatment relative to first treatment. Dimension is equal to the number of treatments minus 1. 
 
-To control how many observations are required at minimum in a partition, you can define such number by using ``pt_min_leaf_size``.
+To control how many observations are required at minimum in a partition, you can define such number by using ``pt_min_leaf_size``. Minimum leaf size. Leaves that are smaller than ``pt_min_leaf_size`` in the training data will not be considered. A larger number reduces computation time and avoids overfitting. Default is :math:`0.1 \times \frac{\text{{number of training observations}}}{\text{{number of leaves}}}`.
 
 If the number of individuals who receive a specific treatment is constrained, you may specify admissible treatment shares via the keyword argument ``other_max_shares``. Note that the information must come as a tuple with as many entries as there are treatments.
 
@@ -97,7 +94,7 @@ Alternatively, if restrictions are present and `other_costs_of_treat` is left to
    * - Keyword
      - Details
    * - ``var_effect_vs_0_se``
-     - Variables of effects of treatment relative to first treatment. Dimension is equal to the number of treatments minus 1. Default is None.
+     - Standard errors of effects relative to treatment zero. Dimension is equal to the number of treatments minus 1. Default is None.
    * - ``pt_min_leaf_size``
      - Minimum leaf size. Leaves that are smaller will not be considered. A larger number reduces computation time and avoids some overfitting. Only relevant if ``gen_method`` is ``policy tree`` or ``policy tree old``. Default is None.
    * - ``other_max_shares``
@@ -120,9 +117,19 @@ Example
        var_polscore_name=["Y_LC0_un_lc_pot", "Y_LC1_un_lc_pot", "Y_LC2_un_lc_pot"],
        var_x_name_ord=["x1", "x2"],
        var_x_name_unord=["female"],
-       gen_method="policy tree",
-       pt_depth_tree_1=2
+       gen_method="policy tree", 
+       # Standard errors of effects relative to treatment zero
+       var_effect_vs_0_se = ('YLC1vs0_iate_se', 'YLC2vs0_iate_se', 'YLC3vs0_iate_se'), 
+       # Minimum leaf size
+       pt_min_leaf_size = None, 
+       # Maximum share allowed for each treatment (as many elements as treatment (d))
+       other_max_shares = (1,1,1),
+       # Treatment specific costs
+       other_costs_of_treat = None, 
+       # Multiplier of automatically determined cost values
+       other_costs_of_treat_mult = None
        )
+
 
 
 Speed Considerations
