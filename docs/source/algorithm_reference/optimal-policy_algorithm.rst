@@ -137,7 +137,7 @@ Example
 Speed Considerations
 ----------------------------------
 
-Additionally, you can control certain aspects of the algorithm, which impact running time:
+Additionally, you can control certain aspects of the algorithm which impact running time:
 
 - **Tree Depth**: You can specify the depth of the trees via the keyword arguments ``pt_depth_tree_1`` and ``pt_depth_tree_2``. 
 
