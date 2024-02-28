@@ -135,15 +135,22 @@ Example
 Speed Considerations
 ----------------------------------
 
-You can control aspects of the algorithm, which impact running time:
+Additionally, you can control certain aspects of the algorithm, which impact running time:
+
+- **Tree Depth**: You can specify the depth of the trees via the keyword arguments ``pt_depth_tree_1`` and ``pt_depth_tree_2``. 
+
+  - ``pt_depth_tree_1`` defines the depth of the first optimal tree. The default is 3. Note that tree depth is defined such that a depth of 1 implies 2 leaves, a depth of 2 implies 4 leaves, a depth of 3 implies 8 leaves, etc.
+
+  - ``pt_depth_tree_2`` defines the depth of the second optimal tree, which builds upon the strata obtained from the leaves of the first tree. **Note**: If ``pt_depth_tree_2`` is set to 0, the second tree is not built. The default is 1. Together with the default for ``pt_depth_tree_1``, this leads to a total tree of depth 4 (which is not optimal). Note that tree depth is defined in the same way as for ``pt_depth_tree_1``.
 
 - Number of evaluation points: Specify the number of evaluation points via ``pt_no_of_evalupoints``. This regulates when performing the tree search how many of the possible splits in the feature space are considered. If the ``pt_no_of_evalupoints`` is smaller than the number of distinct values of a certain feature, the algorithm visits fewer splits, thus increasing computational efficiency.
 
-- Tree depth: Specify the admissible depth of the tree via the keyword argument ``pt_depth_tree_1`` or ``pt_depth_tree_2``.
+- **Number of Evaluation Points (`pt_no_of_evalupoints`)**: This parameter specifies the number of evaluation points for continuous variables during the tree search. It determines how many of the possible splits in the feature space are considered. If the value of `pt_no_of_evalupoints` is smaller than the number of distinct values of a certain feature, the algorithm visits fewer splits, thus increasing computational efficiency. However, a lower value may also deviate more from the optimal splitting rule. This parameter is closely related to the approximation parameter of `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ . (:math:`A`) with :math:`A = N/n_{evalupoints}`, where :math:`N` is the number of observations and :math:`n_{evalupoints}` is the number of evaluation points. Lastly, note that this parameter is only relevant if `gen_method` is 'policy tree' or 'policy tree old'. The default value (or `None`) is 100.
 
-- Parallel execution: Run the program in parallel. You can set the number of processes via the keyword argument ``_int_how_many_parallel``. By default, the number is set equal to the 80 percent of the number of logical cores on your machine.
+- **Parallel execution**: The ``_int_parallel_processing`` parameter controls whether multiprocessing is used. It is by default set to True. 
+You can set the number of parallel processes via the keyword argument ``_int_how_many_parallel``. By default (None), the number is set equal to the 80 percent of the number of logical cores on your machine, provided that this can be effectively implemented.  This allows for efficient use of your machine's processing power. 
 
-- Numba optimization: A further speed up is accomplished through Numba. Numba is a Python library, which translates Python functions to optimized machine code at runtime. By default, the program uses Numba. To disable Numba, set ``_int_with_numba`` to False.
+- **Numba optimization**: A further speed up is accomplished through Numba. Numba is a Python library, which translates Python functions to optimized machine code at runtime. By default, the program uses Numba. To disable Numba, set ``_int_with_numba`` to False.
 
 
 .. list-table:: 
@@ -152,16 +159,19 @@ You can control aspects of the algorithm, which impact running time:
 
    * - Keyword
      - Details
-   * - ``_int_parallel_processing``
-     - If True, the program is run in parallel with the number of processes equal to _int_how_many_parallel. If False, the program is run on one core; the default is True.
-   * - ``_int_how_many_parallel``
-     - Specifies the number of parallel processes; the default number of processes is set equal to the logical number of cores of the machine.
-   * - ``_int_with_numba``
-     - Specifies if Numba is deployed to speed up computation time; the default is True.
    * - ``pt_depth_tree_1``
-     - ; the default is True.
+     -   Depth of 1st optimal tree. Default is 3. 
+   * - ``pt_depth_tree_2``
+     -   Depth of 2nd optimal tree. Default is 1. 
    * - ``pt_no_of_evalupoints``
-     - Implicitly set the approximation parameter of Zhou, Athey, and Wager (2022) - :math:`A`. Accordingly, :math:`A=N/n_{evalupoints}`, where :math:`N` is the number of observations and :math:`n_{evalupoints}` the number of evaluation points; default value is 100.
+     -   Number of evaluation points for continous variables. Default is 100. 
+   * - ``_int_parallel_processing``
+     -   Multiprocessing is used. Default is True. 
+   * - ``_int_how_many_parallel``
+     -   Number of parallel processes. Default is 80% of logical cores.
+   * - ``_int_with_numba``
+     -   Numba is used to speed up computation time. Default is True.
+
 
 
 Example
@@ -175,7 +185,12 @@ Example
        var_x_name_ord=["x1", "x2"],
        var_x_name_unord=["female"],
        gen_method="policy tree",
-       pt_depth_tree_1=2
+       # Depth of 1st optimal tree
+       pt_depth_tree_1=2, 
+       # Depth of 2nd optimal tree
+       pt_depth_tree_1, 
+       # Number of evaluation points for continuous variables
+       pt_no_of_evalupoints = 100
        )
 
 
