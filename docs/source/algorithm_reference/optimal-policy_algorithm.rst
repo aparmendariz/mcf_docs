@@ -47,23 +47,30 @@ With this notation, we can now describe the Tree-Search Exact algorithm.
 Tree-search Exact Algorithm
 -----------------------------
 
+Tree-search Exact Algorithm
+===========================
+
+The Tree-search Exact algorithm can be described as follows:
+
 1. If :math:`L = 1`:
 
-   - Choose :math:`j^* \in \{0, 1, \ldots, M\}`, which maximizes :math:`\sum \hat{\Theta}_i(j)` and return the corresponding reward = :math:`\sum_{\forall i}       \hat{\Theta}_i(j^*)`.
+   - Choose :math:`j^* \in \{0, 1, \ldots, M\}`, which maximizes :math:`\sum_i \hat{\Theta}_i(j)` and return the corresponding reward = :math:`\sum_{\forall i} \hat{\Theta}_i(j^*)`.
 
 2. Else:
 
    - Initialize reward = :math:`-\infty`, and an empty tree = :math:`\emptyset` for all :math:`m = 1, \ldots, p_1 + p_2`.
-   - Pick the m-th feature; for ordered features return the unique values observed and sorted; if unordered return the unique categories to derive all              possible splits.
+
+   - Pick the m-th feature; for ordered features return the unique values observed and sorted; if unordered return the unique categories to derive all possible splits.
 
    - Then, for all possible splitting values of the m-th feature split the sample accordingly into a sample_left and sample_right.
-   - (reward_left, tree_left) = Tree-search(sample_left, L-1).
-   - (reward_right, tree_right) = Tree-search(sample_right, L-1).
 
-   - If reward_left + reward_right > reward:
-     - reward = reward_left + reward_right.
-     - tree = Tree-search(m, splitting value, tree_left, tree_right).
+   - :math:`(\text{reward\_left}, \text{tree\_left}) = \text{Tree-search}(\text{sample\_left}, L-1)`.
 
+   - :math:`(\text{reward\_right}, \text{tree\_right}) = \text{Tree-search}(\text{sample\_right}, L-1)`.
+
+   - If :math:`\text{reward\_left} + \text{reward\_right} > \text{reward}`:
+     - :math:`\text{reward} = \text{reward\_left} + \text{reward\_right}`.
+     - :math:`\text{tree} = \text{Tree-search}(m, \text{splitting value}, \text{tree\_left}, \text{tree\_right})`.
 
 
 Options for Optimal Policy Tree
