@@ -1,2 +1,2 @@
-Worked example
-==============
+Learning an optimal policy
+==========================

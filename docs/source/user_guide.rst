@@ -25,7 +25,6 @@ Optimal Policy
     :numbered:
 
     user_guide/optimal-policy_example
-    user_guide/optimal-policy_speed
 
 Worked examples
 ---------------
