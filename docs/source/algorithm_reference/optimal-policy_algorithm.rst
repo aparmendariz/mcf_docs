@@ -7,6 +7,7 @@ To determine the policy allocation, you may choose between two methods:
 
 - Blackbox Rule: This method follows the logic of allocating the treatment, which implies the best potential outcome (potentially taking estimation uncertainty into account if ``var_effect_vs_0_se`` is used). 
 
+
 Optimal Policy Tree
 -------------------
 
@@ -64,13 +65,13 @@ The Tree-search Exact algorithm can be described as follows:
 
    - Then, for all possible splitting values of the m-th feature split the sample accordingly into a sample_left and sample_right.
 
-   - :math:`(\text{reward\_left}, \text{tree\_left}) = \text{Tree-search}(\text{sample\_left}, L-1)`.
+   - :math:`(\text{reward left}, \text{tree left}) = \text{Tree-search}(\text{sample left}, L-1)`.
 
-   - :math:`(\text{reward\_right}, \text{tree\_right}) = \text{Tree-search}(\text{sample\_right}, L-1)`.
+   - :math:`(\text{reward right}, \text{tree right}) = \text{Tree-search}(\text{sample right}, L-1)`.
 
-   - If :math:`\text{reward\_left} + \text{reward\_right} > \text{reward}`:
-     - :math:`\text{reward} = \text{reward\_left} + \text{reward\_right}`.
-     - :math:`\text{tree} = \text{Tree-search}(m, \text{splitting value}, \text{tree\_left}, \text{tree\_right})`.
+   - If :math:`\text{reward left} + \text{reward right} > \text{reward}`:
+     - :math:`\text{reward} = \text{reward left} + \text{reward right}`.
+     - :math:`\text{tree} = \text{Tree-search}(m, \text{splitting value}, \text{tree left}, \text{tree right})`.
 
 
 Options for Optimal Policy Tree
@@ -78,9 +79,15 @@ Options for Optimal Policy Tree
 
 You can personalize various parameters defined in the :py:class:`~optpolicy_functions.OptimalPolicy` class. 
 
-When considering treatment costs, input them via `other_costs_of_treat`.  When evaluating the reward, the aggregate costs (costs per unit times units) of the policy allocation are subtracted. If left as default (None), the program determines a cost vector that imply an optimal reward (policy score minus costs) for each individual, while guaranteeing that the restrictions as specified in ``other_max_shares`` are satisfied. This is of course only relevant when ``other_max_shares`` is specified.
+You can use the ``var_effect_vs_0_se`` parameter to specify the name of variables of effects of treatment relative to first treatment. Dimension is equal to the number of treatments minus 1. 
 
-Alternatively, if restrictions are present and `other_costs_of_treat` is default, you can specify `other_costs_of_treat_mult`. Admissible values for this parameter are either a scalar greater zero or a tuple with values greater zero. The tuple needs as many entries as there are treatments. The imputed cost vector is then multiplied by this factor.
+To control how many observations are required at minimum in a partition, you can define such number by using ``pt_min_leaf_size``.
+
+If the number of individuals who receive a specific treatment is constrained, you may specify admissible treatment shares via the keyword argument ``other_max_shares``. Note that the information must come as a tuple with as many entries as there are treatments.
+
+When considering treatment costs, input them via ``other_costs_of_treat``.  When evaluating the reward, the aggregate costs (costs per unit times units) of the policy allocation are subtracted. If left as default (None), the program determines a cost vector that imply an optimal reward (policy score minus costs) for each individual, while guaranteeing that the restrictions as specified in ``other_max_shares`` are satisfied. This is only relevant when ``other_max_shares`` is specified.
+
+Alternatively, if restrictions are present and `other_costs_of_treat` is left to its default, you can specify `other_costs_of_treat_mult`. Admissible values for this parameter are either a scalar greater zero or a tuple with values greater zero. The tuple needs as many entries as there are treatments. The imputed cost vector is then multiplied by this factor.
 
 
 .. list-table:: 
