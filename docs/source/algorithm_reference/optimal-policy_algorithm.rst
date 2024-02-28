@@ -11,8 +11,8 @@ To determine the policy allocation, you may choose between two methods:
 Optimal Policy Tree
 -------------------
 
-The :py:class:`~optpolicy_functions.OptimalPolicy` class is designed to discover the optimal policy tree in a computationally cheap and tractable manner. While the basic logic follows `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ , the details of the programmatic implementation differ. 
-For instance, in contrast to policytree, the optpoltree allows you to consider constraints regarding the maximal shares of treated observations, detail treatment costs and using different policy scores.
+The :py:class:`~optpolicy_functions.OptimalPolicy` class is designed to discover the optimal policy tree in a computationally efficient and tractable way. While the basic logic follows `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ , the details of the programmatic implementation differ. 
+For instance, in contrast to policytree, the optpoltree allows you to consider constraints regarding the maximal shares of treated observations, detail treatment costs and different policy scores.
 
 
 Implementation
@@ -22,17 +22,17 @@ The :py:class:`~optpolicy_functions.OptimalPolicy` class explores the space of a
 
 Given a fixed choice of previous partitions, the problem of finding an optimal solution simplifies to solving two subproblems: 
 
-- finding optimal left and right subtrees. 
+- Finding optimal left and right subtrees. 
 
 Once we have reached a terminal node, we are no longer allowed to perform splits of the feature space and the treatment which maximises the score of all observations in the respective leaf is chosen. 
 
-This recursive approach breaks down the problem into smaller, more manageable subproblems, facilitating the overall solution.
+This recursive approach breaks down the problem into smaller, more manageable subproblems, easing the overall solution.
 
 
 Notation
 ----------------------------
 
-Before we delve into the solution method for finding the optimal policy tree (Tree-search Exact Algorithm), let's introduce some notation:
+Before we delve into the solution method to find the optimal policy tree (Tree-search Exact Algorithm), let's introduce some notation:
 
 - :math:`i=1, \ldots, n`: are :math:`n` observations
 - :math:`p_1`: number of ordered features 
@@ -78,7 +78,7 @@ You can personalize various parameters defined in the :py:class:`~optpolicy_func
 
 You can use the ``var_effect_vs_0_se`` parameter to specify the standard errors of variables of effects of treatment relative to first treatment. Dimension is equal to the number of treatments minus 1. 
 
-To control how many observations are required at minimum in a partition, you can define such number by using ``pt_min_leaf_size``. Minimum leaf size. Leaves that are smaller than ``pt_min_leaf_size`` in the training data will not be considered. A larger number reduces computation time and avoids overfitting. Default is :math:`0.1 \times \frac{\text{{number of training observations}}}{\text{{number of leaves}}}`. The previous default of pt_min_leaf_size is now multiplied by the smallest allowed treatment if (and only if) treatment shares are restricted.
+To control how many observations are required at minimum in a partition, you can define such number by using ``pt_min_leaf_size``. Leaves that are smaller than ``pt_min_leaf_size`` in the training data will not be considered. A larger number reduces computation time and avoids overfitting. Default is :math:`0.1 \times \frac{\text{{number of training observations}}}{\text{{number of leaves}}}`. 
 
 If the number of individuals who receive a specific treatment is constrained, you may specify admissible treatment shares via the keyword argument ``other_max_shares``. Note that the information must come as a tuple with as many entries as there are treatments.
 
