@@ -188,7 +188,7 @@ Example
        # Depth of 1st optimal tree
        pt_depth_tree_1=2, 
        # Depth of 2nd optimal tree
-       pt_depth_tree_1, 
+       pt_depth_tree_2=1, 
        # Number of evaluation points for continuous variables
        pt_no_of_evalupoints = 100
        )
