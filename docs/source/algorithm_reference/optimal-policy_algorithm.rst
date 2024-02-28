@@ -118,7 +118,6 @@ Example
        var_d_name="d",
        var_polscore_name=["Y_LC0_un_lc_pot", "Y_LC1_un_lc_pot", "Y_LC2_un_lc_pot"],
        var_x_name_ord=["x1", "x2"],
-       var_x_name_unord=["female"],
        gen_method="policy tree", 
        # Standard errors of effects relative to treatment zero
        var_effect_vs_0_se = ('YLC1vs0_iate_se', 'YLC2vs0_iate_se', 'YLC3vs0_iate_se'), 
@@ -183,7 +182,6 @@ Example
        var_d_name="d",
        var_polscore_name=["Y_LC0_un_lc_pot", "Y_LC1_un_lc_pot", "Y_LC2_un_lc_pot"],
        var_x_name_ord=["x1", "x2"],
-       var_x_name_unord=["female"],
        gen_method="policy tree",
        # Depth of 1st optimal tree (Default is 3)
        pt_depth_tree_1 = 2, 
