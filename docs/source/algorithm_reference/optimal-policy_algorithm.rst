@@ -67,8 +67,9 @@ The Tree-search Exact algorithm can be described as follows:
    - :math:`(\text{reward right}, \text{tree right}) = \text{Tree-search}(\text{sample right}, L-1)`.
 
    - If :math:`\text{reward left} + \text{reward right} > \text{reward}`:
-     - :math:`\text{reward} = \text{reward left} + \text{reward right}`.
-     - :math:`\text{tree} = \text{Tree-search}(m, \text{splitting value}, \text{tree left}, \text{tree right})`.
+
+        - :math:`\text{reward} = \text{reward left} + \text{reward right}`.
+        - :math:`\text{tree} = \text{Tree-search}(m, \text{splitting value}, \text{tree left}, \text{tree right})`.
 
 
 Options for Optimal Policy Tree
