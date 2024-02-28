@@ -14,14 +14,17 @@ The :py:class:`~optpolicy_functions.OptimalPolicy` class is designed to discover
 For instance, in contrast to policytree, the optpoltree allows you to consider constraints regarding the maximal shares of treated observations, detail treatment costs and using different policy scores.
 
 
-Algorithmic Implementation
+Implementation
 -----------------------------
 
 The :py:class:`~optpolicy_functions.OptimalPolicy` class explores the space of all viable policy trees and picks the optimal one. This optimal tree maximizes the value function, computed as the sum of individual-specific policy scores, by assigning treatments to observations within terminal nodes.
 
-Given a fixed choice of previous partitions, the problem of finding an optimal solution simplifies to solving two subproblems: finding optimal left and right subtrees. 
+Given a fixed choice of previous partitions, the problem of finding an optimal solution simplifies to solving two subproblems: 
 
-Once we have reached a terminal node, we are no longer allowed to perform splits of the feature space, the treatment is chosen, which maximises the score of all observations in the respective leaf. 
+- finding optimal left and right subtrees. 
+
+Once we have reached a terminal node, we are no longer allowed to perform splits of the feature space and the treatment which maximises the score of all observations in the respective leaf is chosen. 
+
 This recursive approach breaks down the problem into smaller, more manageable subproblems, facilitating the overall solution.
 
 
@@ -45,14 +48,18 @@ Tree-search Exact Algorithm
 -----------------------------
 
 1. If :math:`L = 1`:
-   - Choose :math:`j^* \in \{0, 1, \ldots, M\}`, which maximizes :math:`\sum \hat{\Theta}_i(j)` and return the corresponding reward = :math:`\sum_{\forall i} \hat{\Theta}_i(j^*)`.
+
+   - Choose :math:`j^* \in \{0, 1, \ldots, M\}`, which maximizes :math:`\sum \hat{\Theta}_i(j)` and return the corresponding reward = :math:`\sum_{\forall i}       \hat{\Theta}_i(j^*)`.
 
 2. Else:
+
    - Initialize reward = :math:`-\infty`, and an empty tree = :math:`\emptyset` for all :math:`m = 1, \ldots, p_1 + p_2`.
    - Pick the m-th feature; for ordered features return the unique values observed and sorted; if unordered return the unique categories to derive all              possible splits.
+
    - Then, for all possible splitting values of the m-th feature split the sample accordingly into a sample_left and sample_right.
    - (reward_left, tree_left) = Tree-search(sample_left, L-1).
    - (reward_right, tree_right) = Tree-search(sample_right, L-1).
+
    - If reward_left + reward_right > reward:
      - reward = reward_left + reward_right.
      - tree = Tree-search(m, splitting value, tree_left, tree_right).
