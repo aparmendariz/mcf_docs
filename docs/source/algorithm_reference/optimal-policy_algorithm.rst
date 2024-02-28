@@ -168,7 +168,7 @@ Additionally, you can control certain aspects of the algorithm, which impact run
      -   Number of parallel processes. Default is 80% of logical cores.
    * - ``_int_with_numba``
      -   Numba is used to speed up computation time. Default is True.
-   * - ``_int_xtr_parallel ``
+   * - ``_int_xtr_parallel``
      -   Parallelize to a larger degree to make sure all CPUs are busy most of the time.  Default is True.
 
 
