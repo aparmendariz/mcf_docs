@@ -28,18 +28,6 @@ Changelog
     Note the absence of the tilde '~' in this case. 
 
 
-:py:class:`~mcf_functions.ModifiedCausalForest` 
-:py:class:`~optpolicy_functions.OptimalPolicy` 
-
-:py:class:`Custom link text <mcf_functions.ModifiedCausalForest>` 
-
-:py:meth:`~mcf_functions.ModifiedCausalForest.train`
-:py:meth:`~optpolicy_functions.OptimalPolicy.solve`
-
-:py:attr:`~mcf_functions.ModifiedCausalForest.blind_dict`
-:py:attr:`~optpolicy_functions.OptimalPolicy.dc_dict`
-
-
 Version 0.5.0
 -------------
 
