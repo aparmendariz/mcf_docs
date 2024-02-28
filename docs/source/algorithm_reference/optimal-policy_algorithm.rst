@@ -185,10 +185,10 @@ Example
        var_x_name_ord=["x1", "x2"],
        var_x_name_unord=["female"],
        gen_method="policy tree",
-       # Depth of 1st optimal tree
-       pt_depth_tree_1=2, 
-       # Depth of 2nd optimal tree
-       pt_depth_tree_2=1, 
+       # Depth of 1st optimal tree (Default is 3)
+       pt_depth_tree_1 = 2, 
+       # Depth of 2nd optimal tree (Default is 1)
+       pt_depth_tree_2 = 0, 
        # Number of evaluation points for continuous variables
        pt_no_of_evalupoints = 100
        )
