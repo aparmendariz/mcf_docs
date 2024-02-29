@@ -133,7 +133,7 @@ Example
 
 
 
-Speed Considerations
+Computational speed 
 ----------------------------------
 
 Additionally, you can control certain aspects of the algorithm which impact running time:
