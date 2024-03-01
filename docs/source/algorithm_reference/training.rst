@@ -83,41 +83,37 @@ The **mcf** allows for a grid search mainly over tree types of parameters:
 
 - Minimum leaf size
 
-In practical terms, for all possible combinations, a forest is estimated fixing a random seed. 
-Below you will find the main parameters which you can modify to either tune your forest or increase computational speed. 
+In practical terms, a forest is estimated for all possible combinations of these parameters, with a fixed random seed. Below are the main parameters that you can adjust to either tune your forest or increase computational speed.
 
 - **Forest Growing and Subsampling**: 
 
-  - ``cf_boot`` defines the number of trees forming the forest. The larger this number, the more processing time. Default is 1000.
+  - ``cf_boot`` defines the number of trees forming the forest. The larger number will increase processing time. Default is 1000.
 
-  - ``cf_m_share_min`` minimum share of variables used at each new split of tree. Default is 0.1.
+  - ``cf_m_share_min`` determines minimum share of variables used at each new split of tree. Default is 0.1.
 
-  - ``cf_m_share_max`` maximum share of variables used at each new split of tree. Default is 0.6.
+  - ``cf_m_share_max`` determines maximum share of variables used at each new split of tree. Default is 0.6.
 
-  - ``cf_m_grid``: Number of variables used at each new split of tree: Number of grid values. If grid is used, optimal value is determined by out-of-bag estimation of objective function. Default (or None) is 1. **Note**: The finer the grid-search, the more forests are estimated, which slows down computation time. To identify the best values from the grid-search, the program implements the out-of-bag estimation of the chosen objective. The best performing forest based on its out-of-bag value of its objective function is taken for further computations.
+  - ``cf_m_grid``: number of variables used at each new split of tree: Number of grid values. If grid is used, optimal value is determined by out-of-bag estimation of objective function. Default (or None) is 1. **Note**: The finer the grid-search, the more forests are estimated, which slows down computation time. To identify the best values from the grid-search, the program implements the out-of-bag estimation of the chosen objective. The best performing forest based on its out-of-bag value of its objective function is taken for further computations.
 
-  - ``cf_n_min_min``: Smallest minimum leaf siz
+  - ``cf_n_min_min``: smallest minimum leaf size. The smaller the minimum leaf size, the longer is the computation time, as the tree is grown deeper. This increase in computation time can be substantial for large data.
 
-  - ``cf_n_min_max``: Largest minimum leaf size
+  - ``cf_n_min_max``: largest minimum leaf size
 
-  - ``cf_chunks_maxsize`` this parameter randomly splits training data in chunks and takes the average of the estimated parameters to improve scalability (increases speed and reduces demand on memory, but may increase finite sample bias somewhat). If cf_chunks_maxsize is larger than sample size, there is no random splitting. 
+  - ``cf_chunks_maxsize`` this parameter randomly splits training data in chunks and takes the average of the estimated parameters to improve scalability. This can increase speed and reduce memory demand, but may slightly increase finite sample bias. If cf_chunks_maxsize is larger than sample size, there is no random splitting. 
 
-  - ``cf_subsample_factor_eval``: Subsampling can be used to reduce the size of the dataset that the program needs to process. The ``cf_subsample_factor_eval``. In particular for larger samples, using subsampling in evaluation may speed up computations and reduces demand on memory.
+  - ``cf_subsample_factor_eval``: this parameter determines the fraction of the data to be used for evaluation.  When it's set to False, no subsampling is performed in the evaluation subsample. If it's set to True or None, the subsample size used for tree building is employed, which helps to avoid too many empty leaves. If a float value greater than 0 is provided, it's used as a multiplier of the subsample size for tree building. This parameter is particularly useful for larger samples, as using subsampling during evaluation can speed up computations and reduce memory demand. It also increases the speed at which asymptotic bias disappears, albeit at the expense of a slower reduction in variance. However, simulations so far show no significant impact from this trade-off. 
 
-  - ``cf_random_thresholds``: The ``cf_random_thresholds`` option can be used to enable the use of random thresholds in the decision trees, which can speed up the tree generation process.  If > 0: Do not check all possible split values of ordered variables, but only RANDOM_THRESHOLDS (new randomisation for each split) 0: no random thresholds > 0: number of random thresholds used for ordered var's (fewer thresholds speeds up programme but may (!) lead to less accurate results.)
+  - ``cf_random_thresholds``: this parameter can be used to enable the use of random thresholds in the decision trees, which can speed up the tree generation process. If this parameter is set to a value greater than 0, the program doesn't examine all possible split values of ordered variables. Instead, it only checks a number of random thresholds, with a new randomization for each split. A value of 0 for this parameter means no random thresholds are used. A value greater than 0 specifies the number of random thresholds used for ordered variables. Using fewer thresholds can speed up the program, but it might lead to less accurate results.
 
-  - ``p_choice_based_sampling``: Choice based sampling to speed up programme if treatment groups have very different sizes. Default (or None) is False.
+  - ``p_choice_based_sampling``: this option allows choice-based sampling to speed up programme if treatment groups have very different sizes.
 
 
 - **Parallel Processing**: 
 
-  - ``gen_mp_parallel``: defines the number of parallel processes. The smaller this value is, the slower the programme, the smaller its demand on RAM. None: 80% of logical cores. Default is None. If you run into memory problems, reduce the number of parallel processes. 
+  - ``gen_mp_parallel``: defines the number of parallel processes. A smaller value will slow down the program and reduce its demand on RAM. The default value is None, which means 80% of logical cores. If you run into memory problems, reduce the number of parallel processes.
 
 
-Please refer to the :py:class:`API <mcf_functions.ModifiedCausalForest>` for a detailed description of these and other options. Adjusting these options can help to significantly reduce the computational time, but it may also affect the accuracy of the results. Therefore, it is recommended to understand the implications of each option before adjusting them.
-
-
-Below you find a list of the discussed parameters that are relevant for parameter tuning and computational speed. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters.
+Please refer to the :py:class:`API <mcf_functions.ModifiedCausalForest>` for a detailed description of these and other options. Adjusting these options can help to significantly reduce the computational time, but it may also affect the accuracy of the results. Therefore, it is recommended to understand the implications of each option before adjusting them. Below you find a list of the discussed parameters that are relevant for parameter tuning and computational speed.
 
 .. list-table:: 
    :widths: 30 70
@@ -138,19 +134,17 @@ Below you find a list of the discussed parameters that are relevant for paramete
    * - ``cf_n_min_max``
      - Largest minimum leaf size. Default is None.
    * - ``cf_chunks_maxsize``
-     - Randomly splits training data in chunks and takes the average of the estimated parameters to improve scalability 
+     - Randomly splits training data in chunks and averages the estimated parameters (improved scalability). Default is None. 
    * - ``cf_subsample_factor_eval``
-     - Subsampling can be used to reduce the size of the dataset that the program needs to process
+     - Subsampling to reduce the size of the dataset to process. Default is None. 
    * - ``cf_random_thresholds``
-     - Enable the use of random thresholds in the decision trees
+     - Enable the use of random thresholds in the decision trees. Default is None. 
    * - ``p_choice_based_sampling``
-     -  Choice based sampling to speed up programme if treatment groups have very different sizes
+     -  Choice based sampling to speed up programme if treatment groups have different sizes. Default is False. 
    * - ``gen_mp_parallel`
-     -  Choice based sampling to speed up programme if treatment groups have very different sizes
+     -  Number of parallel processes. Default is 80%.
 
 
-
-**Note**: The smaller the minimum leaf size, the longer is the computation time, as the tree is grown deeper. This increase in computation time can be substantial for large data.
 
 
 Example
