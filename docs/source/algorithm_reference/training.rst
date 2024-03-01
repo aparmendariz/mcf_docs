@@ -18,7 +18,7 @@ For a textbook-like discussion refer to `Athey & Imbens (2016) <https://www.pnas
 Forest Growing
 ------------------------------------
 
-The number of trees forming the forest is given by the argument ``cf_boot``. As a tree is grown, the algorithm greedily chooses the split which yields the best possible reduction of the objective function specified in ``cf_mce_vart``. The following objective criteria are implemented:
+As a tree is grown, the algorithm greedily chooses the split which yields the best possible reduction of the objective function specified in ``cf_mce_vart``. The following objective criteria are implemented:
 
 - Outcome Mean Squared Error (MSE)
 
@@ -43,8 +43,6 @@ Below you find a list of the discussed parameters that are relevant for forest g
 +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Parameter                 | Description                                                                                                                                                                                                     |
 +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``cf_boot``               | Number of Causal Trees. Default (or None) is 1000.                                                                                                                                                              |
-+---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | ``cf_mce_vart``           | Splitting rule for tree building, 0 for MSE, 1 for MSE+MCE, 2 for heterogeneity maximization, or 3 for random switching between MSE, MCE and penalty function defined in ``cf_p_diff_penalty`` . Default is 1.  |
 +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | ``cf_p_diff_penalty``     | Penalty function used during tree building, dependent on ``cf_mce_vart``. Default is None.                                                                                                                      |
@@ -53,6 +51,8 @@ Below you find a list of the discussed parameters that are relevant for forest g
 +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | ``cf_nn_main_diag_only``  | Nearest neighbour matching: Use main diagonal of covariance matrix only. Only relevant if match_nn_prog_score == False. Default (or None) is False.                                                             |
 +---------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
 
 Example
 ~~~~~~~
@@ -133,11 +133,11 @@ Computational speed
 
 - **Parallel Processing**: 
 
-  - ``gen_mp_parallel``: defines the number of parallel processes. The program can take advantage of multiple cores for parallel processing. The ``gen_mp_parallel`` option can be set to the number of cores to be used. If not specified, the program will use all available cores.
+  - ``gen_mp_parallel``: defines the number of parallel processes. The smaller this value is, the slower the programme, the smaller its demand on RAM. None: 80% of logical cores. Default is None.
 
-- **Causal Forest, Subsampling,  **: 
+- **Causal Forest, Subsampling**: 
 
-  - ``cf_boot``
+  - ``cf_boot`` The number of trees forming the forest is given by the argument ``cf_boot`` (described in the computation speed section).
   - ``cf_chunks_maxsize``
   - ``cf_m_grid``: 
   - ``cf_subsample_factor_eval``: Subsampling can be used to reduce the size of the dataset that the program needs to process. The ``cf_subsample_factor_eval``. 
