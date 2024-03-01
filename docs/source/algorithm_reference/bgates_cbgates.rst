@@ -29,6 +29,10 @@ To turn on the :math:`\textrm{BGATE}` , set ``p_bgate`` to True. To turn on the 
 
 Below you find a list of the main parameters which are related to the :math:`\textrm{BGATE's} and :math:`\textrm{CBGATE's}`. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters. 
 
+
+Parameters 
+------------------------
+
 .. list-table:: 
    :widths: 30 70
    :header-rows: 1
