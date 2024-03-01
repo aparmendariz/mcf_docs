@@ -25,3 +25,66 @@ Algorithmically, the :math:`\textrm{BGATE}` and the :math:`\textrm{CBGATE}` are 
 One should note that this procedure only happens in the prediction part using the previously trained forest. This implementation differs from `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08290>`_ estimation approach. They use double/debiased machine learning to estimate the parameters of interest.
 
 To turn on the :math:`\textrm{BGATE}` , set ``p_bgate`` to True. To turn on the :math:`\textrm{CBGATE}`, set ``p_cbgate`` to True. The balancing variables :math:`W` have to be specified in ``var_bgate_name``.
+
+
+Below you find a list of the main parameters which are related to the :math:`\textrm{BGATE's} and :math:`\textrm{CBGATE's}. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters. 
+
+.. list-table:: 
+   :widths: 30 70
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+   * - ``var_bgate_name``
+     - This parameter is a string or a list of strings that specifies the variables to balance the GATEs on. It's only relevant if p_bgate is True. The distribution of these variables is kept constant when a BGATE is computed. If set to None, the other heterogeneity variables (var_z_ …) are used for balancing. The default value is None.
+   * - ``p_bgate``
+     - This parameter enables the estimation of a GATE that is balanced in selected features, as specified in var_bgate_name. The default value is False.
+   * - ``p_cbgate``
+     - This parameter enables the estimation of a GATE that is balanced in all other features. The default value is False.
+   * - ``p_bgate_sample_share``
+     - This parameter determines the method of nearest neighbour matching. If set to True, prognostic scores are used. If set to False, the inverse of the covariance matrix of features is used. The default value is True.
+   * - ``p_gate_no_evalu_points``
+     - This parameter is an integer that determines the number of evaluation points for discretized variables in (C)BGATE estimation. The default value is 50.
+   * - ``p_bgate_sample_share``
+     - This parameter is used to speed up the program as the implementation of (C)BGATE estimation is very CPU intensive. Therefore, random samples are used if the number of observations / number of evaluation points > 10. If the number of observations in prediction data (n) is less than 1000, the value is 1. If n is greater than or equal to 1000, the value is None. The default value is None.
+
+
+Example
+~~~~~~~
+
+.. code-block:: python
+
+    my_mcf = ModifiedCausalForest(
+        var_y_name="y",
+        var_d_name="d",
+        var_x_name_ord=["x1", "x2"],
+        # De
+        var_z_name_list=["age"],
+        # De
+        var_bgate_name=, 
+        # De
+        p_bgate=True,  
+        # Det
+        p_bgate_sample_share = True, 
+        # Det
+        p_gate_no_evalu_points, 
+        # Det
+        p_bgate_sample_share
+    )
+
+
+.. code-block:: python
+
+    my_mcf = ModifiedCausalForest(
+        var_y_name="y",
+        var_d_name="d",
+        var_x_name_ord=["x1", "x2"],
+        # De
+        var_bgate_name
+        var_z_name_list=["age"],
+        # De
+        p_cbgate=True 
+        # Det
+        cf_match_nn_prog_score = True
+    )
+
