@@ -87,21 +87,24 @@ In practical terms, a forest is estimated for all possible combinations of these
 
 - **Forest Growing and Subsampling**: 
 
-  - ``cf_boot`` defines the number of trees forming the forest. The larger number will increase processing time. Default is 1000.
+  - ``cf_boot`` defines the number of trees forming the forest. The larger number will increase processing time. The default value is 1000.
 
-  - ``cf_m_share_min`` determines minimum share of variables used at each new split of tree. Default is 0.1.
+  - ``cf_m_share_min`` determines the minimum share of variables used at each new split of tree. Default is 0.1.
 
-  - ``cf_m_share_max`` determines maximum share of variables used at each new split of tree. Default is 0.6.
+  - ``cf_m_share_max`` sets the maximum share of variables used at each new split of tree. Default is 0.6.
 
-  - ``cf_m_grid``: number of variables used at each new split of tree: Number of grid values. If grid is used, optimal value is determined by out-of-bag estimation of objective function. Default (or None) is 1. **Note**: The finer the grid-search, the more forests are estimated, which slows down computation time. To identify the best values from the grid-search, the program implements the out-of-bag estimation of the chosen objective. The best performing forest based on its out-of-bag value of its objective function is taken for further computations.
+  - ``cf_m_grid``: this parameter determines the number of variables used at each new split of the tree. If grid is used, optimal value is determined by out-of-bag estimation of objective function. The default value is 1. 
 
-  - ``cf_n_min_min``: smallest minimum leaf size. The smaller the minimum leaf size, the longer is the computation time, as the tree is grown deeper. This increase in computation time can be substantial for large data.
+**Note**: The finer the grid-search, the more forests are estimated, which slows down computation time. To identify the best values from the grid-search, the program implements the out-of-bag estimation of the chosen objective. The best performing forest based on its out-of-bag value of its objective function is taken for further computations.
 
-  - ``cf_n_min_max``: largest minimum leaf size
+  - ``cf_n_min_min``: smallest minimum leaf size. The smaller the minimum leaf size. Decreasing this minimum leaf size prolongs computation time, as it prompts the tree to grow deeper. Particularly with extensive datasets, this augmentation in computation time can be significant
 
-  - ``cf_chunks_maxsize`` this parameter randomly splits training data in chunks and takes the average of the estimated parameters to improve scalability. This can increase speed and reduce memory demand, but may slightly increase finite sample bias. If cf_chunks_maxsize is larger than sample size, there is no random splitting. 
+  - ``cf_n_min_max``: largest minimum leaf size.  Similar to its counterpart, adjusting this parameter influences computation time.
 
-  - ``cf_subsample_factor_eval``: this parameter determines the fraction of the data to be used for evaluation.  When it's set to False, no subsampling is performed in the evaluation subsample. If it's set to True or None, the subsample size used for tree building is employed, which helps to avoid too many empty leaves. If a float value greater than 0 is provided, it's used as a multiplier of the subsample size for tree building. This parameter is particularly useful for larger samples, as using subsampling during evaluation can speed up computations and reduce memory demand. It also increases the speed at which asymptotic bias disappears, albeit at the expense of a slower reduction in variance. However, simulations so far show no significant impact from this trade-off. 
+  - ``cf_chunks_maxsize`` this parameter randomly splits training data in chunks and takes the average of the estimated parameters to improve scalability. This can increase speed and reduce memory demand, but may slightly increase finite sample bias. If ``cf_chunks_maxsize`` is larger than sample size, there is no random splitting. 
+
+  - ``cf_subsample_factor_eval``: this parameter determines the fraction of the data to be used for evaluation.  When it's set to False, no subsampling is performed in the evaluation subsample. If it's set to True or None, the subsample size used for tree building is employed, which helps to avoid too many empty leaves. If a float value greater than 0 is provided, it's used as a multiplier of the subsample size for tree building. 
+This parameter is particularly useful for larger samples, as using subsampling during evaluation can speed up computations and reduce memory demand. It also increases the speed at which asymptotic bias disappears, albeit at the expense of a slower reduction in variance. However, simulations so far show no significant impact from this trade-off. 
 
   - ``cf_random_thresholds``: this parameter can be used to enable the use of random thresholds in the decision trees, which can speed up the tree generation process. If this parameter is set to a value greater than 0, the program doesn't examine all possible split values of ordered variables. Instead, it only checks a number of random thresholds, with a new randomization for each split. A value of 0 for this parameter means no random thresholds are used. A value greater than 0 specifies the number of random thresholds used for ordered variables. Using fewer thresholds can speed up the program, but it might lead to less accurate results.
 
@@ -166,7 +169,7 @@ Example
         cf_m_share_min = 0.15, 
         # Number of variables used at each new split of tree
         cf_m_grid = 2, 
-        # Smallest minimum leaf siz
+        # Smallest minimum leaf size
         cf_n_min_min = 5, 
         # Largest minimum leaf size
         cf_n_min_max = None, 
