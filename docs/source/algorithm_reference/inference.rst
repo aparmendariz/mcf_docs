@@ -60,10 +60,10 @@ Example
         var_y_name="y",
         var_d_name="d",
         var_x_name_ord=["x1", "x2"],
-        # Names of ordered variables with many values to define causal heterogeneity
-        var_z_name_list=["age"],
-        # Variables to balance the GATEs on
-        var_bgate_name=["age"], 
+        # Bootstrap of standard errors for ATE
+        p_se_boot_ate=None,
+        # Conditional mean & variances are use
+        p_cond_var=True
     )
 
 
