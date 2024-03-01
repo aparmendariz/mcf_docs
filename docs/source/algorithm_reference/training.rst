@@ -158,21 +158,19 @@ Example
         var_y_name="y",
         var_d_name="d",
         var_x_name_ord=["x1", "x2"],
-        # Number of trees 
-        cf_boot = 500, 
-        # Share of variables used at each new split of tree
-        cf_m_share_min = 0.1, 
+        # Number of trees
+        cf_boot = 500,
         # Maximum share of variables used at each new split of tree
-        cf_m_share_max = 0,6,
+        cf_m_share_max = 0.6,
         # Minimum share of variables used at each new split of tree
-        cf_m_share_min = 0.15, 
+        cf_m_share_min = 0.15,
         # Number of variables used at each new split of tree
-        cf_m_grid = 2, 
+        cf_m_grid = 2,
         # Smallest minimum leaf size
-        cf_n_min_min = 5, 
+        cf_n_min_min = 5,
         # Largest minimum leaf size
-        cf_n_min_max = None, 
+        cf_n_min_max=None,
         # Number of parallel processes
-        gen_mp_parallel = None
+        gen_mp_parallel=None
     )
 
