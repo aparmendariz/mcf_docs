@@ -11,7 +11,7 @@ The BGATE can be used to estimate ATEs for different groups (GATEs), while accou
 Here, :math:`Z` is a single feature of :math:`X` and :math:`W` denotes a subgroup of features of :math:`X` excluding :math:`Z`. :math:`z` is a possible value of the variable of interest :math:`Z`. 
 
 The BGATE partially overcomes the attribution problem related to a simple GATE, where other relevant variables may confound effect heterogeneity.
-Furthermore, the Causal Balanced Group Average Treatment Effect (CBGATE) makes a causal interpretation of the BGATE possible, when all variables other than the heterogeneity variable Z are balanced and further asssumptions discussed in Bearth and Lechner (2024) hold. Hence, both CBGATE and the plain-vanilla GATE are limiting cases of the BGATE.
+Furthermore, the Causal Balanced Group Average Treatment Effect (CBGATE) makes a causal interpretation of the BGATE possible, when all variables other than the heterogeneity variable :math:`Z` are balanced and further asssumptions discussed in `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08290>`_ hold. Hence, both CBGATE and the plain-vanilla GATE are limiting cases of the BGATE.
 
 Algorithmically, the BGATE and the CBGATE are implemented as follows:
 
