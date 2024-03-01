@@ -40,16 +40,15 @@ Below you find a list of the main parameters which are related to the inference 
    * - Parameter
      - Description
    * - ``p_se_boot_ate``
-     -  (Integer or Boolean (or None), optional) – Bootstrap of standard errors for ATE. Specify either a Boolean (if True, number of bootstrap replications will be set to 199) or an integer corresponding to the number of bootstrap replications (this implies True). None: 199 replications p_cluster_std is True, and False otherwise. Default is None.
+     - (Integer or Boolean (or None), optional) – Bootstrap of standard errors for ATE. Specify either a Boolean (if True, number of bootstrap replications will be set to 199) or an integer corresponding to the number of bootstrap replications (this implies True). None: 199 replications p_cluster_std is True, and False otherwise. Default is None.
    * - ``p_se_boot_gate``
-     -  (Integer or Boolean (or None), optional) – Bootstrap of standard errors for GATE. Specify either a Boolean (if True, number of bootstrap replications will be set to 199) or an integer corresponding to the number of bootstrap replications (this implies True). None: 199 replications p_cluster_std is True, and False otherwise. Default is None.
+     - (Integer or Boolean (or None), optional) – Bootstrap of standard errors for GATE. Specify either a Boolean (if True, number of bootstrap replications will be set to 199) or an integer corresponding to the number of bootstrap replications (this implies True). None: 199 replications p_cluster_std is True, and False otherwise. Default is None.
    * - ``p_se_boot_iate``
-     -  (Integer or Boolean (or None), optional) – Bootstrap of standard errors for IATE. Specify either a Boolean (if True, number of bootstrap replications will be set to 199) or an integer corresponding to the number of bootstrap replications (this implies True). None: 199 replications p_cluster_std is True, and False otherwise. Default is None.
+     - (Integer or Boolean (or None), optional) – Bootstrap of standard errors for IATE. Specify either a Boolean (if True, number of bootstrap replications will be set to 199) or an integer corresponding to the number of bootstrap replications (this implies True). None: 199 replications p_cluster_std is True, and False otherwise. Default is None.
    * - ``p_cond_var``
-     - True: Conditional mean & variances are used. False: Variance estimation uses 
- directly. Default (or None) is True.
+     - True: Conditional mean & variances are used. False: Variance estimation uses directly. Default (or None) is True.
    * - ``p_knn``
-     -  (Boolean (or None), optional) – True: k-NN estimation. False: Nadaraya-Watson estimation. Nadaray-Watson estimation gives a better approximaton of the variance, but k-NN is much faster, in particular for larger datasets. Default (or None) is True. 
+     - (Boolean (or None), optional) – True: k-NN estimation. False: Nadaraya-Watson estimation. Nadaray-Watson estimation gives a better approximaton of the variance, but k-NN is much faster, in particular for larger datasets. Default (or None) is True.
 
 
 Example
