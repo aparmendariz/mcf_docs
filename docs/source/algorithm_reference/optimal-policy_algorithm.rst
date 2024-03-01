@@ -3,7 +3,7 @@ Policy Tree algorithm
 
 To determine the policy allocation, you may choose between two methods:
 
-- **Policy Tree**: This method follows `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ . To opt for this method, set ``gen_method`` to `policy tree`. The implemented `policy tree` are optimal trees where all possible trees are checked if they lead to a better performance. If restrictions are specified, then they are incorporated into treatment specific cost parameters. 
+- **Policy Tree**: This method follows `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ . To opt for this method, set ``gen_method`` to "policy tree". The implemented `policy tree` are optimal trees where all possible trees are checked if they lead to a better performance. If restrictions are specified, then they are incorporated into treatment specific cost parameters. 
 
 - **Blackbox Rule**: To use this method, set ``gen_method`` to `best_policy_score`. which conducts Black Box allocations which are obtained by using the scores directly (potentially subject to restrictions). **Note** this is the default method. 
 
