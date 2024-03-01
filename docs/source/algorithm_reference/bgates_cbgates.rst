@@ -27,7 +27,7 @@ One should note that this procedure only happens in the prediction part using th
 To turn on the :math:`\textrm{BGATE}` , set ``p_bgate`` to True. To turn on the :math:`\textrm{CBGATE}`, set ``p_cbgate`` to True. The balancing variables :math:`W` have to be specified in ``var_bgate_name``.
 
 
-Below you find a list of the main parameters which are related to the :math:`\textrm{BGATE's} and :math:`\textrm{CBGATE's}. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters. 
+Below you find a list of the main parameters which are related to the :math:`\textrm{BGATE's} and :math:`\textrm{CBGATE's}`. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters. 
 
 .. list-table:: 
    :widths: 30 70
@@ -36,17 +36,15 @@ Below you find a list of the main parameters which are related to the :math:`\te
    * - Parameter
      - Description
    * - ``var_bgate_name``
-     - This parameter is a string or a list of strings that specifies the variables to balance the GATEs on. It's only relevant if p_bgate is True. The distribution of these variables is kept constant when a BGATE is computed. If set to None, the other heterogeneity variables (var_z_ …) are used for balancing. The default value is None.
+     - This parameter, which can be a string or a list of strings, specifies the variables that the GATEs should be balanced on. It's only relevant if p_bgate is set to True. When a BGATE is computed, the distribution of these specified variables remains constant, ensuring that the effect of the treatment is estimated in a balanced manner across these variables. This helps to control for potential confounding effects that these variables might have on the treatment effect. If var_bgate_name is set to None, the program defaults to using the other heterogeneity variables (specified in var_z) for balancing. This means that the GATEs will be balanced across the distribution of these heterogeneity variables. 
    * - ``p_bgate``
-     - This parameter enables the estimation of a GATE that is balanced in selected features, as specified in var_bgate_name. The default value is False.
+     - This parameter, when set to True, activates the estimation of a Balanced Group Average Treatment Effect (BGATE). 
    * - ``p_cbgate``
-     - This parameter enables the estimation of a GATE that is balanced in all other features. The default value is False.
-   * - ``p_bgate_sample_share``
-     - This parameter determines the method of nearest neighbour matching. If set to True, prognostic scores are used. If set to False, the inverse of the covariance matrix of features is used. The default value is True.
+     - This parameter enables the estimation of a GATE that is balanced in all other features. 
    * - ``p_gate_no_evalu_points``
      - This parameter is an integer that determines the number of evaluation points for discretized variables in (C)BGATE estimation. The default value is 50.
    * - ``p_bgate_sample_share``
-     - This parameter is used to speed up the program as the implementation of (C)BGATE estimation is very CPU intensive. Therefore, random samples are used if the number of observations / number of evaluation points > 10. If the number of observations in prediction data (n) is less than 1000, the value is 1. If n is greater than or equal to 1000, the value is None. The default value is None.
+     - This parameter is used to speed up the program as the implementation of (C)BGATE estimation is very CPU intensive. 
 
 
 Example
@@ -58,18 +56,16 @@ Example
         var_y_name="y",
         var_d_name="d",
         var_x_name_ord=["x1", "x2"],
-        # De
+        # Names of ordered variables with many values to define causal heterogeneity
         var_z_name_list=["age"],
-        # De
-        var_bgate_name=, 
-        # De
+        # Variables to balance the GATEs on
+        var_bgate_name=["age"], 
+        # Estimate a balanced GATE in selected features
         p_bgate=True,  
-        # Det
-        p_bgate_sample_share = True, 
-        # Det
-        p_gate_no_evalu_points, 
-        # Det
-        p_bgate_sample_share
+        # Number of evaluation points for discretized variables in (C)BGATE 
+        p_gate_no_evalu_points = 60, 
+        # Random samples to speed up the programme
+        p_bgate_sample_share = None
     )
 
 
@@ -79,12 +75,9 @@ Example
         var_y_name="y",
         var_d_name="d",
         var_x_name_ord=["x1", "x2"],
-        # De
-        var_bgate_name
+        var_bgate_name=["age"], 
         var_z_name_list=["age"],
-        # De
+        # Estimate a GATE that is balanced in all other features
         p_cbgate=True 
-        # Det
-        cf_match_nn_prog_score = True
     )
 
