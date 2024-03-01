@@ -31,15 +31,15 @@ Below you find a list of the main parameters which are related to the inference 
    * - Parameter
      - Description
    * - ``p_se_boot_ate``
-     - Bootstrap of standard errors for ATE. Specify either a Boolean (if True, number of bootstrap replications will be set to 199) or an integer corresponding to the number of bootstrap replications (this implies True). None: 199 replications p_cluster_std is True, and False otherwise. Default is None.
+     - Bootstrap of standard errors for ATE. Accepts an integer or Boolean (or None). If True, the number of bootstrap replications is set to 199. Default is None, which sets the number of replications to 199 if p_cluster_std is True, and False otherwise.
    * - ``p_se_boot_gate``
-     - Bootstrap of standard errors for GATE. Specify either a Boolean (if True, number of bootstrap replications will be set to 199) or an integer corresponding to the number of bootstrap replications (this implies True). None: 199 replications p_cluster_std is True, and False otherwise. Default is None.
+     - Bootstrap of standard errors for GATE. Specify either a Boolean or an integer. If True, the number of bootstrap replications is set to 199. Default is None, which sets the number of replications to 199 if p_cluster_std is True, and False otherwise.
    * - ``p_se_boot_iate``
-     - Bootstrap of standard errors for IATE. Specify either a Boolean (if True, number of bootstrap replications will be set to 199) or an integer corresponding to the number of bootstrap replications (this implies True). None: 199 replications p_cluster_std is True, and False otherwise. Default is None.
+     - Bootstrap of standard errors for IATE. Accepts an integer or Boolean (or None). If True, the number of bootstrap replications is set to 199. Default is None, which sets the number of replications to 199 if p_cluster_std is True, and False otherwise.
    * - ``p_cond_var``
      - Determines if conditional mean and variances are used. Accepts True or False. If True, conditional mean and variances are used; if False, variance estimation is direct. Default (or None) is True.
    * - ``p_knn``
-     - Specifies the kNN method. If True, k-NN estimation is used; if False, Nadaraya-Watson estimation is employed. Nadaraya-Watson estimation provides a better approximation of the variance, while k-NN is faster, especially for larger datasets. Default (or None) is True.
+     - Specifies the k-NN method. If True, k-NN estimation is used; if False, Nadaraya-Watson estimation is employed. Nadaraya-Watson estimation provides a better approximation of the variance, while k-NN is faster, especially for larger datasets. Default (or None) is True.
 
 
 Example
@@ -54,8 +54,8 @@ Example
         # Bootstrap of standard errors for ATE
         p_se_boot_ate=None,
         # Conditional mean & variances are use
-        p_cond_var=True
+        p_cond_var=True, 
+        # Specifies the k-NN method
+        p_knn=True 
     )
-
-
 
