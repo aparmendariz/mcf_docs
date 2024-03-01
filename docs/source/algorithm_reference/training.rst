@@ -87,15 +87,13 @@ In practical terms, a forest is estimated for all possible combinations of these
 
 - **Forest Growing and Subsampling**: 
 
-  - ``cf_boot`` defines the number of trees forming the forest. The larger number will increase processing time. The default value is 1000.
+  - ``cf_boot`` defines the number of trees forming the forest. The larger number will increase processing time. 
 
-  - ``cf_m_share_min`` determines the minimum share of variables used at each new split of tree. Default is 0.1.
+  - ``cf_m_share_min`` determines the minimum share of variables used at each new split of tree. 
 
-  - ``cf_m_share_max`` sets the maximum share of variables used at each new split of tree. Default is 0.6.
+  - ``cf_m_share_max`` sets the maximum share of variables used at each new split of tree. 
 
-  - ``cf_m_grid``: this parameter determines the number of variables used at each new split of the tree. If grid is used, optimal value is determined by out-of-bag estimation of objective function. The default value is 1. 
-
-**Note**: The finer the grid-search, the more forests are estimated, which slows down computation time. To identify the best values from the grid-search, the program implements the out-of-bag estimation of the chosen objective. The best performing forest based on its out-of-bag value of its objective function is taken for further computations.
+  - ``cf_m_grid``: this parameter determines the number of variables used at each new split of the tree. If grid is used, optimal value is determined by out-of-bag estimation of objective function. The default value is 1. **Note**: The finer the grid-search, the more forests are estimated, which slows down computation time. To identify the best values from the grid-search, the program implements the out-of-bag estimation of the chosen objective. The best performing forest based on its out-of-bag value of its objective function is taken for further computations.
 
   - ``cf_n_min_min``: smallest minimum leaf size. The smaller the minimum leaf size. Decreasing this minimum leaf size prolongs computation time, as it prompts the tree to grow deeper. Particularly with extensive datasets, this augmentation in computation time can be significant
 
@@ -159,7 +157,7 @@ Example
         var_y_name="y",
         var_d_name="d",
         var_x_name_ord=["x1", "x2"],
-        # Number of trees (default is 1000)
+        # Number of trees 
         cf_boot = 500, 
         # Share of variables used at each new split of tree
         cf_m_share_min = 0.1, 
