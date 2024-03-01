@@ -10,8 +10,8 @@ The **mcf** offers three ways of conducting inference.
 - Bootstrap Algorithm: This method uses a bootstrap algorithm to obtain inference.
 
 
-Methods
-----------------
+Methods 
+------------------------
 
 One way to do inference for treatment effects is to estimate the variance of the treatment effect estimator based on a variance decomposition into two components: 
 
@@ -26,4 +26,15 @@ Another way to obtain inference is to compute the variance of a treatment effect
 Alternatively, the standard bootstrap can be applied to compute standard errors. Our algorithm bootstraps the equally weighted weights and then renormalizes them.
 
 **Note**: because of the weighting representation, inference can also readily be used to account for clustering, which is a common feature in economics data.
+
+
+Parameters 
+------------------------
+
+
+
+
+Example
+~~~~~~~
+
 
