@@ -141,7 +141,7 @@ Please refer to the :py:class:`API <mcf_functions.ModifiedCausalForest>` for a d
      - Enable the use of random thresholds in the decision trees. Default is None. 
    * - ``p_choice_based_sampling``
      -  Choice based sampling to speed up programme if treatment groups have different sizes. Default is False. 
-   * - ``gen_mp_parallel`
+   * - ``gen_mp_parallel``
      -  Number of parallel processes. Default is 80%.
 
 
