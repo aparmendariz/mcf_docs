@@ -27,7 +27,7 @@ One should note that this procedure only happens in the prediction part using th
 To turn on the :math:`\textrm{BGATE}` , set ``p_bgate`` to True. To turn on the :math:`\textrm{CBGATE}`, set ``p_cbgate`` to True. The balancing variables :math:`W` have to be specified in ``var_bgate_name``.
 
 
-Below you find a list of the main parameters which are related to the :math:`\textrm{BGATE's} and :math:`\textrm{CBGATE's}`. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters. 
+Below you find a list of the main parameters which are related to the :math:`\textrm{BGATE's}` and :math:`\textrm{CBGATE's}`. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters. 
 
 
 Parameters 
