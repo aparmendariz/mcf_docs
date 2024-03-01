@@ -105,7 +105,7 @@ In practical terms, a forest is estimated for all possible combinations of these
 
   - ``cf_random_thresholds`` this option can be used to enable the use of random thresholds in the decision trees, which can speed up the tree generation process. If this parameter is set to a value greater than 0, the program doesn't examine all possible split values of ordered variables. Instead, it only checks a number of random thresholds, with a new randomization for each split. A value of 0 for this parameter means no random thresholds are used. A value greater than 0 specifies the number of random thresholds used for ordered variables. Using fewer thresholds can speed up the program, but it might lead to less accurate results.
 
-  - ``p_choice_based_sampling` this option allows choice-based sampling to speed up programme if treatment groups have very different sizes.
+  - ``p_choice_based_sampling`` this option allows choice-based sampling to speed up programme if treatment groups have very different sizes.
 
 
 - **Parallel Processing**: 
