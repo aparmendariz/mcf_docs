@@ -60,8 +60,6 @@ Examples
         var_y_name="y",
         var_d_name="d",
         var_x_name_ord=["x1", "x2"],
-        # Names of ordered variables with many values to define causal heterogeneity
-        var_z_name_list=["age"],
         # Variables to balance the GATEs on
         var_bgate_name=["age"], 
         # Estimate a balanced GATE in selected features
@@ -78,7 +76,6 @@ Examples
         var_d_name="d",
         var_x_name_ord=["x1", "x2"],
         var_bgate_name=["age"], 
-        var_z_name_list=["age"],
         # Estimate a GATE that is balanced in all other features
         p_cbgate=True 
     )
