@@ -66,8 +66,6 @@ Examples
         var_bgate_name=["age"], 
         # Estimate a balanced GATE in selected features
         p_bgate=True,  
-        # Number of evaluation points for discretized variables in (C)BGATE 
-        p_gate_no_evalu_points = 60, 
         # Random samples to speed up the programme
         p_bgate_sample_share = None
     )
