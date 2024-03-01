@@ -113,7 +113,9 @@ In practical terms, a forest is estimated for all possible combinations of these
   - ``gen_mp_parallel`` defines the number of parallel processes. A smaller value will slow down the program and reduce its demand on RAM. The default value is None, which means 80% of logical cores. If you run into memory problems, reduce the number of parallel processes.
 
 
-Please refer to the :py:class:`API <mcf_functions.ModifiedCausalForest>` for a detailed description of these and other options. Adjusting these options can help to significantly reduce the computational time, but it may also affect the accuracy of the results. Therefore, it is recommended to understand the implications of each option before adjusting them. Below you find a list of the discussed parameters that are relevant for parameter tuning and computational speed.
+Please refer to the :py:class:`API <mcf_functions.ModifiedCausalForest>` for a detailed description of these and other options. 
+
+Adjusting these options can help to significantly reduce the computational time, but it may also affect the accuracy of the results. Therefore, it is recommended to understand the implications of each option before adjusting them. Below you find a list of the discussed parameters that are relevant for parameter tuning and computational speed.
 
 .. list-table:: 
    :widths: 30 70
