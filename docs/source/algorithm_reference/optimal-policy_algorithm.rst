@@ -146,10 +146,6 @@ Additionally, you can control certain aspects of the algorithm which impact runn
 
 - **Number of Evaluation Points**: ``pt_no_of_evalupoints`` parameter specifies the number of evaluation points for continuous variables during the tree search. It determines how many of the possible splits in the feature space are considered. If the value of ``pt_no_of_evalupoints`` is smaller than the number of distinct values of a certain feature, the algorithm visits fewer splits, thus increasing computational efficiency. However, a lower value may also deviate more from the optimal splitting rule. This parameter is closely related to the approximation parameter of `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ . Lastly, note that this parameter is only relevant if ``gen_method`` is 'policy tree' or 'policy tree old'. The default value (or `None`) is 100.
 
-- **Parallel execution**: The ``_int_parallel_processing`` parameter controls whether multiprocessing is used. It is by default set to True. You can set the number of parallel processes via the keyword argument ``_int_how_many_parallel``. By default (None), the number is set equal to the 80 percent of the number of logical cores on your machine, provided that this can be effectively implemented.  This allows for efficient use of your machine's processing power. Lastly, ``_int_xtr_parallel`` allows you to parallelize to a large degree. 
-
-- **Numba optimization**: A further speed up is accomplished through Numba. Numba is a Python library, which translates Python functions to optimized machine code at runtime. By default, the program uses Numba. To disable Numba, set ``_int_with_numba`` to False.
-
 
 .. list-table:: 
    :widths: 30 70
@@ -163,14 +159,6 @@ Additionally, you can control certain aspects of the algorithm which impact runn
      -   Depth of 2nd optimal tree. Default is 1. 
    * - ``pt_no_of_evalupoints``
      -   Number of evaluation points for continous variables. Default is 100. 
-   * - ``_int_parallel_processing``
-     -   Multiprocessing is used. Default is True. 
-   * - ``_int_how_many_parallel``
-     -   Number of parallel processes. Default is 80% of logical cores.
-   * - ``_int_with_numba``
-     -   Numba is used to speed up computation time. Default is True.
-   * - ``_int_xtr_parallel``
-     -   Parallelize to a larger degree to make sure all CPUs are busy most of the time.  Default is True.
 
 
 Example
