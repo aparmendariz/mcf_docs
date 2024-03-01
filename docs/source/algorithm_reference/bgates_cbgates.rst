@@ -40,15 +40,15 @@ Parameters
    * - Parameter
      - Description
    * - ``var_bgate_name``
-     - This parameter, which can be a string or a list of strings, specifies the variables that the GATEs should be balanced on. It's only relevant if p_bgate is set to True. When a BGATE is computed, the distribution of these specified variables remains constant, ensuring that the effect of the treatment is estimated in a balanced manner across these variables. This helps to control for potential confounding effects that these variables might have on the treatment effect. If var_bgate_name is set to None, the program defaults to using the other heterogeneity variables (specified in var_z) for balancing. This means that the GATEs will be balanced across the distribution of these heterogeneity variables. 
+     - This parameter, which can be a string or a list of strings, specifies the variables that the GATEs should be balanced on. It's only relevant if p_bgate is set to True. When a BGATE is computed, the distribution of these specified variables remains constant, ensuring that the effect of the treatment is estimated in a balanced manner across these variables. This helps to control for potential confounding effects that these variables might have on the treatment effect. If set to None, the program defaults to using the other heterogeneity variables (specified in var_z) for balancing. This means that the GATEs will be balanced across the distribution of these heterogeneity variables. 
    * - ``p_bgate``
-     - This parameter, when set to True, activates the estimation of a Balanced Group Average Treatment Effect (BGATE). 
+     - Activates the estimation of a Balanced Group Average Treatment Effect (BGATE). 
    * - ``p_cbgate``
-     - This parameter enables the estimation of a GATE that is balanced in all other features. 
+     - Enables the estimation of a GATE that is balanced in all other features. 
    * - ``p_gate_no_evalu_points``
-     - This parameter is an integer that determines the number of evaluation points for discretized variables in (C)BGATE estimation. The default value is 50.
+     - Determines the number of evaluation points for discretized variables in (C)BGATE estimation. The default value is 50.
    * - ``p_bgate_sample_share``
-     - This parameter is used to speed up the program as the implementation of (C)BGATE estimation is very CPU intensive. 
+     - Used to speed up the program as the (C)BGATE estimation is CPU intensive. 
 
 
 Examples
