@@ -47,8 +47,8 @@ Below you find a list of the main parameters which are related to the :math:`\te
      - This parameter is used to speed up the program as the implementation of (C)BGATE estimation is very CPU intensive. 
 
 
-Example
-~~~~~~~
+Examples
+~~~~~~~~~
 
 .. code-block:: python
 
