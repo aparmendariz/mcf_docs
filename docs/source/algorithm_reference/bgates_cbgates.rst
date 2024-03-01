@@ -22,6 +22,6 @@ Algorithmically, the BGATE and the CBGATE are implemented as follows:
 5. Form a new sample with all selected neighbours.
 6. Compute GATEs and their standard errors.
 
-One should note that this procedure only happens in the prediction part using the previously trained forest. This implementation differs from Bearth and Lechner's (2024) estimation approach. They use double/debiased machine learning to estimate the parameters of interest.
+One should note that this procedure only happens in the prediction part using the previously trained forest. This implementation differs from `Bearth & Lechner (2024) <https://browse.arxiv.org/abs/2401.08290>`_ estimation approach. They use double/debiased machine learning to estimate the parameters of interest.
 
 To turn on the BGATE, set ``p_bgate`` to True. To turn on the CBGATE, set ``p_cbgate`` to True. The balancing variables :math:`W` have to be specified in ``var_bgate_name``.
