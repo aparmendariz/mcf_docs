@@ -53,9 +53,9 @@ Example
         var_x_name_ord=["x1", "x2"],
         # Bootstrap of standard errors for ATE
         p_se_boot_ate=None,
-        # Conditional mean & variances are use
+        # Conditional mean & variances are used
         p_cond_var=True, 
-        # Specifies the k-NN method
+        # Specifies k-NN method
         p_knn=True 
     )
 
