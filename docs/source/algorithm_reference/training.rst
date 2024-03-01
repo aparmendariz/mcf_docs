@@ -63,8 +63,6 @@ Example
         var_y_name="y",
         var_d_name="d",
         var_x_name_ord=["x1", "x2"],
-        # Number of trees (default is 1000)
-        cf_boot = 500, 
         # Determine splitting rule when growing trees
         cf_mce_vart = 3, 
         # Determine penalty function
@@ -74,10 +72,10 @@ Example
     )
 
 
-Parameter tuning
-------------------------------------
+Parameter tuning and Computational Speed
+-------------------------------------------
 
-The **mcf** allows for a grid search over tree tuning parameters: 
+The **mcf** allows for a grid search mainly over tree types of parameters: 
 
 - Number of variables drawn at each split
 
@@ -86,26 +84,71 @@ The **mcf** allows for a grid search over tree tuning parameters:
 - Minimum leaf size
 
 In practical terms, for all possible combinations, a forest is estimated fixing a random seed. 
+Below you will find the main parameters which you can modify to either tune your forest or increase computational speed. 
 
-**Note**: The finer the grid-search, the more forests are estimated, which slows down computation time. To identify the best values from the grid-search, the program implements the out-of-bag estimation of the chosen objective. The best performing forest based on its out-of-bag value of its objective function is taken for further computations.
+- **Forest Growing and Subsampling**: 
 
-Below you find a list of the discussed parameters that are relevant for parameter tuning. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters.
+  - ``cf_boot`` defines the number of trees forming the forest. The larger this number, the more processing time. Default is 1000.
 
-+-----------------------+-----------------------------------------------------------------------------+
-| Argument              | Description                                                                 |
-+-----------------------+-----------------------------------------------------------------------------+
-| ``cf_m_share_min``    | Minimum share of variables used at each new split of tree. Default is 0.1.  |
-+-----------------------+-----------------------------------------------------------------------------+
-| ``cf_m_share_max``    | Maximum share of variables used at each new split of tree. Default is 0.6.  |
-+-----------------------+-----------------------------------------------------------------------------+
-| ``cf_m_grid``         | Number of variables used at each new split of tree. Default is 1.           |
-+-----------------------+-----------------------------------------------------------------------------+
-| ``cf_alpha_reg_grid`` | Number of grid values. Default is 1.                                        |
-+-----------------------+-----------------------------------------------------------------------------+
-| ``cf_n_min_min``      | Determines smallest minimum leaf size. Default is None.                     |
-+-----------------------+-----------------------------------------------------------------------------+
-| ``cf_n_min_max``      | Determines largest minimum leaf size. Default is None.                      |
-+-----------------------+-----------------------------------------------------------------------------+
+  - ``cf_m_share_min`` minimum share of variables used at each new split of tree. Default is 0.1.
+
+  - ``cf_m_share_max`` maximum share of variables used at each new split of tree. Default is 0.6.
+
+  - ``cf_m_grid``: Number of variables used at each new split of tree: Number of grid values. If grid is used, optimal value is determined by out-of-bag estimation of objective function. Default (or None) is 1. **Note**: The finer the grid-search, the more forests are estimated, which slows down computation time. To identify the best values from the grid-search, the program implements the out-of-bag estimation of the chosen objective. The best performing forest based on its out-of-bag value of its objective function is taken for further computations.
+
+  - ``cf_n_min_min``: Smallest minimum leaf siz
+
+  - ``cf_n_min_max``: Largest minimum leaf size
+
+  - ``cf_chunks_maxsize`` this parameter randomly splits training data in chunks and takes the average of the estimated parameters to improve scalability (increases speed and reduces demand on memory, but may increase finite sample bias somewhat). If cf_chunks_maxsize is larger than sample size, there is no random splitting. 
+
+  - ``cf_subsample_factor_eval``: Subsampling can be used to reduce the size of the dataset that the program needs to process. The ``cf_subsample_factor_eval``. In particular for larger samples, using subsampling in evaluation may speed up computations and reduces demand on memory.
+
+  - ``cf_random_thresholds``: The ``cf_random_thresholds`` option can be used to enable the use of random thresholds in the decision trees, which can speed up the tree generation process.  If > 0: Do not check all possible split values of ordered variables, but only RANDOM_THRESHOLDS (new randomisation for each split) 0: no random thresholds > 0: number of random thresholds used for ordered var's (fewer thresholds speeds up programme but may (!) lead to less accurate results.)
+
+  - ``p_choice_based_sampling``: Choice based sampling to speed up programme if treatment groups have very different sizes. Default (or None) is False.
+
+
+- **Parallel Processing**: 
+
+  - ``gen_mp_parallel``: defines the number of parallel processes. The smaller this value is, the slower the programme, the smaller its demand on RAM. None: 80% of logical cores. Default is None. If you run into memory problems, reduce the number of parallel processes. 
+
+
+Please refer to the :py:class:`API <mcf_functions.ModifiedCausalForest>` for a detailed description of these and other options. Adjusting these options can help to significantly reduce the computational time, but it may also affect the accuracy of the results. Therefore, it is recommended to understand the implications of each option before adjusting them.
+
+
+Below you find a list of the discussed parameters that are relevant for parameter tuning and computational speed. Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details or additional parameters.
+
+.. list-table:: 
+   :widths: 30 70
+   :header-rows: 1
+
+   * - Argument
+     - Description
+   * - ``cf_boot``
+     - Number of trees forming the forest. Default is 1000.
+   * - ``cf_m_share_min``
+     - Minimum share of variables used at each new split of tree. Default is 0.1.
+   * - ``cf_m_share_max``
+     - Maximum share of variables used at each new split of tree. Default is 0.6.
+   * - ``cf_m_grid``
+     - Number of variables used at each new split of tree. Default is 1.
+   * - ``cf_n_min_min``
+     - Smallest minimum leaf size. Default is None.
+   * - ``cf_n_min_max``
+     - Largest minimum leaf size. Default is None.
+   * - ``cf_chunks_maxsize``
+     - Randomly splits training data in chunks and takes the average of the estimated parameters to improve scalability 
+   * - ``cf_subsample_factor_eval``
+     - Subsampling can be used to reduce the size of the dataset that the program needs to process
+   * - ``cf_random_thresholds``
+     - Enable the use of random thresholds in the decision trees
+   * - ``p_choice_based_sampling``
+     -  Choice based sampling to speed up programme if treatment groups have very different sizes
+   * - ``gen_mp_parallel`
+     -  Choice based sampling to speed up programme if treatment groups have very different sizes
+
+
 
 **Note**: The smaller the minimum leaf size, the longer is the computation time, as the tree is grown deeper. This increase in computation time can be substantial for large data.
 
@@ -119,40 +162,21 @@ Example
         var_y_name="y",
         var_d_name="d",
         var_x_name_ord=["x1", "x2"],
+        # Number of trees (default is 1000)
+        cf_boot = 500, 
+        # Share of variables used at each new split of tree
+        cf_m_share_min = 0.1, 
+        # Maximum share of variables used at each new split of tree
+        cf_m_share_max = 0,6,
         # Minimum share of variables used at each new split of tree
         cf_m_share_min = 0.15, 
         # Number of variables used at each new split of tree
         cf_m_grid = 2, 
-        # Determines smallest minimum leaf size
-        cf_n_min_min = 5
+        # Smallest minimum leaf siz
+        cf_n_min_min = 5, 
+        # Largest minimum leaf size
+        cf_n_min_max = None, 
+        # Number of parallel processes
+        gen_mp_parallel = None
     )
-
-
-Computational speed
----------------------
-
-- **Parallel Processing**: 
-
-  - ``gen_mp_parallel``: defines the number of parallel processes. The smaller this value is, the slower the programme, the smaller its demand on RAM. None: 80% of logical cores. Default is None.
-
-- **Causal Forest, Subsampling**: 
-
-  - ``cf_boot`` The number of trees forming the forest is given by the argument ``cf_boot`` (described in the computation speed section).
-  - ``cf_chunks_maxsize``
-  - ``cf_m_grid``: 
-  - ``cf_subsample_factor_eval``: Subsampling can be used to reduce the size of the dataset that the program needs to process. The ``cf_subsample_factor_eval``. 
-  - ``cf_random_thresholds``: The ``cf_random_thresholds`` option can be used to enable the use of random thresholds in the decision trees, which can speed up the tree generation process.
-
-- **Predicting effects**: 
-
-  - ``p_choice_based_sampling``
-
-Please refer to the :py:class:`API <mcf_functions.ModifiedCausalForest>` for a detailed description of these and other options. Adjusting these options can help to significantly reduce the computational time, but it may also affect the accuracy of the results. Therefore, it is recommended to understand the implications of each option before adjusting them.
-
-
-
-
-
-
-
 
