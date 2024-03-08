@@ -89,7 +89,7 @@ The report obtained through the class :py:class:`~reporting.McfOptPolReport` wil
     mcf_report = McfOptPolReport(mcf=my_mcf, outputfile='Modified-Causal-Forest_Report')
     mcf_report.report()
 
-If you wish to analyse the clusters yourself, you can access the cluster membership of each observation through the *iate_data_df* entry of the dictionary returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.analyse` method. The cluster membership is stored in the column *IATE_Cluster* of the DataFrame.
+If you wish to analyse the clusters yourself, you can access the cluster membership of each observation through the *"iate_data_df"* entry of the dictionary returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.analyse` method. The cluster membership is stored in the column *IATE_Cluster* of the DataFrame.
 
 .. code-block:: python
 

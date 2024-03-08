@@ -202,7 +202,7 @@ Learning an optimal policy rule
 
 Let's explore how to learn an optimal policy rule using the :py:class:`~optpolicy_functions.OptimalPolicy` class of the **mcf** package. To get started we need a Pandas DataFrame that holds the estimated potential outcomes (also called policy scores), the treatment variable and the features on which we want to base the decision tree.
 
-As you may recall, we estimated the potential outcomes in the previous section. They are stored as columns in the *iate_data_df* entry of the results dictionary:
+As you may recall, we estimated the potential outcomes in the previous section. They are stored as columns in the *"iate_data_df"* entry of the results dictionary:
 
 .. code-block:: python
 
