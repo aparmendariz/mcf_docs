@@ -14,7 +14,6 @@ Modified Causal Forest
     user_guide/common_support
     user_guide/feature_selection
     user_guide/post_estimation_diagnostics
-    user_guide/balancing_tests
     user_guide/experimental_features
 
 Optimal Policy
