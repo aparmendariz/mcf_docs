@@ -38,7 +38,7 @@ The results of the balancing tests are part of the txt-file in the output folder
 Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details.
 
 Example
--------
+~~~~~~~
 
 .. code-block:: python
 
