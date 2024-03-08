@@ -10,6 +10,18 @@ Treatment effects may be subject to selection bias if the distribution of the co
 
 The Modified Causal Forest runs balancing tests for the features specified in the parameters ``var_x_balance_name_ord`` and ``var_x_balance_name_unord`` if the parameter ``p_bt_yes`` is set to True. See also the table below. 
 
++------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Parameter                    | Description                                                                                                                                           |
++==============================+=======================================================================================================================================================+
+| ``p_bt_yes``                 | If True, balancing tests for the features specified in ``var_x_balance_name_ord`` and ``var_x_balance_name_unord`` are conducted. The default is True.|
++------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``var_x_balance_name_ord``   | Only relevant if ``p_bt_yes`` is True. Ordered features for which balancing tests are conducted.                                                      |
++------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+| ``var_x_balance_name_unord`` | Only relevant if ``p_bt_yes`` is True. Unordered features for which balancing tests are conducted.                                                    |
++------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details.
+
 The results of the balancing tests are part of the txt-file in the output folder that the **mcf** package generates. You can find the location of this folder by accessing the `"outpath"` entry of the `gen_dict` attribute of your Modified Causal Forest:
 
 .. code-block:: python
@@ -23,19 +35,6 @@ The results of the balancing tests are part of the txt-file in the output folder
         )
 
     my_mcf.gen_dict["outpath"]
-
-
-+------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Parameter                    | Description                                                                                                                                           |
-+==============================+=======================================================================================================================================================+
-| ``p_bt_yes``                 | If True, balancing tests for the features specified in ``var_x_balance_name_ord`` and ``var_x_balance_name_unord`` are conducted. The default is True.|
-+------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``var_x_balance_name_ord``   | Only relevant if ``p_bt_yes`` is True. Ordered features for which balancing tests are conducted.                                                      |
-+------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ``var_x_balance_name_unord`` | Only relevant if ``p_bt_yes`` is True. Unordered features for which balancing tests are conducted.                                                    |
-+------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
-
-Please consult the :py:class:`API <mcf_functions.ModifiedCausalForest>` for more details.
 
 Example
 ~~~~~~~
