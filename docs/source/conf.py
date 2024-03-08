@@ -18,9 +18,9 @@ sys.path.insert(0, os.path.abspath('../../mcf'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'mcf 0.x.x'
-copyright = '2023, ML'
-author = 'ML'
+project = 'mcf 0.5.0'
+copyright = '2024, Michael Lechner'
+author = 'Michael Lechner'
 
 # -- General configuration ---------------------------------------------------
 
