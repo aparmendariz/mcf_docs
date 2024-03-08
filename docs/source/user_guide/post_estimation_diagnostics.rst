@@ -8,7 +8,7 @@ The class :py:class:`~mcf_functions.ModifiedCausalForest` provides you with seve
 - :math:`k`-means clustering 
 - a feature importance analysis
 
-To conduct *any* post-estimation diagnostics, the parameter ``post_est_stats`` of the class :py:class:`~mcf_functions.ModifiedCausalForest` needs to be set to True. Once you have estimated your :math:`\text{IATE's}` using the :py:method:`mcf_functions.ModifiedCausalForest.predict` method, you can conduct the post-estimation diagnostics with the :py:method:`mcf_functions.ModifiedCausalForest.analyse` method: 
+To conduct *any* post-estimation diagnostics, the parameter ``post_est_stats`` of the class :py:class:`~mcf_functions.ModifiedCausalForest` needs to be set to True. Once you have estimated your :math:`\text{IATE's}` using the :py:meth:`mcf_functions.ModifiedCausalForest.predict` method, you can conduct the post-estimation diagnostics with the :py:meth:`mcf_functions.ModifiedCausalForest.analyse` method:
 
 .. code-block:: python
 
@@ -87,7 +87,7 @@ The report obtained through the class :py:class:`~reporting.McfOptPolReport` wil
     mcf_report = McfOptPolReport(mcf=my_mcf, outputfile='Modified-Causal-Forest_Report')
     mcf_report.report()
 
-If you wish to analyse the clusters yourself, you can access the cluster membership of each observation through the *iate_data_df* entry of the dictionary returned by the :py:method:`~mcf_functions.ModifiedCausalForest.analyse` method:
+If you wish to analyse the clusters yourself, you can access the cluster membership of each observation through the *iate_data_df* entry of the dictionary returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.analyse` method:
 
 .. code-block:: python
 
