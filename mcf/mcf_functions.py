@@ -498,7 +498,7 @@ class ModifiedCausalForest:
         treatment is included in prediction data.
         Default (or None) is False.
         
-    p_gate_no_evalu_points : Integer (or None), optional
+    p_gates_no_evalu_points : Integer (or None), optional
         Number of evaluation points for discretized variables in (C)BGATE
         estimation. Default (or None) is 50.
 
@@ -907,7 +907,7 @@ class ModifiedCausalForest:
             p_ci_level=0.90, p_cluster_std=False, p_cond_var=True,
             p_gates_minus_previous=False, p_gates_smooth=True,
             p_gates_smooth_bandwidth=1, p_gates_smooth_no_evalu_points=50,
-            p_gate_no_evalu_points=50,
+            p_gates_no_evalu_points=50,
             p_bgate_sample_share=None, p_iate=True, p_iate_se=False,
             p_iate_m_ate=False, p_knn=True, p_knn_const=1, p_knn_min_k=10,
             p_nw_bandw=1, p_nw_kern=1, p_max_cats_z_vars=None,
