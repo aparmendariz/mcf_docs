@@ -53,7 +53,7 @@ Changes concerning the class :py:class:`~mcf_functions.ModifiedCausalForest`
 
     - ``gen_replication`` --> ``_int_replication``
     - ``p_amgate`` --> ``p_cbgate``
-    - ``p_gmate_no_evalu_points`` --> ``p_gate_no_evalu_points``
+    - ``p_gmate_no_evalu_points`` --> ``p_gates_no_evalu_points``
     - ``p_gmate_sample_share`` --> ``p_bgate_sample_share``
 
 - New keyword
