@@ -12,7 +12,7 @@ Optimal Policy Tree
 -------------------
 
 The :py:class:`~optpolicy_functions.OptimalPolicy` class is designed to discover the optimal policy tree in a computationally efficient and tractable way. While the basic logic follows `Zhou, Athey, and Wager (2022) <https://doi.org/10.1287/opre.2022.2271>`_ , the details of the programmatic implementation differ. 
-For instance, in contrast to policytree, the optpoltree allows you to consider constraints regarding the maximal shares of treated observations, detail treatment costs and different policy scores.
+For instance, in contrast to policytree, the optpoltree allows you to consider constraints regarding the maximal shares of treated observations, treatment costs and different policy scores.
 
 
 Implementation
