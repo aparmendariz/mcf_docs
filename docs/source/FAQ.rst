@@ -12,6 +12,8 @@ Installation
 
   You can install the package following the :ref:`Installation Guide <installation-guide>`.
 
+  As a quick reference, you can install the package using pip:
+
   .. code-block:: bash
 
      pip install mcf
@@ -19,9 +21,9 @@ Installation
 Usage
 -----
 
-- **How do I use the package?**
+- **Where can I find the results of the mcf module?**
 
-  Here's a basic example:
+  The results are stored in the ... 
 
   .. code-block:: python
 
