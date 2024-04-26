@@ -10,7 +10,7 @@ Installation
 
 - **How do I install the package?**
 
-  You can install the package following the `Installation Guide`_: 
+  You can install the package following the :ref:`Installation Guide <installation-guide>`.`Installation Guide`_: 
 
   .. code-block:: bash
 
