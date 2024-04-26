@@ -10,11 +10,11 @@ Installation
 
 - **How do I install the package?**
 
-  You can install the package using pip:
+  You can install the package following the `Installation Guide`_: 
 
   .. code-block:: bash
 
-     pip install your-package-name
+     pip install mcf
 
 Usage
 -----
