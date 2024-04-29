@@ -37,7 +37,7 @@ Usage
      # The 'results' dictionary contains the estimated treatment effects, standard errors and others:
      print(results.keys())
 
-  For more examples you can check out the :ref:`Getting Started <getting-started>`. or the :doc:`user_guide`.
+  For more examples you can check out the :ref:`Getting Started <getting-started>` or the :doc:`user_guide`.
 
 
 - **Where can I find the results of the OptimalPolicy class?**
@@ -62,6 +62,10 @@ Usage
 
   Yes, you must include the heterogeneity variable that you are interested in with the rest of your covariates.
 
+- **How can I determine which data points were excluded during common support checks and access the corresponding dataframe?**
+
+- **How do I access the dataframe representing the final sample that passed common support criteria?**
+
 Troubleshooting
 ---------------
 
@@ -69,6 +73,3 @@ Troubleshooting
 
   Make sure you have the latest version of pip installed. If the problem persists, please open an issue on the GitHub repository.
 
-- **How do I know which sample/data points were eliminated after common support checks? How do I access this dataframe? How do I access the one that had common support, the final sample?**
-
-  [Your answer here]
