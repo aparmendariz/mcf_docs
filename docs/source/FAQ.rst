@@ -21,16 +21,21 @@ Installation
 Usage
 -----
 
-- **Where can I find the results of the mcf module?**
+- **Where can I find the results of the ModifiedCausalForest class?**
 
-  The results are stored in the ... 
+  The results are stored in a dictionary returned by the predict method of the ModifiedCausalForest class. This dictionary contains various estimated treatment 
+  effects, their standard errors and other objects that you can view on your variable explorer. The following example briefly showcases how to access such results: 
 
   .. code-block:: python
 
-     import your_package_name
+     # Train the Modified Causal Forest:
+     my_mcf.train(df)
+     # Assign the output of the predict method to a variable:
+     results = my_mcf.predict(df)
+     # The 'results' dictionary contains the estimated treatment effects, standard errors and others:
+     print(results.keys())
 
-     # Use the package
-     your_package_name.some_function()
+   For more examples you can check out the Getting Started or the User Guide.
 
 Troubleshooting
 ---------------
