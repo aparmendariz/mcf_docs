@@ -80,9 +80,11 @@ html_theme = 'pydata_sphinx_theme'
 
 # This removes the primary (left) sidebar from all pages of the documentation:
 html_sidebars = {
-  "**": []
+    "**": [
+        "search-field.html",
+        "sidebar-nav-bs.html",
+    ],
 }
-
 html_theme_options = {
     # Depth of the table of contents shown in the secondary (right) sidebar
     "show_toc_level": 3,
