@@ -39,6 +39,29 @@ Usage
 
   For more examples you can check out the :ref:`Getting Started <getting-started>`. or the User Guide.
 
+
+- **Where can I find the results of the OptimalPolicy class?**
+
+  The results are stored in a dictionary returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method of the    :py:class:`~mcf_functions.ModifiedCausalForest` class. This dictionary contains various estimated treatment 
+  effects, their standard errors and other objects that you can view on your variable explorer. 
+
+  The following example briefly showcases how to access such results: 
+
+  .. code-block:: python
+
+     # Train the Modified Causal Forest:
+     my_mcf.train(df)
+     # Assign the output of the predict method to a variable:
+     results = my_mcf.predict(df)
+     # The 'results' dictionary contains the estimated treatment effects, standard errors and others:
+     print(results.keys())
+
+  For more examples you can check out the :ref:`Getting Started <getting-started>` or the :doc:`user_guide`.
+
+- **Do I include the heterogeneity variable in the covariates?**
+
+  Yes, you must include the heterogeneity variable that you are interested in with the rest of your covariates.
+
 Troubleshooting
 ---------------
 
