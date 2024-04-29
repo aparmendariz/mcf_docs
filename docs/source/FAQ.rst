@@ -54,10 +54,11 @@ Usage
 
 - **How can I determine which data points were excluded during common support checks and access the corresponding dataframe?**
 
-  You can check which 
+  You can check which data points were excluded in the PDF file that is automatically generated, in the common support section. 
 
 - **How do I access the dataframe representing the final sample that passed common support criteria?**
 
+  You can check your final sample in the ...
 
 - **Do I include the heterogeneity variable in the covariates?**
 
