@@ -50,6 +50,7 @@ Usage
 
   For more examples you can check out the :ref:`Getting Started <getting-started>` or the :doc:`user_guide`.
 
+  As with the :py:class:`~mcf_functions.OptimalPolicy` class, further results are also stored in the "out" folder either as PDF, txt or csv files. 
 
 - **How can I determine which data points were excluded during common support checks and access the corresponding dataframe?**
 
