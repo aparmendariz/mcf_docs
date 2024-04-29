@@ -58,13 +58,18 @@ Usage
 
   For more examples you can check out the :ref:`Getting Started <getting-started>` or the :doc:`user_guide`.
 
-- **Do I include the heterogeneity variable in the covariates?**
+  Moreover, when using the :py:meth:`~mcf_functions.ModifiedCausalForest.train`, :py:meth:`~mcf_functions.ModifiedCausalForest.predict`, :py:meth:`~mcf_functions.ModifiedCausalForest.analyse`, and :py:meth:`~mcf_functions.ModifiedCausalForest.report` methods, a designated folder is generated in your specified output path. If no output path is specified, all files will be saved where the Anaconda distribution is installed. You can learn more about working directories and output paths at [w3schools](https://www.w3schools.com/python/ref_os_chdir.asp).
 
-  Yes, you must include the heterogeneity variable that you are interested in with the rest of your covariates.
+  The folder created is named "out" and contains a PDF file encapsulating crucial information regarding the estimation of the :py:class:`~mcf_functions.ModifiedCausalForest`. For more comprehensive insights, we recommend reviewing the `Full example with all parameters used <https://github.com/MCFpy/mcf/blob/main/examples/all_parameters_optpolicy.py>`__.
 
 - **How can I determine which data points were excluded during common support checks and access the corresponding dataframe?**
 
+
 - **How do I access the dataframe representing the final sample that passed common support criteria?**
+
+- **Do I include the heterogeneity variable in the covariates?**
+
+  Yes, you must include the heterogeneity variable that you are interested in with the rest of your covariates.
 
 Troubleshooting
 ---------------
