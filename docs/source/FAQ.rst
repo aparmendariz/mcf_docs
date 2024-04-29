@@ -66,19 +66,19 @@ Troubleshooting
 
 - **I'm getting an error when I try to install the package. What should I do?**
 
-  Make sure you have the latest version of pip installed. If the problem persists, please open an issue on the GitHub repository.
+  Make sure you have the latest version of pip installed. If the problem persists, please please use the `issue tracker <https://github.com/MCFpy/mcf/issues>`__.
 
 - **The package installed successfully, but I'm getting an error when I try to import it. What should I do?**
 
-  This could be due to a conflict with other packages or an issue with your Python environment. Try creating a new virtual environment and installing the package there. If the problem persists, please open an issue on the GitHub repository.
+  This could be due to a conflict with other packages or an `issue <https://github.com/MCFpy/mcf/issues>`__ with your Python environment. Try creating a new virtual environment and installing the package there. If the problem persists, please open an `issue <https://github.com/MCFpy/mcf/issues>`__ on the GitHub repository.
 
 - **I'm getting unexpected results when I use the package. What should I do?**
 
-  Make sure you're using the package as intended. Check the documentation and examples to see if you're using the functions and classes correctly. If you believe the results are incorrect, please open an issue on the GitHub repository.
+  Make sure you're using the package as intended. Check the documentation and examples to see if you're using the functions and classes correctly. If you believe the results are incorrect, please open an `issue <https://github.com/MCFpy/mcf/issues>`__ on the GitHub repository.
 
 - **The package is running slower than I expected. What can I do to improve performance?**
 
-  Performance can depend on many factors, including the size of your data and your hardware. Check the documentation for tips on improving performance. 
+  Performance can depend on many factors, including the size of your data and your hardware. Check the documentation for tips on improving performance, specially the . 
 
 - **I'm having trouble understanding how to use a certain feature of the package. Where can I find help?**
 
