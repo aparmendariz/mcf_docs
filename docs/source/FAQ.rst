@@ -37,7 +37,7 @@ Usage
      # The 'results' dictionary contains the estimated treatment effects, standard errors and others:
      print(results.keys())
 
-  For more examples you can check out the Getting Started or the User Guide.
+  For more examples you can check out the :ref:`Getting Started <getting-started>`. or the User Guide.
 
 Troubleshooting
 ---------------
