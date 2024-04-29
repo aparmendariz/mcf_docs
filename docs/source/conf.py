@@ -81,6 +81,7 @@ html_theme = 'pydata_sphinx_theme'
 # This removes the primary (left) sidebar from all pages of the documentation:
 html_sidebars = {
   "**": []
+    "navbar_align": "left",
 }
 
 html_theme_options = {
