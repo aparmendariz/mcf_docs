@@ -78,7 +78,7 @@ Troubleshooting
 
 - **The package is running slower than I expected. What can I do to improve performance?**
 
-  Performance can depend on many factors, including the size of your data and your hardware. Check the documentation for tips on improving performance, specially the . 
+  Performance can depend on many factors, including the size of your data and your hardware. Check the documentation for tips on improving performance, specially the :ref:`Computational <computational-speed>` section.
 
 - **I'm having trouble understanding how to use a certain feature of the package. Where can I find help?**
 
