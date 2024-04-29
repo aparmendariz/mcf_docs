@@ -24,9 +24,9 @@ Usage
 - **Where can I find the results of the ModifiedCausalForest class?**
 
   The results are stored in a dictionary returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method of the :py:class:`~mcf_functions.ModifiedCausalForest` class. This dictionary contains various estimated treatment 
-  effects, their standard errors and other objects that you can view on your variable explorer. 
+  effects, their corresponding standard errors and other related objects, all of which can be inspected in your variable explorer.
 
-  The following example briefly showcases how to access such results: 
+  Here is a brief demonstration on how to retrieve these results:
 
   .. code-block:: python
 
