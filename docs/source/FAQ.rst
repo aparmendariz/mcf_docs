@@ -24,7 +24,7 @@ Usage
 - **Where can I find the results of the ModifiedCausalForest class?**
 
   The results are stored in a dictionary returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method of the :py:class:`~mcf_functions.ModifiedCausalForest` class. This dictionary contains various estimated treatment 
-  effects, their corresponding standard errors and other related objects, all of which can be inspected in your variable explorer.
+  effects, their corresponding standard errors and related objects, all of which can be inspected in your variable explorer.
 
   Here is a brief demonstration on how to retrieve these results:
 
@@ -39,33 +39,23 @@ Usage
 
   For more examples you can check out the :ref:`Getting Started <getting-started>` or the :doc:`user_guide`.
 
+  Moreover, when using the :py:meth:`~mcf_functions.ModifiedCausalForest.train`, :py:meth:`~mcf_functions.ModifiedCausalForest.predict`, :py:meth:`~mcf_functions.ModifiedCausalForest.analyse`, and :py:meth:`~mcf_functions.ModifiedCausalForest.report` methods, a designated folder is generated in your specified output path. If no output path is specified, all files will be saved where the Anaconda distribution is installed. You can learn more about working directories and output paths at [w3schools](https://www.w3schools.com/python/ref_os_chdir.asp).
+
+  The folder created is named "out" and contains a PDF file encapsulating crucial information regarding the estimation of the :py:class:`~mcf_functions.ModifiedCausalForest`. For more comprehensive insights, we recommend reviewing the `Full example with all parameters used <https://github.com/MCFpy/mcf/blob/main/examples/all_parameters_mcf.py>`__.
+
 
 - **Where can I find the results of the OptimalPolicy class?**
 
-  The results are stored in a dictionary returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method of the    :py:class:`~mcf_functions.ModifiedCausalForest` class. This dictionary contains various estimated treatment 
-  effects, their standard errors and other objects that you can view on your variable explorer. 
-
-  The following example briefly showcases how to access such results: 
-
-  .. code-block:: python
-
-     # Train the Modified Causal Forest:
-     my_mcf.train(df)
-     # Assign the output of the predict method to a variable:
-     results = my_mcf.predict(df)
-     # The 'results' dictionary contains the estimated treatment effects, standard errors and others:
-     print(results.keys())
+  The results are stored mainly in two diccionaries which you can access once you have used the :py:meth:`~mcf_functions.OptimalPolicy.evaluate` and :py:meth:`~mcf_functions.OptimalPolicy.allocate` methods. Additionally, you can access further results stored in your instance of the :py:class:`~mcf_functions.OptimalPolicy` where you can access multiple dictionaries containing additional results. 
 
   For more examples you can check out the :ref:`Getting Started <getting-started>` or the :doc:`user_guide`.
 
-  Moreover, when using the :py:meth:`~mcf_functions.ModifiedCausalForest.train`, :py:meth:`~mcf_functions.ModifiedCausalForest.predict`, :py:meth:`~mcf_functions.ModifiedCausalForest.analyse`, and :py:meth:`~mcf_functions.ModifiedCausalForest.report` methods, a designated folder is generated in your specified output path. If no output path is specified, all files will be saved where the Anaconda distribution is installed. You can learn more about working directories and output paths at [w3schools](https://www.w3schools.com/python/ref_os_chdir.asp).
-
-  The folder created is named "out" and contains a PDF file encapsulating crucial information regarding the estimation of the :py:class:`~mcf_functions.ModifiedCausalForest`. For more comprehensive insights, we recommend reviewing the `Full example with all parameters used <https://github.com/MCFpy/mcf/blob/main/examples/all_parameters_optpolicy.py>`__.
 
 - **How can I determine which data points were excluded during common support checks and access the corresponding dataframe?**
 
 
 - **How do I access the dataframe representing the final sample that passed common support criteria?**
+
 
 - **Do I include the heterogeneity variable in the covariates?**
 
