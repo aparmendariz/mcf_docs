@@ -54,11 +54,17 @@ Usage
 
 - **How can I determine which data points were excluded during common support checks and access the corresponding dataframe?**
 
-  You can check which data points were excluded in the PDF file that is automatically generated, in the common support section. 
+  You can check which data points were excluded in the in the common support section of the PDF file which is automatically generated. 
 
 - **How do I access the dataframe representing the final sample that passed common support criteria?**
 
-  You can check your final sample in the ...
+  You can access the final sample that passed the common support criteria from the results dictionary returned by the :py:meth:`~mcf_functions.ModifiedCausalForest.predict` method of the :py:class:`~mcf_functions.ModifiedCausalForest` class. The dataframe is stored under the key `"iate_data_df"`.
+
+  .. code-block:: python
+
+     # Access the dataframe from the results dictionary
+     final_sample_df = results["iate_data_df"]
+     print(final_sample_df)
 
 - **Do I include the heterogeneity variable in the covariates?**
 
