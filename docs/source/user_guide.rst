@@ -18,7 +18,7 @@ Modified Causal Forest
     user_guide/post_estimation_diagnostics
     user_guide/experimental_features
 
-Optimal Policy3
+Optimal Policy
 --------------
 
 .. toctree::
