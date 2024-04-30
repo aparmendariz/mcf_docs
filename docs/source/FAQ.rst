@@ -64,12 +64,20 @@ Usage
 
   Yes, you must include the heterogeneity variable that you are interested in with the rest of your covariates.
 
+- **What's the difference between ordered and unordered variables?**
+
+  Ordered variables are numerical variables that have a natural order, such as age or income. Unordered variables, also known as categorical variables, are variables that don't have a natural order, such as gender or nationality.
+
 Troubleshooting
 ---------------
 
 - **I'm getting an error when I try to install the package. What should I do?**
 
-  Make sure you have the latest version of pip installed. If the problem persists, please please use the `issue tracker <https://github.com/MCFpy/mcf/issues>`__.
+  Make sure you have the latest version of pip installed. If the problem persists, please use the `issue tracker <https://github.com/MCFpy/mcf/issues>`__.
+
+- **I'm getting an error with Ray. What should I do?**
+
+  If you're getting an error with Ray, try resetting the kernel before every training. This can often solve issues related to Ray. If the problem persists, please use the `issue tracker <https://github.com/MCFpy/mcf/issues>`__.
 
 - **The package installed successfully, but I'm getting an error when I try to import it. What should I do?**
 
