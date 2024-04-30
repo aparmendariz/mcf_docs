@@ -85,6 +85,5 @@ Troubleshooting
 
 - **I'm having trouble understanding how to use a certain feature of the package. Where can I find help?**
 
-  The documentation is the best place to start. It provides a detailed explanation of all features and how to use them. If you're still having trouble, consider 
- opening an `issue <https://github.com/MCFpy/mcf/issues>`__ on the GitHub repository.
+  The documentation is the best place to start. It provides a detailed explanation of all features and how to use them. If you're still having trouble, consider opening an `issue <https://github.com/MCFpy/mcf/issues>`__ on the GitHub repository.
 
