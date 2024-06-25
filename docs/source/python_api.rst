@@ -74,6 +74,7 @@ Methods
 
 
 .. autosummary:: 
+    ~OptimalPolicy.fairscores
     ~OptimalPolicy.solve
     ~OptimalPolicy.allocate
     ~OptimalPolicy.evaluate
