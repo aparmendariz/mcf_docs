@@ -107,3 +107,10 @@ Methods
 
 .. autosummary:: 
     ~McfOptPolReport.report
+
+Example Data function
+---------------------
+
+.. autosummary:: 
+    ~example_data_functions.example_data
+
