@@ -111,6 +111,8 @@ Methods
 Example Data function
 ---------------------
 
+.. currentmodule:: example_data_functions
+
    .. autosummary:: 
       :toctree:
       example_data_functions.example_data
