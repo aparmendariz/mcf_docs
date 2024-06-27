@@ -8,6 +8,16 @@ This guide will walk you through using the **mcf** package to
 - estimate heterogeneous treatment effects using the Modified Causal Forest
 - learn an optimal policy rule based on a Policy Tree
 
+Example data
+^^^^^^^^^^^^^^^^
+
+First, we will use the :py:function:`example_data` function to generate synthetic datasets for training and prediction. This functions creates training (``train_df``) and prediction (``pred_df``) DataFrames with a specified number of observations, features, and treatments, and allows for different heterogeneity types ('linear', 'nonlinear', 'quadratic', 'WagerAthey'). The function also returns ``name_dict``, a dictionary containing the names of variable groups. You can define some features of the generated data by using the following parameters:
+
+- ``obs_y_d_x_iate`` , the number of observations for the training data 
+- ``obs_x_iate`` , the number of observations for the prediction data
+- ``no_features`` , the number of features of different type to generate
+- ``no_treatments`` , the number of treatments
+- ``type_of_heterogeneity`` , different types of heterogeneity
 
 Simulating data
 ~~~~~~~~~~~~~~~ 
