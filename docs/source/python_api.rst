@@ -108,7 +108,7 @@ Methods
 .. autosummary:: 
     ~McfOptPolReport.report
 
-Example Data function
+Example Data Function
 ---------------------
 
 .. currentmodule:: example_data_functions
@@ -119,4 +119,6 @@ Example Data function
 
 .. autosummary:: 
     ~example_data_functions.example_data
+
+.. py:function:: example_data_functions.example_data
 
