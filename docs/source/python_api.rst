@@ -120,5 +120,3 @@ Example Data Function
 .. autosummary:: 
     ~example_data_functions.example_data
 
-.. py:function:: example_data_functions.example_data
-
