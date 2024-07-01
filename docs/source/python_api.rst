@@ -116,4 +116,16 @@ Example Data function
 
 .. autofunction:: example_data
 
+..
+   HACK -- Also list the methods in the "commented out" paragraph below. The
+   point here is that we don't want this to appear in the output, but the
+   autosummary below will, even when commented out, generate the separate
+   documentation page that can be cross-referenced.
 
+   .. autosummary:: 
+      :toctree:
+      example_data_functions.example_data
+
+
+.. autosummary:: 
+    ~example_data_functionst.example_data
