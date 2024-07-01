@@ -128,4 +128,4 @@ Example Data function
 
 
 .. autosummary:: 
-    ~example_data_functionst.example_data
+    ~example_data_functions.example_data
