@@ -108,15 +108,12 @@ Methods
 .. autosummary:: 
     ~McfOptPolReport.report
 
-Example Data Function
+
+Example Data function
 ---------------------
 
 .. currentmodule:: example_data_functions
 
-   .. autosummary:: 
-      :toctree:
-      example_data_functions.example_data
+.. autofunction:: example_data
 
-.. autosummary:: 
-    ~example_data_functions.example_data
 
