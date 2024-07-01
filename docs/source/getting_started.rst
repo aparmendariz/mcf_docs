@@ -12,7 +12,7 @@ This guide will walk you through using the **mcf** package to
 Simulating data
 ~~~~~~~~~~~~~~~ 
 
-First, we will use the  :py:func:`example_data` function to generate synthetic datasets for training and prediction. This functions creates training (``training_df``) and prediction (``prediction_df``) DataFrames with a specified number of observations, features, and treatments, and allows for different heterogeneity types (``'linear'``, ``'nonlinear'``, ``'quadratic'``, ``'WagerAthey'``). The function also returns ``name_dict``, a dictionary containing the names of variable groups. You can define some features of the generated data by using the following parameters:
+First, we will use the  :py:func:`~example_data_functions.example_data` function to generate synthetic datasets for training and prediction. This functions creates training (``training_df``) and prediction (``prediction_df``) DataFrames with a specified number of observations, features, and treatments, and allows for different heterogeneity types (``'linear'``, ``'nonlinear'``, ``'quadratic'``, ``'WagerAthey'``). The function also returns ``name_dict``, a dictionary containing the names of variable groups. You can define some features of the generated data by using the following parameters:
 
 
 First, we'll create some synthetic data to showcase the functionality of the **mcf** package. Our example will involve a scenario with three possible treatments, represented by the values 0, 1, and 2.
