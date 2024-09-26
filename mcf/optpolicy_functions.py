@@ -51,13 +51,13 @@ class OptimalPolicy:
 
     fair_material_disc_method : String (or None), optional
         Method on how to perform the discretization for materially relevant features.
-       'NoDiscretization' : Variables are not changed. If one of the features
+        'NoDiscretization' : Variables are not changed. If one of the features
         has more different values than FAIR_MATERIAL_MAX_GROUPS, all
         materially relevant features will formally be treated as continuous.
         The latter may become unreliable if their dimension is not year small.
-       'EqualCell' : Attempts to create equal cells for each variable. Maybe be
+        'EqualCell' : Attempts to create equal cells for each variable. Maybe be
         useful for a very small number of variables with few different values.
-       'Kmeans' : Use Kmeans clustering algorithm to form homogeneous cells.
+        'Kmeans' : Use Kmeans clustering algorithm to form homogeneous cells.
         Fairness adjustments are experimental.
         Default (or None) is 'Kmeans'.
 
