@@ -52,7 +52,7 @@ class OptimalPolicy:
     fair_material_disc_method : String (or None), optional
         Method on how to perform the discretization for materially relevant
         features.
-        'NoDiscretization' : Variables are not changed. If one of the features
+       'NoDiscretization' : Variables are not changed. If one of the features
         has more different values than FAIR_MATERIAL_MAX_GROUPS, all
         materially relevant features will formally be treated as continuous.
         The latter may become unreliable if their dimension is not year small.
