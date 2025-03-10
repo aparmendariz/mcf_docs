@@ -1,0 +1,19 @@
+name: Auto Assign Issues
+on:
+  issues:
+    types: [opened]  # Triggers when a new issue is created
+
+jobs:
+  assign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign issue to default user
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.addAssignees({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              assignees: ['aparmendariz']  # Replace <USERNAME> with the desired assignee's username
+            })
