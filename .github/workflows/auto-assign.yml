@@ -2,7 +2,6 @@ name: Auto Assign Issues
 on:
   issues:
     types: [opened]  # Triggers when a new issue is created
-
 jobs:
   assign:
     runs-on: ubuntu-latest
@@ -15,5 +14,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              assignees: ['aparmendariz']  # Replace <USERNAME> with the desired assignee's username
+              assignees: ['aparmendariz']
             })
