@@ -868,6 +868,12 @@ class ModifiedCausalForest:
         Default is None.
         Internal variable, change default only if you know what you do.
 
+    _int_iate_chunk_size : Integer or None, optional
+        Number of IATEs that are estimated in a single ray worker.
+        Default is number of prediction observations / workers.
+        If programme crashes in second part of IATE because of excess memory
+        consumption, reduce _int_iate_chunk_size.
+
     _int_mp_weights_tree_batch : Integer (or None), optional
         Number of batches to split data in weight computation: The smaller
         the number of batches, the faster the programme and the more memory
@@ -1068,7 +1074,9 @@ class ModifiedCausalForest:
             post_relative_to_first_group_only=True, post_plots=True,
             post_tree=True,
             _int_cuda=False, _int_del_forest=False,
-            _int_descriptive_stats=True, _int_dpi=500,
+            _int_descriptive_stats=True, 
+            _int_iate_chunk_size=None,
+            _int_dpi=500,
             _int_fontsize=2, _int_keep_w0=False, _int_no_filled_plot=20,
             _int_max_cats_cont_vars=None, _int_max_save_values=50,
             _int_mp_ray_del=('refs',), _int_mp_ray_objstore_multiplier=1,
@@ -1102,6 +1110,7 @@ class ModifiedCausalForest:
             output_no_new_dir=_int_output_no_new_dir, report=_int_report,
             weight_as_sparse_splits=_int_weight_as_sparse_splits,
             max_cats_cont_vars=_int_max_cats_cont_vars,
+            iate_chunk_size=_int_iate_chunk_size,
             p_ate_no_se_only=p_ate_no_se_only)
         gen_dict = mcf_init.gen_init(
             self.int_dict,
