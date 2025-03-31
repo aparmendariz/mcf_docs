@@ -636,6 +636,45 @@ class ModifiedCausalForest:
         IATEs minus ATE will be estimated.
         Default (or None) is False.
 
+        p_qiate : Boolean (or None), optional
+        QIATEs will be estimated.
+        Default (or None) is False.
+
+    p_qiate_se : Boolean (or None), optional
+        Standard errors of QIATEs will be estimated.
+        Default (or None) is False.
+
+    p_qiate_m_mqiate : Boolean (or None), optional
+        QIATEs minus median of QIATEs will be estimated.
+        Default (or None) is False.
+
+    p_qiate_m_opp : Boolean (or None), optional.
+       QIATE(x, q) - QIATE(x, 1-q) will be estimated (q denotes quantil level,
+       q < 0.5),
+       Default is False.
+
+    p_qiate_no_of_quantiles : Integer (or None), optional
+        Number of quantiles used for QIATE.
+        Default (or None) is 99.
+
+    p_qiate_smooth : Boolean (or None), optional
+        Smooth estimated QIATEs using kernel smoothing.
+        Default is True.
+
+    p_qiate_smooth_bandwidth : Integer or Float (or None), optional
+        Multiplier applied to default bandwidth used for kernel smoothing
+        of QIATE.
+        Default (or None) is 1.
+
+    p_qiate_bias_adjust : Boolean (or None), optional
+        Bias correction procedure for QIATEs based on simulations.
+        Default is True.
+        If p_qiate_bias_adjust is True, P_IATE_SE is set to True as well.
+
+    p_qiate_bias_adjust_draws : Integer or Float (or None), optional
+        Number of random draws used in computing the bias adjustment.
+        Default is 1000.
+
     p_ci_level : Float (or None), optional
         Confidence level for bounds used in plots.
         Default (or None) is 0.95.
@@ -1108,8 +1147,14 @@ class ModifiedCausalForest:
             p_gates_no_evalu_points=50,
             p_bgate_sample_share=None, p_iate=True, p_iate_se=False,
             p_iate_m_ate=False, p_knn=True, p_knn_const=1, p_knn_min_k=10,
-            p_nw_bandw=1, p_nw_kern=1, p_max_cats_z_vars=None,
-            p_max_weight_share=0.05, p_se_boot_ate=None, p_se_boot_gate=None,
+            p_nw_bandw=1, p_nw_kern=1, 
+            p_max_cats_z_vars=None, p_max_weight_share=0.05, 
+            p_qiate=False, p_qiate_se=False, p_qiate_m_mqiate=False,
+            p_qiate_m_opp=False,
+            p_qiate_no_of_quantiles=99, p_qiate_smooth=True,
+            p_qiate_smooth_bandwidth=1,
+            p_qiate_bias_adjust=True, p_qiate_bias_adjust_draws=1000,
+            p_se_boot_ate=None, p_se_boot_gate=None,
             p_se_boot_iate=None, var_x_name_balance_bgate=None, var_cluster_name=None,
             post_bin_corr_threshold=0.1, post_bin_corr_yes=True,
             post_est_stats=True, post_kmeans_no_of_groups=None,
@@ -1225,7 +1270,14 @@ class ModifiedCausalForest:
             nw_kern=p_nw_kern, max_cats_z_vars=p_max_cats_z_vars,
             max_weight_share=p_max_weight_share,
             se_boot_ate=p_se_boot_ate, se_boot_gate=p_se_boot_gate,
-            se_boot_iate=p_se_boot_iate)
+            se_boot_iate=p_se_boot_iate,
+            qiate=p_qiate, qiate_se=p_qiate_se,
+            qiate_m_mqiate=p_qiate_m_mqiate, qiate_m_opp=p_qiate_m_opp,
+            qiate_no_of_quantiles=p_qiate_no_of_quantiles,
+            se_boot_qiate=p_se_boot_qiate, qiate_smooth=p_qiate_smooth,
+            qiate_smooth_bandwidth=p_qiate_smooth_bandwidth,
+            qiate_bias_adjust=p_qiate_bias_adjust,
+            qiate_bias_adjust_draws=p_qiate_bias_adjust_draws)
         self.post_dict = mcf_init.post_init(
             p_dict,
             bin_corr_threshold=post_bin_corr_threshold,
