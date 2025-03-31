@@ -1000,6 +1000,9 @@ class ModifiedCausalForest:
     Attributes
     ----------
 
+    version : String
+        Version of mcf module used to create the instance.
+        
     _blind_dict : Dictionary
         Parameters to compute (partially) blinded IATEs.
 
@@ -1129,6 +1132,8 @@ class ModifiedCausalForest:
             _int_weight_as_sparse=True, _int_weight_as_sparse_splits=None,
             _int_with_output=True
             ):
+
+        self.version = '0.7.2'
 
         self.int_dict = mcf_init.int_init(
             cuda=_int_cuda, cython=False,  # Cython turned off for now
