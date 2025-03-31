@@ -549,7 +549,9 @@ class ModifiedCausalForest:
     lc_cs_cv_k : Integer (or None), optional
         Data to be used for local centering & common support adjustment:
         Number of folds in cross-validation (if lc_cs_cv is True).
-        Default (or None) is 5.
+        Default (or None) depends on the size of the training 
+        sample (N): N < 100'000: 5;  100'000 <= N < 250'000: 4
+        250'000 <= N < 500'000: 3, 500'000 <= N: 2.
 
     lc_cs_share : Float (or None), optional
         Data to be used for local centering & common support adjustment:
@@ -1096,7 +1098,7 @@ class ModifiedCausalForest:
             gen_d_type='discrete', gen_iate_eff=False, gen_panel_data=False,
             gen_mp_parallel=None, gen_outfiletext=None, gen_outpath=None,
             gen_output_type=2, gen_panel_in_rf=True, gen_weighted=False,
-            lc_cs_cv=True, lc_cs_cv_k=5, lc_cs_share=0.25,
+            lc_cs_cv=True, lc_cs_cv_k=None, lc_cs_share=0.25,
             lc_estimator='RandomForest', lc_yes=True, lc_uncenter_po=True,
             p_ate_no_se_only=False,
             p_bt_yes=True,
