@@ -150,16 +150,21 @@ class ModifiedCausalForest:
         Default (or None) is 1000.
 
     cf_chunks_maxsize : Integer (or None), optional
-        Randomly split training data into chunks and take average of the
-        estimated parameters to improve scalability (increases speed and
-        reduces demand on memory, but may increase finite sample bias).
-        If cf_chunks_maxsize is larger than sample size, there is no random
+        For large samples, randomly split the training data into equally sized
+        chunks, train a forest in each chunk, and estimate effects for each
+        forest. Final effect estimates are obtained by averaging effects
+        obtained for each forest. This procedures improves scalability by
+        reducing computation time (at the possible price of a somewhat larger
+        finite sample bias).
+        If cf_chunks_maxsize is larger than the sample size, there is no random
         splitting.
-        If None:
-
+        The default (None) is dependent on the size of the training data:
+        If there are less than 90'000 training observations: No splitting.
+        Otherwise:
+        
         .. math::
-
-            \\text{cf_chunks_maxsize} = 75000 + \\frac{{(\\text{number of observations} - 75000)^{0.8}}}{{(\\text{# of treatments} - 1)}}
+        
+            \\text{cf_chunks_maxsize} = 90000 + \\frac{{(\\text{number of observations} - 90000)^{0.8}}}{{(\\text{# of treatments} - 1)}}
 
         Default is None.
 
