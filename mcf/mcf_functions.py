@@ -48,7 +48,7 @@ class ModifiedCausalForest:
         must be provided.
         Default is None.
 
-    var_bgate_name :  String or List of strings (or None), optional
+    var_x_name_balance_bgate :  String or List of strings (or None), optional
         Variables to balance the GATEs on. Only relevant if p_bgate is
         True. The distribution of these variables is kept constant when a
         BGATE is computed. None: Use the other heterogeneity variables
@@ -603,7 +603,7 @@ class ModifiedCausalForest:
 
     p_bgate : Boolean (or None), optional
         Estimate a GATE that is balanced in selected features (as specified
-        in var_bgate_name.
+        in var_x_name_balance_bgate.
         Default (or None) is False.
 
     p_cbgate : Boolean (or None), optional
@@ -1113,7 +1113,7 @@ class ModifiedCausalForest:
             p_iate_m_ate=False, p_knn=True, p_knn_const=1, p_knn_min_k=10,
             p_nw_bandw=1, p_nw_kern=1, p_max_cats_z_vars=None,
             p_max_weight_share=0.05, p_se_boot_ate=None, p_se_boot_gate=None,
-            p_se_boot_iate=None, var_bgate_name=None, var_cluster_name=None,
+            p_se_boot_iate=None, var_x_name_balance_bgate=None, var_cluster_name=None,
             post_bin_corr_threshold=0.1, post_bin_corr_yes=True,
             post_est_stats=True, post_kmeans_no_of_groups=None,
             post_kmeans_max_tries=1000, post_kmeans_min_size_share=None,
@@ -1241,7 +1241,8 @@ class ModifiedCausalForest:
             plots=post_plots, tree=post_tree)
         self.var_dict, self.gen_dict, self.p_dict = mcf_init.var_init(
             gen_dict, self.fs_dict, p_dict,
-            bgate_name=var_bgate_name, cluster_name=var_cluster_name,
+            x_name_balance_bgate=var_x_name_balance_bgate,
+            cluster_name=var_cluster_name,
             d_name=var_d_name, id_name=var_id_name, w_name=var_w_name,
             x_name_balance_test_ord=var_x_name_balance_test_ord,
             x_name_balance_test_unord=var_x_name_balance_test_unord,
