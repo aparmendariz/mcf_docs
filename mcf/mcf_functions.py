@@ -739,6 +739,14 @@ class ModifiedCausalForest:
         implies True).
         None : 199 replications p_cluster_std is True, and False otherwise.
         Default is None.
+    
+    p_se_boot_qiate : Integer or Boolean (or None), optional
+        Bootstrap of standard errors for QIATE. Specify either a Boolean (if
+        True, number of bootstrap replications will be set to 199) or an
+        integer corresponding to the number of bootstrap replications (this
+        implies True).
+        None : 199 replications p_cluster_std is True, and False otherwise.
+        Default is None.
 
     p_bt_yes : Boolean (or None), optional
         ATE based balancing test based on weights. Relevance of this test
@@ -1153,7 +1161,8 @@ class ModifiedCausalForest:
             p_qiate_smooth_bandwidth=1,
             p_qiate_bias_adjust=True, p_qiate_bias_adjust_draws=1000,
             p_se_boot_ate=None, p_se_boot_gate=None,
-            p_se_boot_iate=None, var_x_name_balance_bgate=None, var_cluster_name=None,
+            p_se_boot_iate=None, p_se_boot_qiate=None,
+            var_x_name_balance_bgate=None, var_cluster_name=None,
             post_bin_corr_threshold=0.1, post_bin_corr_yes=True,
             post_est_stats=True, post_kmeans_no_of_groups=None,
             post_kmeans_max_tries=1000, post_kmeans_min_size_share=None,
