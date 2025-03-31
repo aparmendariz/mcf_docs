@@ -63,7 +63,7 @@ class ModifiedCausalForest:
         Name of identifier. None: Identifier will be added to the data.
         Default is None.
 
-    var_x_balance_name_ord : String or List of strings (or None), optional
+    var_x_name_balance_test_ord : String or List of strings (or None), optional
         Name of ordered variables to be used in balancing tests. Only
         relevant if p_bt_yes is True.
         Default is None.
@@ -1074,7 +1074,7 @@ class ModifiedCausalForest:
     def __init__(
             self,
             var_d_name=None, var_id_name=None, var_w_name=None,
-            var_x_balance_name_ord=None, var_x_balance_name_unord=None,
+            var_x_name_balance_test_ord=None, var_x_balance_name_unord=None,
             var_x_name_always_in_ord=None, var_x_name_always_in_unord=None,
             var_x_name_remain_ord=None, var_x_name_remain_unord=None,
             var_x_name_ord=None, var_x_name_unord=None, var_y_name=None,
@@ -1243,7 +1243,7 @@ class ModifiedCausalForest:
             gen_dict, self.fs_dict, p_dict,
             bgate_name=var_bgate_name, cluster_name=var_cluster_name,
             d_name=var_d_name, id_name=var_id_name, w_name=var_w_name,
-            x_balance_name_ord=var_x_balance_name_ord,
+            x_balance_name_ord=var_x_name_balance_test_ord,
             x_balance_name_unord=var_x_balance_name_unord,
             x_name_always_in_ord=var_x_name_always_in_ord,
             x_name_always_in_unord=var_x_name_always_in_unord,
