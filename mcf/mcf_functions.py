@@ -845,6 +845,15 @@ class ModifiedCausalForest:
         and thus should be avoided. Default is infinity.
         Internal variable, change default only if you know what you do.
 
+    _int_max_obs_prediction : Integer (or None), optional
+        Upper limit for sample size. If actual number is larger than this
+        number, then the respective data will be randomly reduced to the
+        specified upper limit.
+        Prediction method: Reducing observations for prediction does not
+        much affect MSE. It may reduce detectable heterogeneity, but may also
+        dramatically reduce computation time. Default is 250'000.
+        Internal variable, change default only if you know what you do.
+
     _int_mp_ray_del : Tuple of strings (or None), optional
         'refs' : Delete references to object store.
         'rest' : Delete all other objects of Ray task.
@@ -1120,6 +1129,8 @@ class ModifiedCausalForest:
             weight_as_sparse_splits=_int_weight_as_sparse_splits,
             max_cats_cont_vars=_int_max_cats_cont_vars,
             iate_chunk_size=_int_iate_chunk_size,
+            max_obs_training=_int_max_obs_training,
+            max_obs_prediction=_int_max_obs_prediction,
             p_ate_no_se_only=p_ate_no_se_only)
         gen_dict = mcf_init.gen_init(
             self.int_dict,
