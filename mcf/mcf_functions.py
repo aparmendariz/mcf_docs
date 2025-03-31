@@ -699,8 +699,7 @@ class ModifiedCausalForest:
         True, number of bootstrap replications will be set to 199) or an
         integer corresponding to the number of bootstrap replications (this
         implies True).
-        None : 199 replications p_cluster_std is True,
-        and False otherwise.
+        None : 199 replications p_cluster_std is True, and False otherwise.
         Default is None.
 
     p_bt_yes : Boolean (or None), optional
