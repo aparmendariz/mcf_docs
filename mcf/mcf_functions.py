@@ -924,6 +924,16 @@ class ModifiedCausalForest:
         Default (or None) is 1.
         Internal variable, change default only if you know what you do.
 
+    _int_obs_bigdata : Integer (or None), optional
+        If number of training observations is larger than this number, the
+        following happens during training:
+        (i) Number of workers is halved in local centering.
+        (ii) Ray is explicitely shut down.
+        (iii) The number of workers used is reduced to 75% of default.
+        (iv) The data type for some numpy arrays is reduced from float64 to
+        float32.
+        Default is 1'000'000.
+
     _int_output_no_new_dir : Boolean (or None), optional
         Do not create a new directory when the path already exists.
         Default (or None) is False.
@@ -1118,6 +1128,7 @@ class ModifiedCausalForest:
             _int_mp_ray_del=('refs',), _int_mp_ray_objstore_multiplier=1,
             _int_mp_ray_shutdown=None, _int_mp_vim_type=None,
             _int_mp_weights_tree_batch=None, _int_mp_weights_type=1,
+            _int_obs_bigdata=1000000,
             _int_output_no_new_dir=False, _int_red_largest_group_train=False,
             _int_replication=False, _int_report=True, _int_return_iate_sp=False,
             _int_seed_sample_split=67567885, _int_share_forest_sample=0.5,
@@ -1143,6 +1154,7 @@ class ModifiedCausalForest:
             weight_as_sparse=_int_weight_as_sparse, keep_w0=_int_keep_w0,
             with_output=_int_with_output, mp_ray_shutdown=_int_mp_ray_shutdown,
             mp_vim_type=_int_mp_vim_type,
+            obs_bigdata=_int_obs_bigdata,
             output_no_new_dir=_int_output_no_new_dir, report=_int_report,
             weight_as_sparse_splits=_int_weight_as_sparse_splits,
             max_cats_cont_vars=_int_max_cats_cont_vars,
