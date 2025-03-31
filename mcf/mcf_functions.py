@@ -291,7 +291,6 @@ class ModifiedCausalForest:
     
                 \\frac{100 \\times 4 \\times (n \\times \\text{f_c.subsam_share})^{0.8}}{n \\times \\text{f_c.subsam_share}}
     
-
     cf_penalty_type : String (or None), optional
         Type of penalty function.
         'mse_d':  MSE of treatment prediction in daughter leaf (new in 0.7.0)
