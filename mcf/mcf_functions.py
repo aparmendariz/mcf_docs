@@ -1052,60 +1052,64 @@ class ModifiedCausalForest:
 
     <NOT-ON-API>
         
-    _blind_dict : Dictionary
+    blind_dict : Dictionary
         Parameters to compute (partially) blinded IATEs.
 
-    _cf_dict : Dictionary
+    cf_dict : Dictionary
         Parameters used in training the forest (directly).
 
-    _cs_dict : Dictionary
+    cs_dict : Dictionary
         Parameters used in common support adjustments.
 
-    _ct_dict : Dictionary
+    ct_dict : Dictionary
         Parameters used in dealing with continuous treatments.
 
-    _data_train_dict : Dictionary
+    data_train_dict : Dictionary
 
-    _dc_dict : Dictionary
+    dc_dict : Dictionary
         Parameters used in data cleaning.
 
-    _fs_dict : Dictionary
+    fs_dict : Dictionary
         Parameters used in feature selection.
 
-    _forest : List
+    forest : List
         List of lists containing the estimated causal forest.
 
-    _gen_dict : Dictionary
+    gen_dict : Dictionary
         General parameters used in various parts of the programme.
 
-    _int_dict : Dictionary
+    int_dict : Dictionary
         Internal parameters used in various parts of the class.
 
-    _lc_dict : Dictionary
+    iv_mcf : Dictionary
+        Internal instances of instrumental mcf containing for first stage
+        and reduced form.
+
+    lc_dict : Dictionary
         Parameters used in local centering.
 
-    _p_dict : Dictionary
+    p_dict : Dictionary
         Parameters used in prediction method.
 
-    _post_dict : Dictionary
+    post_dict : Dictionary
         Parameters used in analyse method.
 
-    _report :
+    report :
         Provides information for McfOptPolReports to construct reports.
 
-    _sens_dict : Dictionary
+    sens_dict : Dictionary
         Parameters used in sensitivity method.
 
-    _time_strings : String
+    time_strings : String
         Detailed information on how long the different methods needed.
 
-    _var_dict : Dictionary
+    var_dict : Dictionary
         Variable names.
 
-    _var_x_type : Dictionary
+    var_x_type : Dictionary
         Types of covariates (internal).
 
-    _var_x_values : Dictionary
+    var_x_values : Dictionary
         Values of covariates (internal).
 
     </NOT-ON-API>
