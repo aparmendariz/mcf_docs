@@ -854,6 +854,14 @@ class ModifiedCausalForest:
         dramatically reduce computation time. Default is 250'000.
         Internal variable, change default only if you know what you do.
 
+    _int_max_obs_kmeans :  Integer (or None), optional
+        Upper limit for sample size. If actual number is larger than this
+        number, then the respective data will be randomly reduced to the
+        specified upper limit.
+        kmeans in analyse method: Reducing observations may reduce detectable
+        heterogeneity, but also reduces computation time. Default is 200'000.
+        Internal variable, change default only if you know what you do.
+
     _int_mp_ray_del : Tuple of strings (or None), optional
         'refs' : Delete references to object store.
         'rest' : Delete all other objects of Ray task.
@@ -1097,6 +1105,7 @@ class ModifiedCausalForest:
             _int_fontsize=2, _int_keep_w0=False, _int_no_filled_plot=20,
             _int_max_cats_cont_vars=None, _int_max_save_values=50,
             _int_max_obs_training=float('inf'), _int_max_obs_prediction=250000,
+            _int_max_obs_kmeans=200000, _int_max_obs_post_rel_graphs=50000,
             _int_mp_ray_del=('refs',), _int_mp_ray_objstore_multiplier=1,
             _int_mp_ray_shutdown=None, _int_mp_vim_type=None,
             _int_mp_weights_tree_batch=None, _int_mp_weights_type=1,
@@ -1131,6 +1140,7 @@ class ModifiedCausalForest:
             iate_chunk_size=_int_iate_chunk_size,
             max_obs_training=_int_max_obs_training,
             max_obs_prediction=_int_max_obs_prediction,
+            max_obs_kmeans=_int_max_obs_kmeans,
             p_ate_no_se_only=p_ate_no_se_only)
         gen_dict = mcf_init.gen_init(
             self.int_dict,
