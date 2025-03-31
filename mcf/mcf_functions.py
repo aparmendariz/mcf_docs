@@ -1121,21 +1121,20 @@ class ModifiedCausalForest:
             self,
             var_d_name=None, var_id_name=None, var_iv_name=None,
             var_w_name=None,
-            var_x_name_balance_test_ord=None, var_x_name_balance_test_unord=None,
             var_x_name_always_in_ord=None, var_x_name_always_in_unord=None,
-            var_x_name_remain_ord=None, var_x_name_remain_unord=None,
-            var_x_name_ord=None, var_x_name_unord=None, var_y_name=None,
-            var_y_tree_name=None, var_z_name_list=None,
-            var_z_name_ord=None, var_z_name_unord=None,
-            p_atet=False, p_gatet=False, p_bgate=False, p_cbgate=False,
+            var_x_name_balance_test_ord=None,
+            var_x_name_balance_test_unord=None, var_x_name_remain_ord=None,
+            var_x_name_remain_unord=None, var_x_name_ord=None,
+            var_x_name_unord=None, var_y_name=None, var_y_tree_name=None,
+            var_z_name_list=None, var_z_name_ord=None, var_z_name_unord=None,
             cf_alpha_reg_grid=1, cf_alpha_reg_max=0.15, cf_alpha_reg_min=0.05,
             cf_boot=1000, cf_chunks_maxsize=None, cf_compare_only_to_zero=False,
             cf_n_min_grid=1, cf_n_min_max=None, cf_n_min_min=None,
             cf_n_min_treat=None, cf_nn_main_diag_only=False, cf_m_grid=1,
             cf_m_random_poisson=True, cf_m_share_max=0.6, cf_m_share_min=0.1,
             cf_match_nn_prog_score=True, cf_mce_vart=1,
-            cf_random_thresholds=None,
-            cf_p_diff_penalty=None, cf_penalty_type='mse_d',
+            cf_random_thresholds=None, cf_p_diff_penalty=None,
+            cf_penalty_type='mse_d',
             cf_subsample_factor_eval=None, cf_subsample_factor_forest=1,
             cf_tune_all=False, cf_vi_oob_yes=False,
             cs_adjust_limits=None, cs_max_del_train=0.5, cs_min_p=0.01,
@@ -1149,17 +1148,18 @@ class ModifiedCausalForest:
             gen_output_type=2, gen_panel_in_rf=True, gen_weighted=False,
             lc_cs_cv=True, lc_cs_cv_k=None, lc_cs_share=0.25,
             lc_estimator='RandomForest', lc_yes=True, lc_uncenter_po=True,
-            p_ate_no_se_only=False,
-            p_bt_yes=True,
+            p_atet=False, p_gatet=False, p_bgate=False, p_cbgate=False,
+            p_ate_no_se_only=False, p_bt_yes=True,
             p_choice_based_sampling=False, p_choice_based_probs=None,
             p_ci_level=0.95, p_cluster_std=False, p_cond_var=True,
             p_gates_minus_previous=False, p_gates_smooth=True,
             p_gates_smooth_bandwidth=1, p_gates_smooth_no_evalu_points=50,
             p_gates_no_evalu_points=50,
-            p_bgate_sample_share=None, p_iate=True, p_iate_se=False,
-            p_iate_m_ate=False, p_knn=True, p_knn_const=1, p_knn_min_k=10,
-            p_nw_bandw=1, p_nw_kern=1, 
-            p_max_cats_z_vars=None, p_max_weight_share=0.05, 
+            p_bgate_sample_share=None,
+            p_iate=True, p_iate_se=False, p_iate_m_ate=False,
+            p_knn=True, p_knn_const=1, p_knn_min_k=10,
+            p_nw_bandw=1, p_nw_kern=1,
+            p_max_cats_z_vars=None, p_max_weight_share=0.05,
             p_qiate=False, p_qiate_se=False, p_qiate_m_mqiate=False,
             p_qiate_m_opp=False,
             p_qiate_no_of_quantiles=99, p_qiate_smooth=True,
@@ -1176,10 +1176,9 @@ class ModifiedCausalForest:
             post_relative_to_first_group_only=True, post_plots=True,
             post_tree=True,
             _int_cuda=False, _int_del_forest=False,
-            _int_descriptive_stats=True, 
+            _int_descriptive_stats=True, _int_dpi=500, _int_fontsize=2,
             _int_iate_chunk_size=None,
-            _int_dpi=500,
-            _int_fontsize=2, _int_keep_w0=False, _int_no_filled_plot=20,
+            _int_keep_w0=False, _int_no_filled_plot=20,
             _int_max_cats_cont_vars=None, _int_max_save_values=50,
             _int_max_obs_training=float('inf'), _int_max_obs_prediction=250000,
             _int_max_obs_kmeans=200000, _int_max_obs_post_rel_graphs=50000,
@@ -1192,7 +1191,8 @@ class ModifiedCausalForest:
             _int_seed_sample_split=67567885, _int_share_forest_sample=0.5,
             _int_show_plots=True, _int_verbose=True,
             _int_weight_as_sparse=True, _int_weight_as_sparse_splits=None,
-            _int_with_output=True):
+            _int_with_output=True
+            ):
 
         self.version = '0.7.2'
 
@@ -1222,7 +1222,8 @@ class ModifiedCausalForest:
             max_obs_prediction=_int_max_obs_prediction,
             max_obs_kmeans=_int_max_obs_kmeans,
             max_obs_post_rel_graphs=_int_max_obs_post_rel_graphs,
-            p_ate_no_se_only=p_ate_no_se_only)
+            p_ate_no_se_only=p_ate_no_se_only
+            )
         gen_dict = mcf_init.gen_init(
             self.int_dict,
             d_type=gen_d_type, iate_eff=gen_iate_eff,
@@ -1321,7 +1322,9 @@ class ModifiedCausalForest:
         self.data_train_dict = self.var_x_type = self.var_x_values = None
         self.forest, self.time_strings = None, {}
         self.report = {'predict_list': [],   # Needed for multiple predicts
-                       'analyse_list': []}
+                       'analyse_list': []
+                       }
+        self.iv_mcf = {'firststage': None, 'reducedform': None}
 
     def train(self, data_df):
         """
@@ -1341,109 +1344,39 @@ class ModifiedCausalForest:
         fill_y_df : DataFrame
             Dataset used to populate the forest with outcomes.
 
-        outpath : String
+        outpath : Pathlib object
             Location of directory in which output is saved.
 
         """
-        time_start = time()
-        # Check treatment data
-        data_df, _ = mcf_data.data_frame_vars_lower(data_df)
-        data_df = mcf_data.check_recode_treat_variable(self, data_df)
-        # Initialise again with data information. Order of the following
-        # init functions important. Change only if you know what you do.
-        mcf_init.var_update_train(self, data_df)
-        mcf_init.gen_update_train(self, data_df)
-        mcf_init.ct_update_train(self, data_df)
-        mcf_init.cs_update_train(self)            # Used updated gen_dict info
-        mcf_init.cf_update_train(self, data_df)
-        mcf_init.int_update_train(self)
-        mcf_init.p_update_train(self)
+        (tree_df, fill_y_df, self.gen_dict['outpath']) = train_main(self,
+                                                                    data_df)
 
-        if self.int_dict['with_output']:
-            ps.print_dic_values_all(self, summary_top=True, summary_dic=False)
+        return tree_df, fill_y_df, self.gen_dict['outpath']
 
-        # Prepare data: Add and recode variables for GATES (Z)
-        #             Recode categorical variables to prime numbers, cont. vars
-        data_df = mcf_data.create_xz_variables(self, data_df, train=True)
-        if self.int_dict['with_output'] and self.int_dict['verbose']:
-            mcf_data.print_prime_value_corr(self.data_train_dict,
-                                            self.gen_dict, summary=False)
+    def train_iv(self, data_df):
+        """
+        Train the IV modified causal forest on the training data.
 
-        # Clean data and remove missings and unncessary variables
-        if self.dc_dict['clean_data']:
-            data_df, report = mcf_data.clean_data(
-                self, data_df, train=True)
-            if self.gen_dict['with_output']:
-                self.report['training_obs'] = report
-        if self.dc_dict['screen_covariates']:   # Only training
-            (self.gen_dict, self.var_dict, self.var_x_type,
-             self.var_x_values, report
-             ) = mcf_data.screen_adjust_variables(self, data_df)
-            if self.gen_dict['with_output']:
-                self.report['removed_vars'] = report
-        time_1 = time()
+        Parameters
+        ----------
+        data_df : DataFrame
+            Data used to compute the causal forest. It must contain information
+            about outcomes, treatment, and features.
 
-        # Descriptives by treatment
-        if self.int_dict['descriptive_stats'] and self.int_dict['with_output']:
-            ps.desc_by_treatment(self, data_df, summary=False, stage=1)
+        Returns
+        -------
+        tree_df : DataFrame
+            Dataset used to build the forest.
 
-        # Feature selection
-        if self.fs_dict['yes']:
-            data_df, report = mcf_fs.feature_selection(self, data_df)
-            if self.gen_dict['with_output']:
-                self.report['fs_vars_deleted'] = report
-        # Split sample for tree building and tree-filling-with-y
-        tree_df, fill_y_df = mcf_data.split_sample_for_mcf(self, data_df)
-        del data_df
-        time_2 = time()
+        fill_y_df : DataFrame
+            Dataset used to populate the forest with outcomes.
 
-        # Compute Common support
-        if self.cs_dict['type']:
-            (tree_df, fill_y_df, rep_sh_del, obs_remain, rep_fig
-             ) = mcf_cs.common_support(self, tree_df, fill_y_df, train=True)
-            if self.gen_dict['with_output']:
-                self.report['cs_t_share_deleted'] = rep_sh_del
-                self.report['cs_t_obs_remain'] = obs_remain
-                self.report['cs_t_figs'] = rep_fig
+        outpath : Pathlib object
+            Location of directory in which output is saved.
 
-        # Descriptives by treatment on common support
-        if self.int_dict['descriptive_stats'] and self.int_dict['with_output']:
-            ps.desc_by_treatment(self, pd.concat([tree_df, fill_y_df], axis=0),
-                                 summary=True, stage=1)
-        time_3 = time()
+        """
+        tree_df, fill_y_df = train_iv_main(self, data_df)
 
-        # Local centering
-        if self.lc_dict['yes']:
-            (tree_df, fill_y_df, _, report) = mcf_lc.local_centering(
-                self, tree_df, fill_y_df)
-            if self.gen_dict['with_output']:
-                self.report["lc_r2"] = report
-        time_4 = time()
-
-        # Train forest
-        if self.int_dict['with_output']:
-            ps.variable_features(self, summary=False)
-        (self.cf_dict, self.forest, time_vi, report) = mcf_fo.train_forest(
-            self, tree_df, fill_y_df)
-        if self.gen_dict['with_output']:
-            self.report['cf'] = report
-        time_end = time()
-        time_string = ['Data preparation and stats I:                   ',
-                       'Feature preselection:                           ',
-                       'Common support:                                 ',
-                       'Local centering (recoding of Y):                ',
-                       'Training the causal forest:                     ',
-                       '  ... of which is time for variable importance: ',
-                       '\nTotal time training:                            ']
-        time_difference = [time_1 - time_start, time_2 - time_1,
-                           time_3 - time_2, time_4 - time_3,
-                           time_end - time_4, time_vi,
-                           time_end - time_start]
-        if self.int_dict['with_output']:
-            time_train = ps.print_timing(
-                self.gen_dict, 'Training', time_string, time_difference,
-                summary=True)
-            self.time_strings['time_train'] = time_train
         return tree_df, fill_y_df, self.gen_dict['outpath']
 
     def predict(self, data_df):
@@ -1476,7 +1409,9 @@ class ModifiedCausalForest:
             'bgate_diff_se': Standard errror of BGATE minus ATE,
             'gate_names_values': Dictionary: Order of gates parameters
             and name and values of GATE effects.
-            'iate': IATE, 'iate_se': Standard error of IATE,
+            'qiate': QIATE, 'qiate_se': Standard error of QIATEs,
+            'qiate_diff': QIATE minus QIATE at median,
+            'qiate_diff_se': Standard error of QIATE minus QIATE at median,
             'iate_eff': (More) Efficient IATE (IATE estimated twice and
             averaged where role of tree_building and tree_filling
             sample is exchanged),
@@ -1484,306 +1419,93 @@ class ModifiedCausalForest:
             'iate_names_dic': Dictionary containing names of IATEs,
             'bala': Effects of balancing tests,
             'bala_se': Standard error of effects of balancing tests,
-            'bala_effect_list': Names of effects of balancing tests
+            'bala_effect_list': Names of effects of balancing tests.
+
+        outpath : Pathlib object
+            Location of directory in which output is saved.
+        """
+        results, self.gen_dict['outpath'] = predict_main(self, data_df)
+
+        return results, self.gen_dict['outpath']
+
+    def predict_iv(self, data_df):
+        """
+        Compute all effects for instrument mcf using forests estimated by the
+        :meth:`~ModifiedCausalForest.train_iv` method.
+
+        Parameters
+        ----------
+        data_df : DataFrame
+            Data used to compute the predictions. It must contain information
+            about features (and treatment if effects for treatment specific
+            subpopulations are desired as well).
+
+        Returns
+        -------
+        results : Dictionary.
+            Results. This dictionary has the following structure:
+            'ate': LATE, 'ate_se': Standard error of LATE,
+            'ate effect_list': List of names of estimated effects,
+            'ate_1st': ATE 1st stage, 'ate_1st_se': Standard error of ATE (1st)
+            'ate 1st_effect_list': List of names of estimated effects (1st),
+            'ate_redf': ATE reduced form, 'ate_redf_se': Standard error of ATE
+            of reduced form,
+            'ate redf_effect_list': List of names of estimated effects (red.f.),
+            'gate': LGATE, 'gate_se': SE of LGATE,
+            'gate_diff': LGATE minus LATE,
+            'gate_diff_se': Standard error of LGATE minus LATE,
+            'cbgate': LCBGATE (all covariates balanced),
+            'cbgate_se': Standard error of LCBGATE,
+            'cbgate_diff': LCBGATE minus LATE,
+            'cbgate_diff_se': Standard error of LCBGATE minus LATE,
+            'bgate': LBGATE (only prespecified covariates balanced),
+            'bgate_se': Standard error of LBGATE,
+            'bgate_diff': LBGATE minus LATE,
+            'bgate_diff_se': Standard errror of LBGATE minus LATE,
+            'gate_names_values': Dictionary: Order of gates parameters
+            and name and values of LGATE effects.
+            'iate': LIATE, 'iate_se': Standard error of LIATE,
+            'iate_1st': IATE (1st stage), 'iate_1st_se': Standard error of
+            IATE (1st stage),
+            'iate_redf': IATE (reduced form), 'iate_redf_se': Standard error of
+            IATE (reduced form),
+            'iate_eff': (More) Efficient LIATE (LIATE estimated twice and
+            averaged where role of tree_building and tree_filling
+            sample is exchanged),
+            iate_1st_eff': (More) Efficient IATE (1st stage),
+            iate_redf_eff': (More) Efficient IATE (reduced form),
+            'iate_data_df': DataFrame with LIATEs,
+            'iate_1st_data_df': DataFrame with IATEs (1st stage),
+            'iate_redf_data_df': DataFrame with IATEs (reduced form),
+            'iate_names_dic': Dictionary containing names of LIATEs,
+            'iate_1st_names_dic': Dictionary containing names of IATEs (1st),
+            'iate_redf_dic': Dictionary containing names of LIATEs (red.f.),
+            'qiate': QLIATE, 'qiate_se': Standard error of QLIATE,
+            'bala_1st': Effects of balancing tests (1st stage),
+            'bala_1st_se': Standard error of effects of balancing tests (1st),
+            'bala_1st_effect_list': Names of effects of balancing tests (1st),
+            'bala_redf': Effects of balancing tests (reduced form),
+            'bala_redf_se': Standard error of effects of balancing tests (red.),
+            'bala_redf_effect_list': Names of effects of balancing tests (red.).
 
         outpath : String
             Location of directory in which output is saved.
         """
-        time_start = time()
-        report = {}
-        data_df, _ = mcf_data.data_frame_vars_lower(data_df)
-        # Initialise again with data information
-        data_df = mcf_init.p_update_pred(self, data_df)
-        # Check treatment data
-        if self.p_dict['d_in_pred']:
-            data_df = mcf_data.check_recode_treat_variable(self, data_df)
-        # self.var_dict = mcf_init.ct_update_pred(self)
-        mcf_init.int_update_pred(self, len(data_df))
-        mcf_init.post_update_pred(self, data_df)
-        if self.int_dict['with_output']:
-            ps.print_dic_values_all(self, summary_top=True, summary_dic=False,
-                                    train=False)
+        # Reduce sample size to upper limit
+        data_df, rnd_reduce, txt_red = check_reduce_dataframe(
+            data_df, title='Prediction',
+            max_obs=self.int_dict['max_obs_prediction'],
+            seed=124535, ignore_index=True)
+        if rnd_reduce and self.int_dict['with_output']:
+            print_mcf(self.gen_dict, txt_red, summary=True)
 
-        # Prepare data: Add and recode variables for GATES (Z)
-        #             Recode categorical variables to prime numbers, cont. vars
-        data_df = mcf_data.create_xz_variables(self, data_df, train=False)
-        if self.int_dict['with_output'] and self.int_dict['verbose']:
-            mcf_data.print_prime_value_corr(self.data_train_dict,
-                                            self.gen_dict, summary=False)
-        # Clean data and remove missings and unncessary variables
-        if self.dc_dict['clean_data']:
-            data_df, report['prediction_obs'] = mcf_data.clean_data(
-                self, data_df, train=False)
-        # Descriptives by treatment on common support
-        if (self.p_dict['d_in_pred'] and self.int_dict['descriptive_stats']
-                and self.int_dict['with_output']):
-            ps.desc_by_treatment(self, data_df, summary=False, stage=3)
-        time_1 = time()
+        results = predict_iv_main(self, data_df)
 
-        # Common support
-        if self.cs_dict['type']:
-            (data_df, _, report['cs_p_share_deleted'],
-             report['cs_p_obs_remain'], _) = mcf_cs.common_support(
-                 self, data_df, None, train=False)
-        data_df = data_df.copy().reset_index(drop=True)
-        if (self.p_dict['d_in_pred'] and self.int_dict['descriptive_stats']
-                and self.int_dict['with_output']):
-            ps.desc_by_treatment(self, data_df, summary=True, stage=3)
-        time_2 = time()
+        if (is_initialized()
+            and self.gen_dict['mp_parallel'] > 1
+                and len(data_df) > self.int_dict['obs_bigdata']):
+            shutdown()
 
-        # Local centering for IATE
-        if self.lc_dict['yes'] and self.lc_dict['uncenter_po']:
-            (_, _, y_pred_x_df, _) = mcf_lc.local_centering(self, data_df,
-                                                            None, train=False)
-        else:
-            y_pred_x_df = 0
-        time_3 = time()
-        time_delta_weight = time_delta_ate = time_delta_bala = 0
-        time_delta_iate = time_delta_gate = time_delta_cbgate = 0
-        time_delta_bgate = 0
-        ate_dic = bala_dic = iate_dic = iate_m_ate_dic = iate_eff_dic = None
-        gate_dic = gate_m_ate_dic = cbgate_dic = cbgate_m_ate_dic = None
-        bgate_dic = bgate_m_ate_dic = None
-        only_one_fold_one_round = (self.cf_dict['folds'] == 1
-                                   and len(self.cf_dict['est_rounds']) == 1)
-        for fold in range(self.cf_dict['folds']):
-            for round_ in self.cf_dict['est_rounds']:
-                time_w_start = time()
-                if only_one_fold_one_round:
-                    forest_dic = self.forest[fold][0]
-                else:
-                    forest_dic = deepcopy(
-                        self.forest[fold][0 if round_ == 'regular' else 1])
-                if self.int_dict['with_output'] and self.int_dict['verbose']:
-                    print(f'\n\nWeight maxtrix {fold+1} /',
-                          f'{self.cf_dict["folds"]} forests, {round_}')
-                weights_dic = mcf_w.get_weights_mp(
-                    self, data_df, forest_dic, round_ == 'regular')
-                time_delta_weight += time() - time_w_start
-                time_a_start = time()
-                if round_ == 'regular':
-                    # Estimate ATE n fold
-                    (w_ate, y_pot_f, y_pot_var_f, txt_w_f) = mcf_ate.ate_est(
-                        self, data_df, weights_dic)
-                    # Aggregate ATEs over folds
-                    ate_dic = mcf_est.aggregate_pots(
-                        self, y_pot_f, y_pot_var_f, txt_w_f, ate_dic, fold,
-                        title='ATE')
-                else:
-                    w_ate = None
-                time_delta_ate += time() - time_a_start
-                # Compute balancing tests
-                time_b_start = time()
-                if round_ == 'regular':
-                    if self.p_dict['bt_yes']:
-                        (_, y_pot_f, y_pot_var_f, txt_w_f) = mcf_ate.ate_est(
-                            self, data_df, weights_dic, balancing_test=True)
-                        # Aggregate Balancing results over folds
-                        bala_dic = mcf_est.aggregate_pots(
-                            self, y_pot_f, y_pot_var_f, txt_w_f, bala_dic,
-                            fold, title='Balancing check: ')
-                time_delta_bala += time() - time_b_start
-
-                # BGATE
-                time_bgate_start = time()
-                if round_ == 'regular' and self.p_dict['bgate']:
-                    (y_pot_bgate_f, y_pot_var_bgate_f, y_pot_mate_bgate_f,
-                     y_pot_mate_var_bgate_f, bgate_est_dic, txt_w_f, txt_b,
-                     ) = mcf_gate.bgate_est(self, data_df, weights_dic,
-                                            w_ate, forest_dic,
-                                            gate_type='BGATE')
-                    bgate_dic = mcf_est.aggregate_pots(
-                        self, y_pot_bgate_f, y_pot_var_bgate_f, txt_w_f,
-                        bgate_dic, fold, pot_is_list=True, title='BGATE')
-                    if y_pot_mate_bgate_f is not None:
-                        bgate_m_ate_dic = mcf_est.aggregate_pots(
-                            self, y_pot_mate_bgate_f, y_pot_mate_var_bgate_f,
-                            txt_w_f, bgate_m_ate_dic, fold, pot_is_list=True,
-                            title='BGATE minus ATE')
-                time_delta_bgate += time() - time_bgate_start
-
-                # CBGATE
-                time_cbg_start = time()
-                if round_ == 'regular' and self.p_dict['cbgate']:
-                    (y_pot_cbgate_f, y_pot_var_cbgate_f, y_pot_mate_cbgate_f,
-                     y_pot_mate_var_cbgate_f, cbgate_est_dic, txt_w_f, txt_am,
-                     ) = mcf_gate.bgate_est(self, data_df, weights_dic,
-                                            w_ate, forest_dic,
-                                            gate_type='CBGATE')
-                    cbgate_dic = mcf_est.aggregate_pots(
-                        self, y_pot_cbgate_f, y_pot_var_cbgate_f, txt_w_f,
-                        cbgate_dic, fold, pot_is_list=True, title='CBGATE')
-                    if y_pot_mate_cbgate_f is not None:
-                        cbgate_m_ate_dic = mcf_est.aggregate_pots(
-                            self, y_pot_mate_cbgate_f, y_pot_mate_var_cbgate_f,
-                            txt_w_f, cbgate_m_ate_dic, fold, pot_is_list=True,
-                            title='CBGATE minus ATE')
-                time_delta_cbgate += time() - time_cbg_start
-                if self.int_dict['del_forest']:
-                    del forest_dic['forest']
-
-                # IATE
-                time_i_start = time()
-                if self.p_dict['iate']:
-                    y_pot_eff = None
-                    (y_pot_f, y_pot_var_f, y_pot_m_ate_f, y_pot_m_ate_var_f,
-                     txt_w_f) = mcf_iate.iate_est_mp(
-                         self, weights_dic, w_ate, round_ == 'regular')
-                    if round_ == 'regular':
-                        y_pot_iate_f = y_pot_f.copy()
-                        y_pot_varf = (None if y_pot_var_f is None
-                                      else y_pot_var_f.copy())
-                        iate_dic = mcf_est.aggregate_pots(
-                            self, y_pot_iate_f, y_pot_varf, txt_w_f, iate_dic,
-                            fold, title='IATE')
-                        if y_pot_m_ate_f is not None:
-                            iate_m_ate_dic = mcf_est.aggregate_pots(
-                                self, y_pot_m_ate_f, y_pot_m_ate_var_f,
-                                txt_w_f, iate_m_ate_dic, fold,
-                                title='IATE minus ATE')
-                    else:
-                        y_pot_eff = (y_pot_iate_f + y_pot_f) / 2
-                        iate_eff_dic = mcf_est.aggregate_pots(
-                            self, y_pot_eff, None, txt_w_f, iate_eff_dic, fold,
-                            title='IATE eff')
-                time_delta_iate += time() - time_i_start
-
-                # GATE
-                time_g_start = time()
-                if round_ == 'regular' and self.p_dict['gate']:
-                    (y_pot_gate_f, y_pot_var_gate_f, y_pot_mate_gate_f,
-                     y_pot_mate_var_gate_f, gate_est_dic, txt_w_f
-                     ) = mcf_gate.gate_est(self, data_df, weights_dic, w_ate)
-                    gate_dic = mcf_est.aggregate_pots(
-                        self, y_pot_gate_f, y_pot_var_gate_f, txt_w_f,
-                        gate_dic, fold, pot_is_list=True, title='GATE')
-                    if y_pot_mate_gate_f is not None:
-                        gate_m_ate_dic = mcf_est.aggregate_pots(
-                            self, y_pot_mate_gate_f, y_pot_mate_var_gate_f,
-                            txt_w_f, gate_m_ate_dic, fold, pot_is_list=True,
-                            title='GATE minus ATE')
-                time_delta_gate += time() - time_g_start
-            if not only_one_fold_one_round and self.int_dict['del_forest']:
-                self.forest[fold] = None
-                # Without those two deletes, it becomes impossible to reuse
-                # the same forest for several data sets, which is bad.
-        if self.int_dict['del_forest']:
-            self.forest = None
-        del weights_dic
-
-        # ATE
-        time_a_start = time()
-        ate, ate_se, ate_effect_list = mcf_ate.ate_effects_print(
-            self, ate_dic, y_pred_x_df, balancing_test=False)
-        time_delta_ate += time() - time_a_start
-
-        # GATE
-        time_g_start = time()
-        if self.p_dict['gate']:
-            (gate, gate_se, gate_diff, gate_diff_se, report['fig_gate']
-             ) = mcf_gateout.gate_effects_print(self, gate_dic, gate_m_ate_dic,
-                                                gate_est_dic, ate, ate_se,
-                                                gate_type='GATE')
-        else:
-            gate = gate_se = gate_diff = gate_diff_se = gate_est_dic = None
-        time_delta_gate += time() - time_g_start
-
-        # BGATE
-        time_bgate_start = time()
-        if self.p_dict['bgate']:
-            (bgate, bgate_se, bgate_diff, bgate_diff_se, report['fig_bgate']
-             ) = mcf_gateout.gate_effects_print(
-                 self, bgate_dic, bgate_m_ate_dic, bgate_est_dic, ate,
-                 ate_se, gate_type='BGATE', special_txt=txt_b)
-        else:
-            bgate = bgate_se = bgate_diff = bgate_diff_se = None
-            bgate_est_dic = None
-        time_delta_bgate += time() - time_bgate_start
-
-        # CBGATE
-        time_cbg_start = time()
-        if self.p_dict['cbgate']:
-            (cbgate, cbgate_se, cbgate_diff, cbgate_diff_se,
-             report['fig_cbgate']) = mcf_gateout.gate_effects_print(
-                 self, cbgate_dic, cbgate_m_ate_dic, cbgate_est_dic, ate,
-                 ate_se, gate_type='CBGATE', special_txt=txt_am)
-        else:
-            cbgate = cbgate_se = cbgate_diff = cbgate_diff_se = None
-            cbgate_est_dic = None
-        time_delta_cbgate += time() - time_cbg_start
-        # Collect some information for results_dic
-        if (self.p_dict['gate'] or self.p_dict['bgate']
-                or self.p_dict['cbgate']):
-            gate_names_values = mcf_gateout.get_names_values(
-                self, gate_est_dic, bgate_est_dic, cbgate_est_dic)
-        else:
-            gate_names_values = None
-        # IATE
-        time_i_start = time()
-        if self.p_dict['iate']:
-            (iate, iate_se, iate_eff, iate_names_dic, iate_df,
-             report['iate_text']) = mcf_iate.iate_effects_print(
-                 self, iate_dic, iate_m_ate_dic, iate_eff_dic, y_pred_x_df)
-            data_df.reset_index(drop=True, inplace=True)
-            iate_df.reset_index(drop=True, inplace=True)
-            iate_pred_df = pd.concat([data_df, iate_df], axis=1)
-        else:
-            iate_eff = iate = iate_se = iate_df = iate_pred_df = None
-            iate_names_dic = None
-        time_delta_iate += time() - time_i_start
-
-        # Balancing test
-        time_b_start = time()
-        if self.p_dict['bt_yes']:
-            bala, bala_se, bala_effect_list = mcf_ate.ate_effects_print(
-                self, bala_dic, None, balancing_test=True)
-        else:
-            bala = bala_se = bala_effect_list = None
-        time_delta_bala += time() - time_b_start
-        # Collect results
-        results = {
-            'ate': ate, 'ate_se': ate_se, 'ate effect_list': ate_effect_list,
-            'gate': gate, 'gate_se': gate_se,
-            'gate_diff': gate_diff, 'gate_diff_se': gate_diff_se,
-            'gate_names_values': gate_names_values,
-            'cbgate': cbgate, 'cbgate_se': cbgate_se,
-            'cbgate_diff': cbgate_diff, 'cbgate_diff_se': cbgate_diff_se,
-            'bgate': bgate, 'bgate_se': bgate_se,
-            'bgate_diff': bgate_diff, 'bgate_diff_se': bgate_diff_se,
-            'iate': iate, 'iate_se': iate_se, 'iate_eff': iate_eff,
-            'iate_data_df': iate_pred_df, 'iate_names_dic': iate_names_dic,
-            'bala': bala, 'bala_se': bala_se, 'bala_effect_list':
-                bala_effect_list
-                   }
-        if self.int_dict['with_output']:
-            results_dic = results.copy()
-            del results_dic['iate_data_df']
-            report['mcf_pred_results'] = results
-        self.report['predict_list'].append(report.copy())
-        time_end = time()
-        if self.int_dict['with_output']:
-            time_string = [
-                'Data preparation and stats II:                  ',
-                'Common support:                                 ',
-                'Local centering (recoding of Y):                ',
-                'Weights:                                        ',
-                'ATEs:                                           ',
-                'GATEs:                                          ',
-                'BGATEs:                                         ',
-                'CBGATEs:                                        ',
-                'IATEs:                                          ',
-                'Balancing test:                                 ',
-                '\nTotal time prediction:                          ']
-            time_difference = [
-                time_1 - time_start, time_2 - time_1, time_3 - time_2,
-                time_delta_weight, time_delta_ate, time_delta_gate,
-                time_delta_bgate, time_delta_cbgate, time_delta_iate,
-                time_delta_bala, time_end - time_start]
-            ps.print_mcf(self.gen_dict, self.time_strings['time_train'])
-            time_pred = ps.print_timing(
-                self.gen_dict, 'Prediction', time_string, time_difference,
-                summary=True)
-            self.time_strings['time_pred'] = time_pred
         return results, self.gen_dict['outpath']
 
     def analyse(self, results):
@@ -1813,43 +1535,9 @@ class ModifiedCausalForest:
             Location of directory in which output is saved.
 
         """
-        report = {}
-        if (self.int_dict['with_output'] and self.post_dict['est_stats'] and
-                self.int_dict['return_iate_sp']):
-            time_start = time()
-            report['fig_iate'] = mcf_post.post_estimation_iate(self, results)
-            time_end_corr = time()
-            if self.post_dict['kmeans_yes']:
-                (results_plus_cluster, report['knn_table']
-                 ) = mcf_post.k_means_of_x_iate(self, results)
-            else:
-                results_plus_cluster = report['knn_table'] = None
-            time_end_km = time()
-            if self.post_dict['random_forest_vi'] or self.post_dict['tree']:
-                mcf_post.random_forest_tree_of_iate(self, results)
+        (results_plus_cluster, self.gen_dict['outpath']) = analyse_main(self,
+                                                                        results)
 
-            time_string = [
-                'Correlational analysis and plots of IATE:       ',
-                'K-means clustering of IATE:                     ',
-                'Random forest / tree analysis of IATE:          ',
-                '\nTotal time post estimation analysis:            ']
-            time_difference = [
-                time_end_corr - time_start, time_end_km - time_end_corr,
-                time() - time_end_km, time() - time_start]
-            ps.print_mcf(self.gen_dict, self.time_strings['time_train'],
-                         summary=True)
-            ps.print_mcf(self.gen_dict, self.time_strings['time_pred'],
-                         summary=True)
-            ps.print_timing(self.gen_dict, 'Analysis of IATE', time_string,
-                            time_difference, summary=True)
-            self.report['analyse_list'].append(report.copy())
-        else:
-            raise ValueError(
-                '"Analyse" method produces output only if all of the following'
-                ' parameters are True:'
-                f'\nint_with_output: {self.int_dict["with_output"]}'
-                f'\npos_test_stats: {self.post_dict["est_stats"]}'
-                f'\nint_return_iate_sp: {self.int_dict["return_iate_sp"]}')
         return results_plus_cluster, self.gen_dict['outpath']
 
     def blinder_iates(
@@ -1915,35 +1603,25 @@ class ModifiedCausalForest:
         var_x_blind_unord_name : List of strings.
             Unordered variables to be used to blind potential outcomes.
 
-        outpath : String
+        outpath : Pathlib object
             Location of directory in which output is saved.
 
         """
-        raise Warning('This method of reducing dependence on protected '
-                      'variables is deprecated. Use the method '
-                      'fairscores of the OptimalPolicy class instead.')
-        self.blind_dict = mcf_init.blind_init(
-            var_x_protected_name=blind_var_x_protected_name,
-            var_x_policy_name=blind_var_x_policy_name,
-            var_x_unrestricted_name=blind_var_x_unrestricted_name,
-            weights_of_blind=blind_weights_of_blind,
-            obs_ref_data=blind_obs_ref_data,
-            seed=blind_seed)
-
-        if self.int_dict['with_output']:
-            time_start = time()
-        with_output = self.int_dict['with_output']
+        print('This method of reducing dependence on protected '
+              'variables is deprecated. Use the method '
+              'fairscores of the OptimalPolicy class instead.')
 
         (blinded_dic, data_on_support_df, var_x_policy_ord_name,
-         var_x_policy_unord_name, var_x_blind_ord_name, var_x_blind_unord_name
-         ) = mcf_fair.make_fair_iates(self, data_df, with_output=with_output)
+         var_x_policy_unord_name, var_x_blind_ord_name,
+         var_x_blind_unord_name, self.gen_dict['outpath']
+         ) = blinder_iates_main(
+             self,
+             data_df, blind_var_x_protected_name=blind_var_x_protected_name,
+             blind_var_x_policy_name=blind_var_x_policy_name,
+             blind_var_x_unrestricted_name=blind_var_x_unrestricted_name,
+             blind_weights_of_blind=blind_weights_of_blind,
+             blind_obs_ref_data=blind_obs_ref_data, blind_seed=blind_seed)
 
-        self.int_dict['with_output'] = with_output
-        if self.int_dict['with_output']:
-            time_difference = [time() - time_start]
-            time_string = ['Total time for blinding IATEs:                  ']
-            ps.print_timing(self.gen_dict, 'Blinding IATEs', time_string,
-                            time_difference, summary=True)
         return (blinded_dic, data_on_support_df, var_x_policy_ord_name,
                 var_x_policy_unord_name, var_x_blind_ord_name,
                 var_x_blind_unord_name, self.gen_dict['outpath'])
@@ -2027,30 +1705,12 @@ class ModifiedCausalForest:
         outpath : String
             Location of directory in which output is saved.
         """
-        if (isinstance(results, dict)
-            and 'iate_data_df' in results and 'iate_names_dic' in results
-                and isinstance(results['iate_data_df'], pd.DataFrame)):
-            predict_df = results['iate_data_df']
-            iate_df = predict_df[results['iate_names_dic'][0]['names_iate']]
-        else:
-            iate_df = None
-        if not isinstance(predict_df, pd.DataFrame):
-            predict_df = train_df.copy()
-        self.sens_dict = mcf_init.sens_init(
-            self.p_dict, cbgate=sens_cbgate, bgate=sens_bgate, gate=sens_gate,
-            iate=sens_iate, iate_se=sens_iate_se, scenarios=sens_scenarios,
-            cv_k=sens_cv_k, replications=sens_replications,
-            reference_population=sens_reference_population, iate_df=iate_df)
-        if self.int_dict['with_output']:
-            time_start = time()
-        results_avg, plots_iate, txt_ate = mcf_sens.sensitivity_analysis(
-            self, train_df, predict_df, self.int_dict['with_output'], iate_df,
-            seed=9345467)
-        self.report['sens_plots_iate'] = plots_iate
-        self.report['sens_txt_ate'] = txt_ate
-        if self.int_dict['with_output']:
-            time_difference = [time() - time_start]
-            time_string = ['Total time for sensitivity analysis:            ']
-            ps.print_timing(self.gen_dict, 'Sensitiviy analysis', time_string,
-                            time_difference, summary=True)
+        results_avg, self.gen_dict['outpath'] = sensitivity_main(
+            self, train_df, predict_df=predict_df, results=results,
+            sens_cbgate=sens_cbgate, sens_bgate=sens_bgate, sens_gate=sens_gate,
+            sens_iate=sens_iate, sens_iate_se=sens_iate_se,
+            sens_scenarios=sens_scenarios, sens_cv_k=sens_cv_k,
+            sens_replications=sens_replications,
+            sens_reference_population=sens_reference_population)
+
         return results_avg, self.gen_dict['outpath']
