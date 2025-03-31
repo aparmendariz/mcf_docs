@@ -485,10 +485,10 @@ class ModifiedCausalForest:
         None : 'txtFileWithOutput'.
         Default is None.
 
-    gen_outpath : String (or None), optional
+    gen_outpath : String or Pathlib object (or None), optional
         Path were the output is written too (text, estimated effects, etc.)
         If specified directory does not exist, it will be created.
-        None : An (\*/out) directory below the current directory is used.
+        None : An (.../out) directory below the current directory is used.
         Default is None.
 
     gen_output_type : Integer (or None), optional
