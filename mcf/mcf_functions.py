@@ -52,6 +52,11 @@ class ModifiedCausalForest:
         Name of identifier. None: Identifier will be added to the data.
         Default is None.
 
+    var_iv_name : String or List of string (or None), optional
+        Name of binary instrumental variable. Only relevant if train_iv method
+        is used.
+        Default is None.
+
     var_x_name_balance_test_ord : String or List of strings (or None), optional
         Name of ordered variables to be used in balancing tests. Only
         relevant if p_bt_yes is True.
@@ -1065,7 +1070,8 @@ class ModifiedCausalForest:
 
     def __init__(
             self,
-            var_d_name=None, var_id_name=None, var_w_name=None,
+            var_d_name=None, var_id_name=None, var_iv_name=None,
+            var_w_name=None,
             var_x_name_balance_test_ord=None, var_x_name_balance_test_unord=None,
             var_x_name_always_in_ord=None, var_x_name_always_in_unord=None,
             var_x_name_remain_ord=None, var_x_name_remain_unord=None,
@@ -1238,6 +1244,7 @@ class ModifiedCausalForest:
             x_name_balance_bgate=var_x_name_balance_bgate,
             cluster_name=var_cluster_name,
             d_name=var_d_name, id_name=var_id_name, w_name=var_w_name,
+            iv_name=var_iv_name,
             x_name_balance_test_ord=var_x_name_balance_test_ord,
             x_name_balance_test_unord=var_x_name_balance_test_unord,
             x_name_always_in_ord=var_x_name_always_in_ord,
