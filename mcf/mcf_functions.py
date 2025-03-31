@@ -636,7 +636,7 @@ class ModifiedCausalForest:
         IATEs minus ATE will be estimated.
         Default (or None) is False.
 
-        p_qiate : Boolean (or None), optional
+    p_qiate : Boolean (or None), optional
         QIATEs will be estimated.
         Default (or None) is False.
 
