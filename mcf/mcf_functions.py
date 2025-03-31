@@ -1192,8 +1192,7 @@ class ModifiedCausalForest:
             _int_seed_sample_split=67567885, _int_share_forest_sample=0.5,
             _int_show_plots=True, _int_verbose=True,
             _int_weight_as_sparse=True, _int_weight_as_sparse_splits=None,
-            _int_with_output=True
-            ):
+            _int_with_output=True):
 
         self.version = '0.7.2'
 
