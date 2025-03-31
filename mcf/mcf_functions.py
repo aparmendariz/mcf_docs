@@ -955,10 +955,10 @@ class ModifiedCausalForest:
         consumption, reduce _int_iate_chunk_size.
 
     _int_mp_weights_tree_batch : Integer (or None), optional
-        Number of batches to split data in weight computation: The smaller
-        the number of batches, the faster the programme and the more memory
-        is needed.
-        None : Automatically determined.
+        Number of batches to split data in weight computation for variable
+        importance statistics. The smaller the number of batches, the faster
+        the program and the more memory is needed.
+        None: Automatically determined.
         Default is None.
         Internal variable, change default only if you know what you do.
 
