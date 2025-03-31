@@ -597,7 +597,7 @@ class ModifiedCausalForest:
 
     p_bgate : Boolean (or None), optional
         Estimate a GATE that is balanced in selected features (as specified
-        in var_x_name_balance_bgate.
+        in var_x_name_balance_bgate).
         Default (or None) is False.
 
     p_cbgate : Boolean (or None), optional
