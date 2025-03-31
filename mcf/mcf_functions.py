@@ -862,6 +862,15 @@ class ModifiedCausalForest:
         heterogeneity, but also reduces computation time. Default is 200'000.
         Internal variable, change default only if you know what you do.
 
+    _int_max_obs_post_rel_graphs :  Integer (or None), optional
+        Upper limit for sample size. If actual number is larger than this
+        number, then the respective data will be randomly reduced to the
+        specified upper limit. Figures show the relation of IATEs and features
+        (note that the built-in non-parametric regression is computationally
+        intensive).
+        Default is 50'000.
+        Internal variable, change default only if you know what you do.
+
     _int_mp_ray_del : Tuple of strings (or None), optional
         'refs' : Delete references to object store.
         'rest' : Delete all other objects of Ray task.
@@ -1141,6 +1150,7 @@ class ModifiedCausalForest:
             max_obs_training=_int_max_obs_training,
             max_obs_prediction=_int_max_obs_prediction,
             max_obs_kmeans=_int_max_obs_kmeans,
+            max_obs_post_rel_graphs=_int_max_obs_post_rel_graphs,
             p_ate_no_se_only=p_ate_no_se_only)
         gen_dict = mcf_init.gen_init(
             self.int_dict,
